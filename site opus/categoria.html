@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opus LED | Categoria</title>
+  <meta
+    name="description"
+    content="P&aacute;gina de categoria em HTML est&aacute;tico para prototipagem da Opus LED."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  >
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./script.js" defer></script>
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+  ></script>
+</head>
+<body id="top">
+  <div class="announce-bar">
+    <p>E-commerce autorizados pela OPUS</p>
+  </div>
+
+  <header class="site-header">
+    <div class="site-shell header-inner">
+      <button
+        class="menu-trigger"
+        type="button"
+        aria-controls="nav-overlay"
+        aria-expanded="false"
+        aria-label="Abrir menu"
+        data-nav-open
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <a class="brand" href="./index.html" aria-label="Opus">
+        <img src="./assets/logo-opus.png" alt="Opus" loading="eager">
+      </a>
+
+      <div class="header-actions" aria-label="A&ccedil;&otilde;es">
+        <button class="icon-button" type="button" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="6.5"></circle>
+            <path d="M16.2 16.2 21 21"></path>
+          </svg>
+        </button>
+        <button class="icon-button" type="button" aria-label="Minha conta">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.5"></circle>
+            <path d="M5.5 20a6.5 6.5 0 0 1 13 0"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-overlay" id="nav-overlay" data-nav-overlay aria-hidden="true">
+    <button
+      class="nav-overlay__backdrop"
+      type="button"
+      aria-label="Fechar menu"
+      data-nav-close
+    ></button>
+
+    <div class="nav-overlay__shell">
+      <section class="nav-overlay__panel" aria-label="Menu principal Opus">
+        <div class="nav-overlay__left" data-nav-panel>
+          <div class="nav-view nav-view--main is-active" data-nav-view="main">
+            <button class="nav-control" type="button" aria-label="Fechar menu" data-nav-close>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 5 19 19"></path>
+                <path d="M19 5 5 19"></path>
+              </svg>
+            </button>
+
+            <button class="nav-overlay__brand" type="button" aria-label="Fechar menu" data-nav-close>
+              <img src="./assets/logo-opus.png" alt="Opus" loading="lazy">
+            </button>
+
+            <div class="nav-lines" role="list">
+              <button class="nav-line" type="button" data-line="destaques">
+                <span class="nav-line__bullet"></span>
+                <span class="nav-line__label">Destaques</span>
+              </button>
+              <button class="nav-line is-active" type="button" data-line="lampadas">
+                <span class="nav-line__bullet"></span>
+                <span class="nav-line__label">L&acirc;mpadas</span>
+              </button>
+              <button class="nav-line" type="button" data-line="fitas">
+                <span class="nav-line__bullet"></span>
+                <span class="nav-line__label">Fitas, Fontes e Perfis</span>
+              </button>
+              <button class="nav-line" type="button" data-line="interno">
+                <span class="nav-line__bullet"></span>
+                <span class="nav-line__label">Uso Interno</span>
+              </button>
+              <button class="nav-line" type="button" data-line="externo">
+                <span class="nav-line__bullet"></span>
+                <span class="nav-line__label">Uso Externo</span>
+              </button>
+            </div>
+
+            <div class="nav-meta">
+              <div class="nav-meta__group">
+                <a href="./categoria.html">Quero Comprar</a>
+                <div class="nav-meta__inline">
+                  <a href="./categoria.html">Consumidor</a>
+                  <a href="./categoria.html">Lojistas</a>
+                  <a href="./index.html">E-commerce</a>
+                </div>
+              </div>
+
+              <div class="nav-meta__group">
+                <a href="#newsletter">Suporte</a>
+                <div class="nav-meta__inline">
+                  <a href="#newsletter">SAC</a>
+                  <a href="#newsletter">FAQ</a>
+                </div>
+              </div>
+
+              <div class="nav-meta__group">
+                <a href="#footer">Sobre a Opus</a>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="nav-view nav-view--submenu"
+            data-nav-view="submenu"
+            aria-hidden="true"
+          >
+            <button
+              class="nav-control nav-control--back"
+              type="button"
+              data-nav-back
+              aria-label="Voltar ao menu principal"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15.5 4.5 8 12l7.5 7.5"></path>
+              </svg>
+            </button>
+
+            <div class="nav-submenu">
+              <h2 class="nav-submenu__title" data-submenu-title>L&acirc;mpadas</h2>
+              <div class="nav-submenu__items" data-submenu-items></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-overlay__right">
+          <div class="nav-preview">
+            <img
+              data-preview-image
+              src="https://opusled.com.br/wp-content/uploads/2026/03/noir_desk.jpg"
+              alt="Preview L&acirc;mpadas"
+            >
+            <div class="nav-preview__copy">
+              <p data-preview-kicker>Linha em destaque</p>
+              <h3 data-preview-title>L&acirc;mpadas</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <main class="category-page category-page--collection">
+    <section class="category-hero category-hero--compact">
+      <div class="site-shell category-hero__inner">
+        <p class="category-hero__eyebrow">Cole&ccedil;&atilde;o Opus</p>
+        <h1>L&acirc;mpadas</h1>
+      </div>
+    </section>
+
+    <section class="category-collection">
+      <div class="site-shell">
+        <div class="category-filters" aria-label="Filtro de categorias">
+          <span class="category-filters__label">Filtro:</span>
+          <div class="category-filters__actions">
+            <button class="category-filter is-active" type="button" data-filter-btn="todos">Todos os Produtos</button>
+            <button class="category-filter" type="button" data-filter-btn="direcionais">Direcionais</button>
+            <button class="category-filter" type="button" data-filter-btn="iris95">Tecnologia Iris95</button>
+            <button class="category-filter" type="button" data-filter-btn="decorativos">Decorativos</button>
+            <button class="category-filter" type="button" data-filter-btn="dimerizaveis">Dimeriz&aacute;veis</button>
+            <button class="category-filter" type="button" data-filter-btn="tubulares">Tubulares</button>
+          </div>
+        </div>
+
+        <section class="category-showcase" data-filter-section="direcionais">
+          <div class="category-showcase__head">
+            <h2>Direcionais</h2>
+            <div class="category-showcase__tools">
+              <a class="category-showcase__more" href="./categoria.html">Veja mais</a>
+              <div class="category-carousel-nav">
+                <button class="category-nav category-nav--prev" type="button" aria-label="Produtos anteriores" data-category-prev>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5 8 12l6.5 7"></path></svg>
+                </button>
+                <button class="category-nav category-nav--next" type="button" aria-label="Pr&oacute;ximos produtos" data-category-next>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 6.5 7-6.5 7"></path></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper category-swiper" data-category-swiper>
+            <div class="swiper-wrapper">
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-01.png" alt="Direcional Opus 01" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-02.png" alt="Direcional Opus 02" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-01.png" alt="Direcional Opus 03" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-02.png" alt="Direcional Opus 04" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-01.png" alt="Direcional Opus 05" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="category-showcase" data-filter-section="iris95">
+          <div class="category-showcase__head">
+            <h2>Tecnologia Iris95</h2>
+            <div class="category-showcase__tools">
+              <a class="category-showcase__more" href="./categoria.html">Veja mais</a>
+              <div class="category-carousel-nav">
+                <button class="category-nav category-nav--prev" type="button" aria-label="Produtos anteriores" data-category-prev>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5 8 12l6.5 7"></path></svg>
+                </button>
+                <button class="category-nav category-nav--next" type="button" aria-label="Pr&oacute;ximos produtos" data-category-next>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 6.5 7-6.5 7"></path></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper category-swiper" data-category-swiper>
+            <div class="swiper-wrapper">
+              <article class="swiper-slide category-product">
+                <span class="category-product__flag">Novo</span>
+                <figure class="category-product__media"><img src="./assets/products/produto-05.png" alt="Iris95 Opus 01" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <span class="category-product__flag">Novo</span>
+                <figure class="category-product__media"><img src="./assets/products/produto-05.png" alt="Iris95 Opus 02" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <span class="category-product__flag">Novo</span>
+                <figure class="category-product__media"><img src="./assets/products/produto-05.png" alt="Iris95 Opus 03" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <span class="category-product__flag">Novo</span>
+                <figure class="category-product__media"><img src="./assets/products/produto-05.png" alt="Iris95 Opus 04" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <span class="category-product__flag">Novo</span>
+                <figure class="category-product__media"><img src="./assets/products/produto-05.png" alt="Iris95 Opus 05" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="category-showcase" data-filter-section="decorativos">
+          <div class="category-showcase__head">
+            <h2>Decorativos</h2>
+            <div class="category-showcase__tools">
+              <a class="category-showcase__more" href="./categoria.html">Veja mais</a>
+              <div class="category-carousel-nav">
+                <button class="category-nav category-nav--prev" type="button" aria-label="Produtos anteriores" data-category-prev>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5 8 12l6.5 7"></path></svg>
+                </button>
+                <button class="category-nav category-nav--next" type="button" aria-label="Pr&oacute;ximos produtos" data-category-next>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 6.5 7-6.5 7"></path></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper category-swiper" data-category-swiper>
+            <div class="swiper-wrapper">
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-03.png" alt="Decorativo Opus 01" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-03.png" alt="Decorativo Opus 02" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-03.png" alt="Decorativo Opus 03" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-03.png" alt="Decorativo Opus 04" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-03.png" alt="Decorativo Opus 05" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="category-showcase" data-filter-section="dimerizaveis">
+          <div class="category-showcase__head">
+            <h2>Dimeriz&aacute;veis</h2>
+            <div class="category-showcase__tools">
+              <a class="category-showcase__more" href="./categoria.html">Veja mais</a>
+              <div class="category-carousel-nav">
+                <button class="category-nav category-nav--prev" type="button" aria-label="Produtos anteriores" data-category-prev>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5 8 12l6.5 7"></path></svg>
+                </button>
+                <button class="category-nav category-nav--next" type="button" aria-label="Pr&oacute;ximos produtos" data-category-next>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 6.5 7-6.5 7"></path></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper category-swiper" data-category-swiper>
+            <div class="swiper-wrapper">
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-04.png" alt="Dimeriz&aacute;vel Opus 01" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-02.png" alt="Dimeriz&aacute;vel Opus 02" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-04.png" alt="Dimeriz&aacute;vel Opus 03" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-02.png" alt="Dimeriz&aacute;vel Opus 04" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-04.png" alt="Dimeriz&aacute;vel Opus 05" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="category-showcase" data-filter-section="tubulares">
+          <div class="category-showcase__head">
+            <h2>Tubulares</h2>
+            <div class="category-showcase__tools">
+              <a class="category-showcase__more" href="./categoria.html">Veja mais</a>
+              <div class="category-carousel-nav">
+                <button class="category-nav category-nav--prev" type="button" aria-label="Produtos anteriores" data-category-prev>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5 8 12l6.5 7"></path></svg>
+                </button>
+                <button class="category-nav category-nav--next" type="button" aria-label="Pr&oacute;ximos produtos" data-category-next>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 6.5 7-6.5 7"></path></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper category-swiper" data-category-swiper>
+            <div class="swiper-wrapper">
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-02.png" alt="Tubular Opus 01" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-04.png" alt="Tubular Opus 02" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-02.png" alt="Tubular Opus 03" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-04.png" alt="Tubular Opus 04" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+              <article class="swiper-slide category-product">
+                <figure class="category-product__media"><img src="./assets/products/produto-02.png" alt="Tubular Opus 05" loading="lazy"></figure>
+                <div class="category-product__body"><h3>T&iacute;tulo do produto</h3><p>Lumin&aacute;ria de produto</p></div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <section class="newsletter-bar" id="newsletter">
+    <div class="site-shell newsletter-bar__inner">
+      <p>Cadastre-se na nossa newsletter</p>
+
+      <form class="newsletter-bar__form" data-newsletter-form>
+        <input type="text" name="name" placeholder="Nome Completo" aria-label="Nome Completo">
+        <input type="email" name="email" placeholder="Digite seu E-mail" aria-label="Digite seu E-mail">
+        <button type="submit">Enviar</button>
+      </form>
+
+      <p class="form-feedback" data-form-feedback aria-live="polite"></p>
+    </div>
+  </section>
+
+  <footer class="site-footer" id="footer">
+    <div class="site-shell footer-grid">
+      <section>
+        <h2>Opus</h2>
+        <a href="./categoria.html">Quero Comprar</a>
+        <a href="./categoria.html">Seja revendedor</a>
+        <a href="#newsletter">Trabalhe conosco</a>
+        <a href="./index.html">Sobre</a>
+      </section>
+
+      <section>
+        <h2>Linhas</h2>
+        <a href="./categoria.html">L&acirc;mpadas</a>
+        <a href="./categoria.html">Fitas, Fontes e Perfis</a>
+        <a href="./categoria.html">Uso Interno</a>
+        <a href="./categoria.html">Uso Externo</a>
+        <a href="./index.html">Ventiladores</a>
+      </section>
+
+      <section>
+        <h2>D&uacute;vidas</h2>
+        <a href="#newsletter">Termos e Condi&ccedil;&otilde;es</a>
+        <a href="#newsletter">Pol&iacute;tica de Privacidade</a>
+        <a href="#newsletter">Pol&iacute;tica de Cookies</a>
+        <a href="#newsletter">Suporte</a>
+      </section>
+
+      <section>
+        <h2>Redes Sociais</h2>
+        <div class="social-row">
+          <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">ig</a>
+          <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">yt</a>
+          <a href="https://br.pinterest.com/" target="_blank" rel="noreferrer">pt</a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">in</a>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="site-shell">
+        <p>CNPJ: 13.795.896/0001-94 Opus Sistema de Ilumina&ccedil;&atilde;o LTDA</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" type="button" data-back-to-top aria-label="Voltar ao topo">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7 14 12 9l5 5"></path>
+    </svg>
+  </button>
+</body>
+</html>
