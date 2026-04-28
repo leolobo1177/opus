@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" role="img" aria-labelledby="title desc">
+  <title id="title">Feixe de luz 38 graus</title>
+  <desc id="desc">Feixe de luz aberto em fundo escuro.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#030303"/>
+      <stop offset="100%" stop-color="#121212"/>
+    </linearGradient>
+    <radialGradient id="headGlow" cx="50%" cy="4%" r="22%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="68%" stop-color="#f5f5ef" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="beamCore" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.96"/>
+      <stop offset="24%" stop-color="#f5f3eb" stop-opacity="0.86"/>
+      <stop offset="68%" stop-color="#ded9ce" stop-opacity="0.54"/>
+      <stop offset="100%" stop-color="#c2b8a7" stop-opacity="0.12"/>
+    </linearGradient>
+    <filter id="beamBlur" x="-35%" y="-10%" width="170%" height="140%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+  </defs>
+  <rect width="520" height="520" fill="url(#bg)"/>
+  <ellipse cx="260" cy="20" rx="86" ry="22" fill="url(#headGlow)"/>
+  <path d="M156 18 C188 96 214 224 214 510 L306 510 C306 224 332 96 364 18 Z" fill="url(#beamCore)" filter="url(#beamBlur)"/>
+  <path d="M202 28 C222 92 236 202 236 510 L284 510 C284 202 298 92 318 28 Z" fill="#ffffff" opacity="0.46" filter="url(#beamBlur)"/>
+</svg>
