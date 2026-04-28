@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Opus LED | Home de prot&oacute;tipo</title>
+  <title>Opus LED | Categoria V2</title>
   <meta
     name="description"
-    content="Home de prot&oacute;tipo da Opus LED estruturada para testes fora do Elementor."
+    content="P&aacute;gina de categoria em HTML est&aacute;tico para prototipagem da Opus LED."
   >
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +25,7 @@
     src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
   ></script>
 </head>
-<body id="top" class="page-home page-variant-v3">
+<body id="top">
   <div class="announce-bar">
     <p>E-commerce autorizados pela OPUS</p>
   </div>
@@ -45,7 +45,7 @@
         <span></span>
       </button>
 
-      <a class="brand" href="#top" aria-label="Opus">
+      <a class="brand" href="./index.html" aria-label="Opus">
         <img src="./assets/logo-opus.png" alt="Opus" loading="eager">
       </a>
 
@@ -66,7 +66,7 @@
     </div>
   </header>
 
-  <div class="nav-overlay" id="nav-overlay" data-nav-overlay>
+  <div class="nav-overlay" id="nav-overlay" data-nav-overlay aria-hidden="true">
     <button
       class="nav-overlay__backdrop"
       type="button"
@@ -120,11 +120,11 @@
 
             <div class="nav-meta">
               <div class="nav-meta__group">
-                <a href="#catalogo-opus">Quero Comprar</a>
+                <a href="./categoria.html">Quero Comprar</a>
                 <div class="nav-meta__inline">
-                  <a href="#catalogo-opus">Consumidor</a>
-                  <a href="#newsletter">Lojistas</a>
-                  <a href="#top">E-commerce</a>
+                  <a href="./categoria.html">Consumidor</a>
+                  <a href="./categoria.html">Lojistas</a>
+                  <a href="./index.html">E-commerce</a>
                 </div>
               </div>
 
@@ -182,191 +182,23 @@
     </div>
   </div>
 
-  <main>
-    <section id="hero-banners" class="hero-banners fullbleed">
-      <a
-        class="banner banner-top"
-        href="https://opusled.com.br/linha-darwin/"
-        aria-label="Banner topo Darwin"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <picture>
-          <source
-            media="(max-width: 768px)"
-            srcset="https://opusled.com.br/wp-content/uploads/2026/04/darwin_mobile_top.jpg"
-          >
-          <img
-            src="https://opusled.com.br/wp-content/uploads/2026/04/darwin_top_desk.jpg"
-            alt="Banner Darwin"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-          >
-        </picture>
-
-        <div class="scroll-indicator" aria-hidden="true">
-          <span class="mouse"><span class="wheel"></span></span>
-          <span class="chev"></span>
-          <span class="chev chev2"></span>
-        </div>
-      </a>
-
-      <a
-        class="banner banner-mid-left"
-        href="https://opusled.com.br/categoria-produto/uso-interno/genesis/"
-        aria-label="Banner Genesis"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <img
-          src="https://opusled.com.br/wp-content/uploads/2026/03/genesis_left.jpg"
-          alt="Banner Genesis"
-          loading="lazy"
-          decoding="async"
-        >
-      </a>
-
-      <a
-        class="banner banner-mid-right"
-        href="https://opusled.com.br/linha-de-trilhos-magneticos/"
-        aria-label="Banner Trilhos magn&eacute;ticos"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <img
-          src="https://opusled.com.br/wp-content/uploads/2026/04/Trilho_bn.png"
-          alt="Banner Trilhos magn&eacute;ticos"
-          loading="lazy"
-          decoding="async"
-        >
-      </a>
-
-      <a
-        class="banner banner-bottom"
-        href="https://opusled.com.br/?s=Noir"
-        aria-label="Banner Noir"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <picture>
-          <source
-            media="(max-width: 768px)"
-            srcset="https://opusled.com.br/wp-content/uploads/2026/03/noir_mb.jpg"
-          >
-          <img
-            src="https://opusled.com.br/wp-content/uploads/2026/03/noir_desk.jpg"
-            alt="Banner Noir"
-            loading="lazy"
-            decoding="async"
-          >
-        </picture>
-      </a>
-    </section>
-
-    <section
-      id="opus-destaques"
-      class="opus-destaques opus-fullbleed"
-      aria-label="Destaques Opus LED"
-    >
-      <div class="opus-container">
-        <h2 class="opus-title">Projete com nossos blocos 3D</h2>
-      </div>
-
-      <div class="opus-container">
-        <div class="swiper opus-swiper">
-          <div class="swiper-wrapper">
-            <a
-              class="swiper-slide opus-card"
-              href="https://3dwarehouse.sketchup.com/collection/ef6f8676-72f7-4a21-94e6-a3abc8402da2/Linha-Darwin-Opus-LED"
-              aria-label="Linha Darwin"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <figure class="card-media">
-                <img
-                  loading="lazy"
-                  src="https://opusled.com.br/wp-content/uploads/2026/04/Darwin_vertical_v1.png"
-                  alt="Linha Darwin"
-                >
-              </figure>
-            </a>
-
-            <a
-              class="swiper-slide opus-card"
-              href="https://3dwarehouse.sketchup.com/collection/83268889-fc65-4966-ac74-2f7b702c3c28/Sistema-Belts"
-              aria-label="Sistema Belts"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <figure class="card-media">
-                <img
-                  loading="lazy"
-                  src="https://opusled.com.br/wp-content/uploads/2026/03/Belts_vertical.png"
-                  alt="Sistema Belts"
-                >
-              </figure>
-            </a>
-
-            <a
-              class="swiper-slide opus-card"
-              href="https://3dwarehouse.sketchup.com/collection/35615cad-555e-4fa8-945f-e36d6a8fa03e/Linha-Genesis-Opus-LED"
-              aria-label="Linha Genesis"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <figure class="card-media">
-                <img
-                  loading="lazy"
-                  src="https://opusled.com.br/wp-content/uploads/2026/03/Genesis_vertical.png"
-                  alt="Linha Genesis"
-                >
-              </figure>
-            </a>
-
-            <a
-              class="swiper-slide opus-card"
-              href="https://3dwarehouse.sketchup.com/collection/f0a0d128-711d-49e5-ab25-c932db93c4e4/Linha-Soul-Opus-LED"
-              aria-label="Linha Soul"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <figure class="card-media">
-                <img
-                  loading="lazy"
-                  src="https://opusled.com.br/wp-content/uploads/2026/03/Souls_vertical.png"
-                  alt="Linha Soul"
-                >
-              </figure>
-            </a>
+  <main class="category-page category-page--directory">
+    <section class="category-collection category-collection--directory">
+      <div class="site-shell">
+        <div class="category-filters category-filters--directory" aria-label="Filtro de categorias">
+          <span class="category-filters__label">Categorias:</span>
+          <div class="category-filters__actions">
+            <button class="category-filter is-active" type="button" data-filter-btn="todos">Todas</button>
+            <button class="category-filter" type="button" data-filter-btn="destaques">Destaques</button>
+            <button class="category-filter" type="button" data-filter-btn="lampadas">L&acirc;mpadas</button>
+            <button class="category-filter" type="button" data-filter-btn="fitas">Fitas, Fontes e Perfis</button>
+            <button class="category-filter" type="button" data-filter-btn="interno">Uso Interno</button>
+            <button class="category-filter" type="button" data-filter-btn="externo">Uso Externo</button>
           </div>
-
-          <div class="swiper-pagination opus-pagination" aria-hidden="true"></div>
         </div>
-      </div>
-    </section>
 
-    <section id="catalogo-opus" class="catalog-banner fullbleed">
-      <a
-        class="catalog-banner__link"
-        href="https://opusled.com.br/wp-content/uploads/2026/03/catalogo26.pdf"
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Abrir cat&aacute;logo Opus LED"
-      >
-        <picture>
-          <source
-            media="(max-width: 768px)"
-            srcset="https://opusled.com.br/wp-content/uploads/2026/02/CATALOGO_26_mb.png"
-          >
-          <img
-            src="https://opusled.com.br/wp-content/uploads/2026/02/CATALOGO_26_1.webp"
-            alt="Cat&aacute;logo Opus LED"
-            loading="lazy"
-            decoding="async"
-          >
-        </picture>
-      </a>
+        <div class="category-directory" data-category-directory></div>
+      </div>
     </section>
   </main>
 
@@ -388,19 +220,19 @@
     <div class="site-shell footer-grid">
       <section>
         <h2>Opus</h2>
-        <a href="#catalogo-opus">Quero Comprar</a>
-        <a href="#catalogo-opus">Seja revendedor</a>
+        <a href="./categoria.html">Quero Comprar</a>
+        <a href="./categoria.html">Seja revendedor</a>
         <a href="#newsletter">Trabalhe conosco</a>
-        <a href="#top">Sobre</a>
+        <a href="./index.html">Sobre</a>
       </section>
 
       <section>
         <h2>Linhas</h2>
-        <a href="#hero-banners">L&acirc;mpadas</a>
-        <a href="#hero-banners">Fitas, Fontes e Perfis</a>
-        <a href="#hero-banners">Uso Interno</a>
-        <a href="#hero-banners">Uso Externo</a>
-        <a href="#hero-banners">Ventiladores</a>
+        <a href="./categoria.html">L&acirc;mpadas</a>
+        <a href="./categoria.html">Fitas, Fontes e Perfis</a>
+        <a href="./categoria.html">Uso Interno</a>
+        <a href="./categoria.html">Uso Externo</a>
+        <a href="./index.html">Ventiladores</a>
       </section>
 
       <section>
@@ -428,12 +260,6 @@
       </div>
     </div>
   </footer>
-
-  <nav class="version-switcher" aria-label="Vers&otilde;es da home">
-    <a href="./index-v1.html" data-version-link="v1">v1</a>
-    <a href="./index-v2.html" data-version-link="v2">v2</a>
-    <a href="./index.html" data-version-link="v3">v3</a>
-  </nav>
 
   <button class="back-to-top" type="button" data-back-to-top aria-label="Voltar ao topo">
     <svg viewBox="0 0 24 24" aria-hidden="true">
