@@ -42,20 +42,6 @@ const productSheetContent = document.querySelector("[data-product-sheet-content]
 const buildCategoryFilterHref = (filterKey) => `./categoria.html?filtro=${encodeURIComponent(filterKey)}`;
 
 const lineData = {
-  destaques: {
-    label: "Destaques",
-    kicker: "Linhas em destaque",
-    image: "https://opusled.com.br/wp-content/uploads/2026/03/genesis_left.jpg",
-    alt: "Preview Destaques",
-    items: [
-      { label: "Genesis", featured: true },
-      { label: "Soul", featured: true },
-      { label: "Inside", featured: true },
-      { label: "Sistema Belts", featured: true },
-      { label: "Darwin", featured: true },
-      { label: "Lapiz", featured: true },
-    ],
-  },
   lampadas: {
     label: "L\u00e2mpadas",
     kicker: "Linha em destaque",
@@ -64,30 +50,12 @@ const lineData = {
     items: [
       { label: "Direcionais IRC80", href: buildCategoryFilterHref("direcionais-irc80") },
       { label: "Direcionais IRC95", href: buildCategoryFilterHref("direcionais-irc95") },
-      { label: "Direcionais IRC95 Externos", href: buildCategoryFilterHref("direcionais-irc95-externos") },
+      { label: "G4 e G9" },
+      { label: "Bulbo G" },
+      { label: "Filamentos", href: buildCategoryFilterHref("filamentos") },
       { label: "Dimeriz\u00e1veis", href: buildCategoryFilterHref("dimerizaveis") },
       { label: "Tubulares", href: buildCategoryFilterHref("tubulares") },
-      { label: "Decorativas", href: buildCategoryFilterHref("decorativas") },
-      { label: "Filamentos", href: buildCategoryFilterHref("filamentos") },
       { label: "M\u00f3dulos", href: buildCategoryFilterHref("modulos") },
-    ],
-  },
-  fitas: {
-    label: "Fitas, Fontes e Perfis",
-    kicker: "Linha em destaque",
-    image: "https://opusled.com.br/wp-content/uploads/2026/03/Belts_vertical.png",
-    alt: "Preview Fitas, Fontes e Perfis",
-    items: [
-      { label: "Fitas 12V" },
-      { label: "Fitas 24V" },
-      { label: "Fitas COB" },
-      { label: "Fitas Especiais" },
-      { label: "Acess\u00f3rios para Fitas" },
-      { label: "Fontes Ultraslim" },
-      { label: "Fontes Slim" },
-      { label: "Fontes Blindadas" },
-      { label: "Fontes Dimeriz\u00e1veis" },
-      { label: "Perfis" },
     ],
   },
   interno: {
@@ -96,20 +64,15 @@ const lineData = {
     image: "https://opusled.com.br/wp-content/uploads/2026/03/genesis_left.jpg",
     alt: "Preview Uso Interno",
     items: [
-      { label: "Linhas Genesis", featured: true },
-      { label: "Linhas Soul", featured: true },
-      { label: "Linhas Inside", featured: true },
-      { label: "Sistemas Belts", featured: true },
       { label: "Spots para L\u00e2mpadas" },
       { label: "Spots LED" },
       { label: "Pain\u00e9is" },
       { label: "Plafons" },
       { label: "Lineares" },
-      { label: "Sistemas Magn\u00e9ticos" },
-      { label: "Sistemas de Trilho" },
       { label: "Decorativos" },
-      { label: "Ilumina\u00e7\u00f5es de Emerg\u00eancia" },
-      { label: "Dimmers e Sensores" },
+      { label: "Ilumina\u00e7\u00e3o de Emerg\u00eancia" },
+      { label: "Dimmer e Sensores" },
+      { label: "Ventiladores" },
     ],
   },
   externo: {
@@ -118,32 +81,43 @@ const lineData = {
     image: "https://opusled.com.br/wp-content/uploads/2026/04/darwin_top_desk.jpg",
     alt: "Preview Uso Externo",
     items: [
-      { label: "Linhas Darwin", featured: true },
-      { label: "Linhas Lapiz", featured: true },
-      { label: "Espetos de Jardim" },
-      { label: "Refletores" },
-      { label: "Embutidos de Solo" },
+      { label: "Jardim" },
       { label: "Arandelas" },
-      { label: "Postes Balizadores" },
-      { label: "Calhas Herm\u00e9ticas" },
       { label: "Balizadores" },
       { label: "Spots LED IP65" },
-      { label: "High Bays" },
-      { label: "Lumin\u00e1rias para Postes" },
-      { label: "Conectores Externos IP68" },
+      { label: "Industrial" },
+      { label: "Conectores IP68" },
+    ],
+  },
+  fitas: {
+    label: "Fitas, Fontes e Perfis",
+    kicker: "Linha em destaque",
+    image: "https://opusled.com.br/wp-content/uploads/2026/03/Belts_vertical.png",
+    alt: "Preview Fitas, Fontes e Perfis",
+    items: [
+      { label: "Perfis" },
+      { label: "Fitas Baixa Tens\u00e3o" },
+      { label: "Fitas Tens\u00e3o Rede" },
+      { label: "Fontes" },
+    ],
+  },
+  sistemas: {
+    label: "Sistemas",
+    kicker: "Linha em destaque",
+    image: "https://opusled.com.br/wp-content/uploads/2026/03/Belts_vertical.png",
+    alt: "Preview Sistemas",
+    items: [
+      { label: "Sistema Magn\u00e9tico 20" },
+      { label: "Sistema Magn\u00e9tico 10" },
+      { label: "Sistema Trilho" },
+      { label: "Sistema Belts" },
     ],
   },
 };
 
-const categoryDirectoryOrder = ["destaques", "lampadas", "fitas", "interno", "externo"];
+const categoryDirectoryOrder = ["lampadas", "interno", "externo", "fitas", "sistemas"];
 
 const categoryDirectoryImageSets = {
-  destaques: [
-    "./assets/products/produto-01.png",
-    "./assets/products/produto-02.png",
-    "./assets/products/produto-03.png",
-    "./assets/products/produto-04.png",
-  ],
   lampadas: [
     "./assets/products/produto-01.png",
     "./assets/products/produto-02.png",
@@ -155,6 +129,12 @@ const categoryDirectoryImageSets = {
     "./assets/products/produto-01.png",
     "./assets/products/produto-02.png",
     "./assets/products/produto-03.png",
+  ],
+  sistemas: [
+    "./assets/products/produto-02.png",
+    "./assets/products/produto-03.png",
+    "./assets/products/produto-04.png",
+    "./assets/products/produto-05.png",
   ],
   interno: [
     "./assets/products/produto-04.png",
@@ -612,6 +592,8 @@ if (versionSwitcherLinks.length) {
     activeVariant = "v1";
   } else if (document.body.classList.contains("page-variant-v2")) {
     activeVariant = "v2";
+  } else if (document.body.classList.contains("page-variant-v4")) {
+    activeVariant = "v4";
   }
 
   versionSwitcherLinks.forEach((link) => {
