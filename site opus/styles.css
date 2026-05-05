@@ -120,7 +120,8 @@ body.page-home.page-variant-v2 {
 
 body.page-home.page-variant-v1,
 body.page-home.page-variant-v2,
-body.page-home.page-variant-v4 {
+body.page-home.page-variant-v4,
+body.page-home.page-variant-v5 {
   --header-height: 66px;
 }
 
@@ -132,14 +133,20 @@ body.page-home.page-variant-v4 {
   --announce-height: 0px;
 }
 
+body.page-home.page-variant-v5 {
+  --announce-height: 0px;
+}
+
 body.page-home.page-variant-v1 .announce-bar,
 body.page-home.page-variant-v2 .announce-bar,
 body.page-home.page-variant-v3 .announce-bar,
-body.page-home.page-variant-v4 .announce-bar {
+body.page-home.page-variant-v4 .announce-bar,
+body.page-home.page-variant-v5 .announce-bar {
   display: none;
 }
 
-body.page-home.page-variant-v1 .site-header {
+body.page-home.page-variant-v1 .site-header,
+body.page-home.page-variant-v5 .site-header {
   top: 0;
   background: var(--opus-red);
   border-bottom: 0;
@@ -192,7 +199,8 @@ body.page-home.page-variant-v3.nav-logo-hidden .site-header::before {
 
 body.page-home.page-variant-v1 main,
 body.page-home.page-variant-v2 main,
-body.page-home.page-variant-v4 main {
+body.page-home.page-variant-v4 main,
+body.page-home.page-variant-v5 main {
   padding-top: var(--header-height);
 }
 
@@ -201,7 +209,9 @@ body.page-home.page-variant-v2 .brand,
 body.page-home.page-variant-v1.nav-logo-hidden .brand,
 body.page-home.page-variant-v2.nav-logo-hidden .brand,
 body.page-home.page-variant-v4 .brand,
-body.page-home.page-variant-v4.nav-logo-hidden .brand {
+body.page-home.page-variant-v4.nav-logo-hidden .brand,
+body.page-home.page-variant-v5 .brand,
+body.page-home.page-variant-v5.nav-logo-hidden .brand {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -219,7 +229,9 @@ body.page-home.page-variant-v2 .icon-button {
 body.page-home.page-variant-v1 .menu-trigger,
 body.page-home.page-variant-v1 .icon-button,
 body.page-home.page-variant-v4 .menu-trigger,
-body.page-home.page-variant-v4 .icon-button {
+body.page-home.page-variant-v4 .icon-button,
+body.page-home.page-variant-v5 .menu-trigger,
+body.page-home.page-variant-v5 .icon-button {
   background: transparent;
   color: #ffffff;
   backdrop-filter: none;
@@ -235,7 +247,8 @@ body.page-home.page-variant-v1 .menu-trigger span {
 }
 
 body.page-home.page-variant-v3 .menu-trigger span,
-body.page-home.page-variant-v4 .menu-trigger span {
+body.page-home.page-variant-v4 .menu-trigger span,
+body.page-home.page-variant-v5 .menu-trigger span {
   background: #ffffff;
 }
 
@@ -254,7 +267,11 @@ body.page-home.page-variant-v1 .icon-button:focus-visible,
 body.page-home.page-variant-v4 .menu-trigger:hover,
 body.page-home.page-variant-v4 .menu-trigger:focus-visible,
 body.page-home.page-variant-v4 .icon-button:hover,
-body.page-home.page-variant-v4 .icon-button:focus-visible {
+body.page-home.page-variant-v4 .icon-button:focus-visible,
+body.page-home.page-variant-v5 .menu-trigger:hover,
+body.page-home.page-variant-v5 .menu-trigger:focus-visible,
+body.page-home.page-variant-v5 .icon-button:hover,
+body.page-home.page-variant-v5 .icon-button:focus-visible {
   background: rgba(255, 255, 255, 0.14);
   color: #ffffff;
 }
@@ -303,7 +320,9 @@ body.page-home.page-variant-v1 .nav-line-accordion__link:focus-visible {
 }
 
 body.page-home.page-variant-v4 .nav-overlay__left,
-body.page-home.page-variant-v4 .nav-view {
+body.page-home.page-variant-v4 .nav-view,
+body.page-home.page-variant-v5 .nav-overlay__left,
+body.page-home.page-variant-v5 .nav-view {
   --nav-scrollbar-thumb: rgba(255, 255, 255, 0.92);
   --nav-scrollbar-track: rgba(255, 255, 255, 0.12);
   background: rgba(17, 17, 17, 0.98);
@@ -313,23 +332,35 @@ body.page-home.page-variant-v4 .nav-control,
 body.page-home.page-variant-v4 .nav-overlay__brand,
 body.page-home.page-variant-v4 .nav-line,
 body.page-home.page-variant-v4 .nav-submenu__title,
-body.page-home.page-variant-v4 .nav-meta__group > a {
+body.page-home.page-variant-v4 .nav-meta__group > a,
+body.page-home.page-variant-v5 .nav-control,
+body.page-home.page-variant-v5 .nav-overlay__brand,
+body.page-home.page-variant-v5 .nav-line,
+body.page-home.page-variant-v5 .nav-submenu__title,
+body.page-home.page-variant-v5 .nav-meta__group > a {
   color: #ffffff;
 }
 
-body.page-home.page-variant-v4 .nav-line {
+body.page-home.page-variant-v4 .nav-line,
+body.page-home.page-variant-v5 .nav-line {
   color: rgba(255, 255, 255, 0.72);
 }
 
 body.page-home.page-variant-v4 .nav-line:hover,
 body.page-home.page-variant-v4 .nav-line:focus-visible,
-body.page-home.page-variant-v4 .nav-line.is-active {
+body.page-home.page-variant-v4 .nav-line.is-active,
+body.page-home.page-variant-v5 .nav-line:hover,
+body.page-home.page-variant-v5 .nav-line:focus-visible,
+body.page-home.page-variant-v5 .nav-line.is-active {
   color: #ffffff;
 }
 
 body.page-home.page-variant-v4 .nav-line-accordion__link,
 body.page-home.page-variant-v4 .nav-meta__inline a,
-body.page-home.page-variant-v4 .nav-submenu__link {
+body.page-home.page-variant-v4 .nav-submenu__link,
+body.page-home.page-variant-v5 .nav-line-accordion__link,
+body.page-home.page-variant-v5 .nav-meta__inline a,
+body.page-home.page-variant-v5 .nav-submenu__link {
   color: rgba(255, 255, 255, 0.72);
 }
 
@@ -338,7 +369,13 @@ body.page-home.page-variant-v4 .nav-line-accordion__link:focus-visible,
 body.page-home.page-variant-v4 .nav-meta__inline a:hover,
 body.page-home.page-variant-v4 .nav-meta__inline a:focus-visible,
 body.page-home.page-variant-v4 .nav-submenu__link:hover,
-body.page-home.page-variant-v4 .nav-submenu__link:focus-visible {
+body.page-home.page-variant-v4 .nav-submenu__link:focus-visible,
+body.page-home.page-variant-v5 .nav-line-accordion__link:hover,
+body.page-home.page-variant-v5 .nav-line-accordion__link:focus-visible,
+body.page-home.page-variant-v5 .nav-meta__inline a:hover,
+body.page-home.page-variant-v5 .nav-meta__inline a:focus-visible,
+body.page-home.page-variant-v5 .nav-submenu__link:hover,
+body.page-home.page-variant-v5 .nav-submenu__link:focus-visible {
   color: #ffffff;
 }
 
@@ -505,7 +542,8 @@ body.nav-logo-hidden .brand {
 
 .nav-overlay__panel {
   display: grid;
-  grid-template-columns: minmax(380px, 35vw) 1fr;
+  grid-template-columns: minmax(332px, 31vw) minmax(0, 1fr);
+  column-gap: 0;
   height: 100%;
   transform: translateX(-32px);
   opacity: 0;
@@ -521,7 +559,7 @@ body.nav-logo-hidden .brand {
 }
 
 .nav-overlay__left {
-  --nav-content-width: min(328px, calc(100% - 124px));
+  --nav-content-width: min(292px, calc(100% - 82px));
   position: relative;
   overflow: hidden;
   background: rgba(250, 250, 250, 0.98);
@@ -623,7 +661,7 @@ body.nav-logo-hidden .brand {
   display: flex;
   align-items: center;
   width: var(--nav-content-width);
-  margin: 38px auto 34px;
+  margin: 30px auto 24px;
 }
 
 .nav-overlay__brand img {
@@ -634,7 +672,7 @@ body.nav-logo-hidden .brand {
 
 .nav-lines {
   display: grid;
-  gap: 10px;
+  gap: 6px;
   width: var(--nav-content-width);
   margin: 0 auto auto;
 }
@@ -644,7 +682,7 @@ body.nav-logo-hidden .brand {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 3px 0;
+  padding: 1px 0;
   border: 0;
   background: transparent;
   color: #8f8f8f;
@@ -704,19 +742,19 @@ body.nav-logo-hidden .brand {
 }
 
 .nav-line-accordion.is-open {
-  margin: 2px 0 10px;
+  margin: 0 0 8px;
   opacity: 1;
   pointer-events: auto;
 }
 
 .nav-line-accordion__inner {
-  padding: 2px 0 6px 20px;
+  padding: 0 0 4px 18px;
 }
 
 .nav-line-accordion__items {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px 18px;
+  gap: 8px 14px;
 }
 
 .nav-line-accordion__link {
@@ -751,10 +789,10 @@ button.nav-line-accordion__link:focus-visible {
 
 .nav-meta {
   display: grid;
-  gap: 24px;
+  gap: 18px;
   width: var(--nav-content-width);
-  margin: auto auto 64px;
-  padding-top: 12px;
+  margin: auto auto 48px;
+  padding-top: 8px;
 }
 
 .nav-meta__group > a {
@@ -767,8 +805,8 @@ button.nav-line-accordion__link:focus-visible {
 .nav-meta__inline {
   display: flex;
   flex-wrap: wrap;
-  gap: 18px;
-  margin-top: 9px;
+  gap: 14px;
+  margin-top: 7px;
 }
 
 .nav-meta__inline a {
@@ -2975,11 +3013,11 @@ body.nav-menu-open .version-switcher {
 
 @media (max-width: 1080px) {
   .nav-overlay__panel {
-    grid-template-columns: minmax(340px, 44vw) 1fr;
+    grid-template-columns: minmax(312px, 40vw) minmax(0, 1fr);
   }
 
   .nav-overlay__left {
-    --nav-content-width: min(300px, calc(100% - 108px));
+    --nav-content-width: min(278px, calc(100% - 72px));
   }
 
   .newsletter-bar__inner,

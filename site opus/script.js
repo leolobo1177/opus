@@ -585,16 +585,18 @@ if (isHomeVariantWithoutAnnounce()) {
 syncBrandState();
 window.addEventListener("scroll", syncBrandState, { passive: true });
 
-if (versionSwitcherLinks.length) {
-  let activeVariant = "v3";
+  if (versionSwitcherLinks.length) {
+    let activeVariant = "v3";
 
-  if (document.body.classList.contains("page-variant-v1")) {
-    activeVariant = "v1";
-  } else if (document.body.classList.contains("page-variant-v2")) {
-    activeVariant = "v2";
-  } else if (document.body.classList.contains("page-variant-v4")) {
-    activeVariant = "v4";
-  }
+    if (document.body.classList.contains("page-variant-v1")) {
+      activeVariant = "v1";
+    } else if (document.body.classList.contains("page-variant-v2")) {
+      activeVariant = "v2";
+    } else if (document.body.classList.contains("page-variant-v4")) {
+      activeVariant = "v4";
+    } else if (document.body.classList.contains("page-variant-v5")) {
+      activeVariant = "v5";
+    }
 
   versionSwitcherLinks.forEach((link) => {
     link.classList.toggle("is-active", link.dataset.versionLink === activeVariant);
