@@ -1,6 +1,6 @@
 :root {
-  --opus-red: #d6030d;
-  --opus-red-rgb: 214, 3, 13;
+  --opus-red: #cd1420;
+  --opus-red-rgb: 205, 20, 32;
   --opus-dark: #242e3d;
   --ink: #202020;
   --white: #ffffff;
@@ -396,12 +396,6 @@ body.page-home.page-variant-v5 .nav-submenu__link:focus-visible {
   color: #ffffff;
 }
 
-body.page-home.page-variant-v2 .nav-line-accordion__items,
-body.page-home.page-variant-v3 .nav-line-accordion__items,
-body.page-home.page-variant-v6 .nav-line-accordion__items {
-  grid-template-columns: 1fr;
-}
-
 .site-header .site-shell {
   width: 100%;
   max-width: none;
@@ -705,7 +699,7 @@ body.nav-logo-hidden .brand {
   background: transparent;
   color: #8f8f8f;
   text-align: left;
-  font-size: clamp(1.35rem, 0.75vw + 1rem, 1.7rem);
+  font-size: clamp(1.1rem, 0.62vw + 0.9rem, 1.45rem);
   font-weight: 300;
   letter-spacing: -0.03em;
   transition: color 220ms ease, transform 280ms ease;
@@ -771,8 +765,8 @@ body.nav-logo-hidden .brand {
 
 .nav-line-accordion__items {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px 14px;
+  grid-template-columns: 1fr;
+  gap: 7px;
 }
 
 .nav-line-accordion__link {
@@ -782,7 +776,7 @@ body.nav-logo-hidden .brand {
   border: 0;
   background: transparent;
   color: #8b8b8b;
-  font-size: 0.92rem;
+  font-size: 0.72rem;
   font-weight: 300;
   line-height: 1.28;
   text-align: left;
@@ -870,7 +864,7 @@ button.nav-line-accordion__link:focus-visible {
   background: transparent;
   color: #7f7f7f;
   text-align: left;
-  font-size: clamp(1.14rem, 0.75vw + 0.72rem, 1.42rem);
+  font-size: clamp(0.9rem, 0.58vw + 0.58rem, 1.16rem);
   font-weight: 300;
   letter-spacing: -0.03em;
   line-height: 1.15;
