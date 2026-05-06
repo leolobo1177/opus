@@ -121,7 +121,8 @@ body.page-home.page-variant-v2 {
 body.page-home.page-variant-v1,
 body.page-home.page-variant-v2,
 body.page-home.page-variant-v4,
-body.page-home.page-variant-v5 {
+body.page-home.page-variant-v5,
+body.page-home.page-variant-v6 {
   --header-height: 66px;
 }
 
@@ -137,16 +138,22 @@ body.page-home.page-variant-v5 {
   --announce-height: 0px;
 }
 
+body.page-home.page-variant-v6 {
+  --announce-height: 0px;
+}
+
 body.page-home.page-variant-v1 .announce-bar,
 body.page-home.page-variant-v2 .announce-bar,
 body.page-home.page-variant-v3 .announce-bar,
 body.page-home.page-variant-v4 .announce-bar,
-body.page-home.page-variant-v5 .announce-bar {
+body.page-home.page-variant-v5 .announce-bar,
+body.page-home.page-variant-v6 .announce-bar {
   display: none;
 }
 
 body.page-home.page-variant-v1 .site-header,
-body.page-home.page-variant-v5 .site-header {
+body.page-home.page-variant-v5 .site-header,
+body.page-home.page-variant-v6 .site-header {
   top: 0;
   background: var(--opus-red);
   border-bottom: 0;
@@ -200,7 +207,8 @@ body.page-home.page-variant-v3.nav-logo-hidden .site-header::before {
 body.page-home.page-variant-v1 main,
 body.page-home.page-variant-v2 main,
 body.page-home.page-variant-v4 main,
-body.page-home.page-variant-v5 main {
+body.page-home.page-variant-v5 main,
+body.page-home.page-variant-v6 main {
   padding-top: var(--header-height);
 }
 
@@ -211,7 +219,9 @@ body.page-home.page-variant-v2.nav-logo-hidden .brand,
 body.page-home.page-variant-v4 .brand,
 body.page-home.page-variant-v4.nav-logo-hidden .brand,
 body.page-home.page-variant-v5 .brand,
-body.page-home.page-variant-v5.nav-logo-hidden .brand {
+body.page-home.page-variant-v5.nav-logo-hidden .brand,
+body.page-home.page-variant-v6 .brand,
+body.page-home.page-variant-v6.nav-logo-hidden .brand {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -231,7 +241,9 @@ body.page-home.page-variant-v1 .icon-button,
 body.page-home.page-variant-v4 .menu-trigger,
 body.page-home.page-variant-v4 .icon-button,
 body.page-home.page-variant-v5 .menu-trigger,
-body.page-home.page-variant-v5 .icon-button {
+body.page-home.page-variant-v5 .icon-button,
+body.page-home.page-variant-v6 .menu-trigger,
+body.page-home.page-variant-v6 .icon-button {
   background: transparent;
   color: #ffffff;
   backdrop-filter: none;
@@ -248,7 +260,8 @@ body.page-home.page-variant-v1 .menu-trigger span {
 
 body.page-home.page-variant-v3 .menu-trigger span,
 body.page-home.page-variant-v4 .menu-trigger span,
-body.page-home.page-variant-v5 .menu-trigger span {
+body.page-home.page-variant-v5 .menu-trigger span,
+body.page-home.page-variant-v6 .menu-trigger span {
   background: #ffffff;
 }
 
@@ -271,7 +284,11 @@ body.page-home.page-variant-v4 .icon-button:focus-visible,
 body.page-home.page-variant-v5 .menu-trigger:hover,
 body.page-home.page-variant-v5 .menu-trigger:focus-visible,
 body.page-home.page-variant-v5 .icon-button:hover,
-body.page-home.page-variant-v5 .icon-button:focus-visible {
+body.page-home.page-variant-v5 .icon-button:focus-visible,
+body.page-home.page-variant-v6 .menu-trigger:hover,
+body.page-home.page-variant-v6 .menu-trigger:focus-visible,
+body.page-home.page-variant-v6 .icon-button:hover,
+body.page-home.page-variant-v6 .icon-button:focus-visible {
   background: rgba(255, 255, 255, 0.14);
   color: #ffffff;
 }
@@ -380,7 +397,8 @@ body.page-home.page-variant-v5 .nav-submenu__link:focus-visible {
 }
 
 body.page-home.page-variant-v2 .nav-line-accordion__items,
-body.page-home.page-variant-v3 .nav-line-accordion__items {
+body.page-home.page-variant-v3 .nav-line-accordion__items,
+body.page-home.page-variant-v6 .nav-line-accordion__items {
   grid-template-columns: 1fr;
 }
 

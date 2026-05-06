@@ -596,6 +596,8 @@ window.addEventListener("scroll", syncBrandState, { passive: true });
       activeVariant = "v4";
     } else if (document.body.classList.contains("page-variant-v5")) {
       activeVariant = "v5";
+    } else if (document.body.classList.contains("page-variant-v6")) {
+      activeVariant = "v6";
     }
 
   versionSwitcherLinks.forEach((link) => {
