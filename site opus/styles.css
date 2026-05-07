@@ -554,7 +554,8 @@ body.nav-logo-hidden .brand {
 
 .nav-overlay__panel {
   display: grid;
-  grid-template-columns: minmax(332px, 31vw) minmax(0, 1fr);
+  width: 100%;
+  grid-template-columns: minmax(292px, 27vw) minmax(0, 1fr);
   column-gap: 0;
   height: 100%;
   transform: translateX(-32px);
@@ -571,7 +572,7 @@ body.nav-logo-hidden .brand {
 }
 
 .nav-overlay__left {
-  --nav-content-width: min(292px, calc(100% - 82px));
+  --nav-content-width: min(278px, calc(100% - 52px));
   position: relative;
   overflow: hidden;
   background: rgba(250, 250, 250, 0.98);
@@ -674,6 +675,7 @@ body.nav-logo-hidden .brand {
   align-items: center;
   width: var(--nav-content-width);
   margin: 30px auto 24px;
+  transform: translateX(-6px);
 }
 
 .nav-overlay__brand img {
@@ -686,7 +688,7 @@ body.nav-logo-hidden .brand {
   display: grid;
   gap: 6px;
   width: var(--nav-content-width);
-  margin: 0 auto auto;
+  margin: 0 auto 36px;
 }
 
 .nav-line {
@@ -803,8 +805,8 @@ button.nav-line-accordion__link:focus-visible {
   display: grid;
   gap: 18px;
   width: var(--nav-content-width);
-  margin: auto auto 48px;
-  padding-top: 8px;
+  margin: 0 auto 60px;
+  padding-top: 0;
 }
 
 .nav-meta__group > a {
@@ -3025,11 +3027,11 @@ body.nav-menu-open .version-switcher {
 
 @media (max-width: 1080px) {
   .nav-overlay__panel {
-    grid-template-columns: minmax(312px, 40vw) minmax(0, 1fr);
+    grid-template-columns: minmax(284px, 35vw) minmax(0, 1fr);
   }
 
   .nav-overlay__left {
-    --nav-content-width: min(278px, calc(100% - 72px));
+    --nav-content-width: min(266px, calc(100% - 50px));
   }
 
   .newsletter-bar__inner,
