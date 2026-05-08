@@ -162,9 +162,11 @@ const isHomeVariantWithoutAnnounce = () => (
   && !document.body.classList.contains("page-variant-v3")
 );
 
-const syncHeaderState = () => {
-  document.body.classList.toggle("nav-menu-open", isMenuOpen());
-};
+  const syncHeaderState = () => {
+    const open = isMenuOpen();
+    document.body.classList.toggle("nav-menu-open", open);
+    document.documentElement.classList.toggle("nav-menu-open", open);
+  };
 
 const syncMenuA11y = () => {
   if (!menuTrigger || !navOverlay) {
@@ -598,6 +600,8 @@ window.addEventListener("scroll", syncBrandState, { passive: true });
       activeVariant = "v5";
     } else if (document.body.classList.contains("page-variant-v6")) {
       activeVariant = "v6";
+    } else if (document.body.classList.contains("page-variant-v7")) {
+      activeVariant = "v7";
     }
 
   versionSwitcherLinks.forEach((link) => {
@@ -1092,52 +1096,39 @@ const initDirectoryCarousels = () => {
   });
 };
 
-const initCategoryFilters = () => {
-  const filterButtons = document.querySelectorAll("[data-filter-btn]");
-  const filterSections = document.querySelectorAll(".category-directory-group[data-filter-section]");
+  const initCategoryFilters = () => {
+    const filterButtons = document.querySelectorAll("[data-filter-btn]");
+    const filterSections = document.querySelectorAll(".category-directory-group[data-filter-section]");
 
   if (!filterButtons.length || !filterSections.length) {
     return;
   }
 
-  const validFilters = new Set(
-    Array.from(filterButtons, (button) => button.dataset.filterBtn || "todos"),
-  );
+    const validFilters = new Set(
+      Array.from(filterButtons, (button) => button.dataset.filterBtn || "todos"),
+    );
 
-  const syncFilterUrl = (key) => {
-    const url = new URL(window.location.href);
+    const syncFilterUrl = (key) => {
+      const url = new URL(window.location.href);
 
-    if (key === "todos") {
-      url.searchParams.delete("filtro");
-    } else {
-      url.searchParams.set("filtro", key);
-    }
-
-    window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
-  };
-
-  const resolveFilterKey = (key) => {
-    if (validFilters.has(key)) {
-      return key;
-    }
-
-    for (const [groupKey, groupData] of Object.entries(lineData)) {
-      const hasMatch = groupData.items.some((item) => {
-        if (item.href) {
-          const hrefUrl = new URL(item.href, window.location.href);
-          return hrefUrl.searchParams.get("filtro") === key;
-        }
-
-        return slugifyText(item.label) === key;
-      });
-
-      if (hasMatch) {
-        return groupKey;
+      if (key === "todos") {
+        url.searchParams.delete("categoria");
+      } else {
+        url.searchParams.set("categoria", key);
       }
-    }
 
-    return "todos";
-  };
+      url.searchParams.delete("filtro");
+
+      window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+    };
+
+    const resolveFilterKey = (key) => {
+      if (validFilters.has(key)) {
+        return key;
+      }
+
+      return "todos";
+    };
 
   const applyFilter = (key) => {
     filterButtons.forEach((button) => {
@@ -1164,20 +1155,21 @@ const initCategoryFilters = () => {
     });
   };
 
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const nextKey = button.dataset.filterBtn || "todos";
-      applyFilter(nextKey);
-      syncFilterUrl(nextKey);
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const nextKey = button.dataset.filterBtn || "todos";
+        applyFilter(nextKey);
+        syncFilterUrl(nextKey);
+      });
     });
-  });
 
-  const requestedFilter = new URLSearchParams(window.location.search).get("filtro") || "todos";
-  const initialFilter = resolveFilterKey(requestedFilter);
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestedFilter = urlParams.get("categoria") || urlParams.get("filtro") || "todos";
+    const initialFilter = resolveFilterKey(requestedFilter);
 
-  applyFilter(initialFilter);
-  syncFilterUrl(initialFilter);
-};
+    applyFilter(initialFilter);
+    syncFilterUrl(initialFilter);
+  };
 
 const initCategoryProductLinks = () => {
   const categoryProducts = document.querySelectorAll(".category-product");
