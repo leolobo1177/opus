@@ -1236,6 +1236,9 @@ const faqManualList = document.querySelector("[data-faq-manual-list]");
 const faqVideoList = document.querySelector("[data-faq-video-list]");
 const faqFileList = document.querySelector("[data-faq-file-list]");
 const faqQuestionList = document.querySelector("[data-faq-question-list]");
+let faqAnimationsReady = false;
+let faqSectionObserver = null;
+const faqRevealRegistry = new WeakMap();
 
 const faqLineData = {
   lampadas: {
@@ -1360,7 +1363,142 @@ const faqLineData = {
   },
 };
 
-let activeFaqLineKey = Object.keys(faqLineData)[0] || "";
+const faqLineMediaAssets = {
+  lampadas: {
+    src: "./assets/faq-lines/categoria-lampadas.png",
+    alt: "Luminaria Opus para lampadas",
+  },
+  interno: {
+    src: "./assets/faq-lines/categoria-interno.png",
+    alt: "Produto Opus para uso interno",
+  },
+  externo: {
+    src: "./assets/faq-lines/categoria-externo.png",
+    alt: "Produto Opus para uso externo",
+  },
+  fitas: {
+    src: "./assets/faq-lines/categoria-fitas.png",
+    alt: "Fita LED Opus",
+  },
+  sistemas: {
+    src: "./assets/faq-lines/categoria-sistemas.png",
+    alt: "Sistema linear Opus",
+  },
+};
+
+const normalizedFaqLineData = {
+  ventiladores: {
+    label: "Ventiladores",
+    subtitle: "Guia de montagem e limpeza",
+    manuals: [
+      { index: "01", title: "Ventiladores Air Class", meta: "MULTI-IDIOMA · REV 2024.02", href: "#" },
+      { index: "02", title: "Ventiladores Air Orbital", meta: "APENAS SPECS TÉCNICAS · REV 2023.11", href: "#" },
+      { index: "03", title: "Ventiladores Air Retrátil", meta: "API E CONECTIVIDADE · REV 2024.01", href: "#" },
+    ],
+    videos: [
+      { index: "01", title: "Suporte de teto", meta: "4:12 · guia técnico" },
+      { index: "02", title: "Sincronização e fiação", meta: "6:45 · configuração avançada" },
+      { index: "03", title: "Balanceamento das pás", meta: "3:20 · ajuste de precisão" },
+    ],
+    files: [
+      { icon: "PDF", title: "Datasheet Técnico", description: "Resumo técnico com dimensões, instalação e aplicação da linha de ventiladores.", cta: "Download PDF", href: "#" },
+      { icon: "IES", title: "Arquivo IES", description: "Dados fotométricos e parâmetros complementares de apoio ao projeto.", cta: "Download ZIP", href: "#" },
+      { icon: "3D", title: "Modelo 3D", description: "Famílias base para compatibilização arquitetônica e estudo de volumetria.", cta: "Download ZIP", href: "#" },
+    ],
+    faqs: [
+      { question: "O Air Class pode ser instalado em tetos inclinados?", answer: "Sim, o kit de montagem padrão suporta inclinações leves. Para ângulos maiores, o ideal é prever um adaptador compatível da linha." },
+      { question: "O motor DC é compatível com dimmers de parede analógicos?", answer: "Não diretamente. O controle deve seguir o protocolo eletrônico previsto para cada modelo, evitando incompatibilidades de acionamento." },
+      { question: "Quantas unidades podem ser sincronizadas com um único controle?", answer: "A quantidade varia por linha e receptor utilizado. Para o protótipo, o mais seguro é considerar o agrupamento indicado no manual técnico de cada modelo." },
+    ],
+  },
+  darwin: {
+    label: "Darwin",
+    subtitle: "Guia de instalação e foco",
+    manuals: [
+      { index: "01", title: "Instalação do Espeto Darwin", meta: "MULTI-IDIOMA · REV 2026.05", href: "#" },
+      { index: "02", title: "Vedação e conexão em jardim", meta: "VEDAÇÃO · REV 2026.04", href: "#" },
+      { index: "03", title: "Regulagem de foco e orientação", meta: "CAMPO · REV 2026.03", href: "#" },
+    ],
+    videos: [
+      { index: "01", title: "Fixação da base no solo", meta: "4:56 · instalação" },
+      { index: "02", title: "Selagem das conexões externas", meta: "6:03 · vedação" },
+      { index: "03", title: "Ajuste do facho em paisagismo", meta: "3:28 · regulagem" },
+    ],
+    files: [
+      { icon: "PDF", title: "Datasheet Técnico", description: "Parâmetros de proteção, fixação e aplicação da linha Darwin em campo.", cta: "Download PDF", href: "#" },
+      { icon: "IES", title: "Arquivo IES", description: "Curvas de distribuição e dados de apoio para simulações externas.", cta: "Download ZIP", href: "#" },
+      { icon: "3D", title: "Modelo 3D", description: "Blocos base para paginação de jardim, fachada e cenários externos.", cta: "Download ZIP", href: "#" },
+    ],
+    faqs: [
+      { question: "Como garantir a vedação correta da linha Darwin?", answer: "Verifique prensa-cabos, conectores e pontos de junção antes da energização. O desempenho IP depende diretamente da montagem correta em campo." },
+      { question: "Posso usar Darwin em solo com drenagem irregular?", answer: "Pode, desde que a base de fixação esteja estabilizada e o ponto de instalação preserve o acesso para manutenção futura." },
+      { question: "Qual é a melhor forma de regular o foco em jardim?", answer: "Comece com o alinhamento do elemento paisagístico principal e depois refine a inclinação do facho em pequenos ajustes para evitar ofuscamento." },
+    ],
+  },
+  fitas: {
+    ...faqLineData.fitas,
+    label: "Fitas de LED",
+  },
+  trilho: {
+    label: "Trilho Magnetico",
+    subtitle: "Guia de trilho e modulação",
+    manuals: [
+      { index: "01", title: "Montagem do Trilho Magnético", meta: "MULTI-IDIOMA · REV 2026.05", href: "#" },
+      { index: "02", title: "Instalação e nivelamento", meta: "INFRAESTRUTURA · REV 2026.04", href: "#" },
+      { index: "03", title: "Posicionamento dos módulos", meta: "CONFIGURAÇÃO · REV 2026.03", href: "#" },
+    ],
+    videos: [
+      { index: "01", title: "Nivelamento do trilho", meta: "4:46 · montagem" },
+      { index: "02", title: "Encaixe dos módulos magnéticos", meta: "5:26 · configuração" },
+      { index: "03", title: "Ajuste final e energização", meta: "3:18 · comissionamento" },
+    ],
+    files: [
+      { icon: "PDF", title: "Datasheet Técnico", description: "Parâmetros de modulação, fixação e integração do trilho magnético.", cta: "Download PDF", href: "#" },
+      { icon: "IES", title: "Arquivo IES", description: "Curvas dos módulos para simulação em layouts lineares e modulares.", cta: "Download ZIP", href: "#" },
+      { icon: "3D", title: "Modelo 3D", description: "Componentes base do trilho para compatibilização em projeto.", cta: "Download ZIP", href: "#" },
+    ],
+    faqs: [
+      { question: "Posso misturar módulos diferentes no mesmo trilho?", answer: "Sim, desde que o trilho escolhido suporte a combinação elétrica e mecânica entre os módulos previstos no conjunto." },
+      { question: "Como definir a modulação inicial do trilho?", answer: "Parta do layout arquitetônico, dos pontos de alimentação e das cenas de luz desejadas. Depois ajuste comprimentos e acessórios compatíveis." },
+      { question: "O trilho magnético exige manutenção específica?", answer: "A manutenção é preventiva: inspeção de encaixes, limpeza de contatos e conferência periódica dos pontos de alimentação." },
+    ],
+  },
+};
+
+Object.keys(faqLineData).forEach((key) => {
+  delete faqLineData[key];
+});
+
+Object.assign(faqLineData, normalizedFaqLineData);
+
+const normalizedFaqLineMediaAssets = {
+  ventiladores: {
+    src: "./assets/faq-lines/categoria-interno.png",
+    alt: "Ventilador Opus",
+  },
+  darwin: {
+    src: "./assets/faq-lines/categoria-externo.png",
+    alt: "Spot Darwin Opus",
+  },
+  fitas: {
+    src: "./assets/faq-lines/categoria-fitas.png",
+    alt: "Fita de LED Opus",
+  },
+  trilho: {
+    src: "./assets/faq-lines/categoria-sistemas.png",
+    alt: "Trilho Magnetico Opus",
+  },
+};
+
+Object.keys(faqLineMediaAssets).forEach((key) => {
+  delete faqLineMediaAssets[key];
+});
+
+Object.assign(faqLineMediaAssets, normalizedFaqLineMediaAssets);
+
+const faqLineOrder = ["ventiladores", "darwin", "fitas", "trilho"];
+
+let activeFaqLineKey = faqLineOrder[0] || Object.keys(faqLineData)[0] || "";
 
 const syncFaqLineNavButtons = () => {
   if (!faqLineTrack || !faqLinePrevButton || !faqLineNextButton) {
@@ -1381,6 +1519,192 @@ const syncFaqUrl = (key) => {
   const url = new URL(window.location.href);
   url.searchParams.set("linha", key);
   window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+};
+
+const runFaqReveal = (targets, options = {}) => {
+  if (typeof window.gsap !== "object") {
+    return;
+  }
+
+  const items = Array.from(targets).filter((item) => item instanceof Element);
+
+  if (!items.length) {
+    return;
+  }
+
+  window.gsap.killTweensOf(items);
+  window.gsap.fromTo(
+    items,
+    {
+      y: options.y ?? 38,
+      opacity: 0,
+    },
+    {
+      y: 0,
+      opacity: 1,
+      duration: options.duration ?? 0.88,
+      ease: options.ease ?? "power3.out",
+      stagger: options.stagger ?? 0.08,
+      overwrite: "auto",
+      clearProps: "transform,opacity",
+    },
+  );
+};
+
+const animateFaqDynamicBlocks = () => {
+  runFaqReveal(
+    document.querySelectorAll(".faq-manual-row, .faq-video-card, .faq-file-card, .faq-accordion-item"),
+    {
+      y: 26,
+      duration: 0.76,
+      stagger: 0.055,
+    },
+  );
+};
+
+const setFaqAccordionState = (article, expanded, immediate = false) => {
+  if (!(article instanceof Element)) {
+    return;
+  }
+
+  const toggle = article.querySelector(".faq-accordion-item__toggle");
+  const icon = article.querySelector(".faq-accordion-item__icon");
+  const panel = article.querySelector(".faq-accordion-item__panel");
+
+  if (!(panel instanceof HTMLElement)) {
+    return;
+  }
+
+  article.classList.toggle("is-open", expanded);
+
+  if (toggle) {
+    toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+  }
+
+  if (icon) {
+    icon.textContent = expanded ? "-" : "+";
+  }
+
+  if (immediate || typeof window.gsap !== "object") {
+    panel.style.height = expanded ? "auto" : "0px";
+    panel.style.opacity = expanded ? "1" : "0";
+    return;
+  }
+
+  window.gsap.killTweensOf(panel);
+
+  if (expanded) {
+    panel.style.height = `${panel.scrollHeight}px`;
+
+    window.gsap.fromTo(
+      panel,
+      {
+        height: panel.offsetHeight || 0,
+        opacity: Number.parseFloat(panel.style.opacity || "0") || 0,
+      },
+      {
+        height: panel.scrollHeight,
+        opacity: 1,
+        duration: 0.46,
+        ease: "power2.out",
+        overwrite: "auto",
+        onComplete: () => {
+          panel.style.height = "auto";
+        },
+      },
+    );
+
+    return;
+  }
+
+  const collapseHeight = panel.offsetHeight || panel.scrollHeight;
+  panel.style.height = `${collapseHeight}px`;
+
+  window.gsap.to(panel, {
+    height: 0,
+    opacity: 0,
+    duration: 0.34,
+    ease: "power2.inOut",
+    overwrite: "auto",
+  });
+};
+
+const hydrateFaqAccordion = () => {
+  if (!faqQuestionList) {
+    return;
+  }
+
+  faqQuestionList.querySelectorAll(".faq-accordion-item").forEach((article) => {
+    setFaqAccordionState(article, article.classList.contains("is-open"), true);
+  });
+
+  if (faqQuestionList.dataset.accordionEnhanced === "true") {
+    return;
+  }
+
+  faqQuestionList.addEventListener(
+    "click",
+    (event) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) {
+        return;
+      }
+
+      const toggle = target.closest(".faq-accordion-item__toggle");
+
+      if (!(toggle instanceof HTMLElement) || !faqQuestionList.contains(toggle)) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+
+      const article = toggle.closest(".faq-accordion-item");
+
+      if (!(article instanceof Element)) {
+        return;
+      }
+
+      const isOpen = article.classList.contains("is-open");
+
+      faqQuestionList.querySelectorAll(".faq-accordion-item.is-open").forEach((entry) => {
+        if (entry !== article) {
+          setFaqAccordionState(entry, false);
+        }
+      });
+
+      setFaqAccordionState(article, !isOpen);
+    },
+    true,
+  );
+
+  faqQuestionList.dataset.accordionEnhanced = "true";
+};
+
+const getFaqFileIconMarkup = (type) => {
+  const normalizedType = String(type || "").trim().toUpperCase();
+
+  if (normalizedType === "3D") {
+    return `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3 19 7v10l-7 4-7-4V7l7-4Z"></path>
+        <path d="M12 3v8"></path>
+        <path d="m5 7 7 4 7-4"></path>
+        <path d="M12 11v10"></path>
+      </svg>
+    `;
+  }
+
+  return `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7 3.5h6.5L18 8v12.5H7z"></path>
+      <path d="M13.5 3.5V8H18"></path>
+      <path d="M9.5 12h6"></path>
+      <path d="M9.5 15h6"></path>
+    </svg>
+  `;
 };
 
 const renderFaqQuestions = (items) => {
@@ -1541,29 +1865,32 @@ const renderFaqPage = (key) => {
 
       const icon = document.createElement("span");
       icon.className = "faq-file-card__icon";
-      icon.textContent = file.icon;
+      icon.innerHTML = getFaqFileIconMarkup(file.icon);
 
       const title = document.createElement("h3");
       title.textContent = file.title;
 
-      const description = document.createElement("p");
-      description.textContent = file.description;
-
       const cta = document.createElement("a");
       cta.className = "faq-file-card__cta";
       cta.href = file.href;
-      cta.textContent = file.cta;
+      cta.textContent = "Download";
 
       card.appendChild(icon);
       card.appendChild(title);
-      card.appendChild(description);
       card.appendChild(cta);
       faqFileList.appendChild(card);
     });
   }
 
   renderFaqQuestions(data.faqs);
+  hydrateFaqAccordion();
   syncFaqUrl(key);
+
+  if (faqAnimationsReady) {
+    window.requestAnimationFrame(() => {
+      animateFaqDynamicBlocks();
+    });
+  }
 };
 
 const initFaqPage = () => {
@@ -1575,11 +1902,19 @@ const initFaqPage = () => {
 
   if (requestedKey && faqLineData[requestedKey]) {
     activeFaqLineKey = requestedKey;
+  } else if (!faqLineData[activeFaqLineKey]) {
+    activeFaqLineKey = faqLineOrder[0];
   }
 
   faqLineTrack.replaceChildren();
 
-  Object.entries(faqLineData).forEach(([key, data]) => {
+  faqLineOrder.forEach((key) => {
+    const data = faqLineData[key];
+
+    if (!data) {
+      return;
+    }
+
     const button = document.createElement("button");
     button.className = `faq-line-card${key === activeFaqLineKey ? " is-active" : ""}`;
     button.type = "button";
@@ -1587,10 +1922,21 @@ const initFaqPage = () => {
 
     const media = document.createElement("span");
     media.className = `faq-line-card__media faq-line-card__media--${key}`;
+    const mediaAsset = faqLineMediaAssets[key];
 
-    const placeholder = document.createElement("span");
-    placeholder.className = "faq-line-card__placeholder";
-    placeholder.textContent = "Imagem da linha";
+    if (mediaAsset) {
+      const image = document.createElement("img");
+      image.className = "faq-line-card__image";
+      image.src = mediaAsset.src;
+      image.alt = mediaAsset.alt;
+      image.loading = "lazy";
+      media.appendChild(image);
+    } else {
+      const placeholder = document.createElement("span");
+      placeholder.className = "faq-line-card__placeholder";
+      placeholder.textContent = "Imagem da linha";
+      media.appendChild(placeholder);
+    }
 
     const body = document.createElement("span");
     body.className = "faq-line-card__copy";
@@ -1598,12 +1944,7 @@ const initFaqPage = () => {
     const title = document.createElement("strong");
     title.textContent = data.label;
 
-    const meta = document.createElement("small");
-    meta.textContent = data.subtitle;
-
-    media.appendChild(placeholder);
     body.appendChild(title);
-    body.appendChild(meta);
     button.appendChild(media);
     button.appendChild(body);
 
@@ -1631,6 +1972,97 @@ const initFaqPage = () => {
 
   renderFaqPage(activeFaqLineKey);
   syncFaqLineNavButtons();
+};
+
+const initFaqAnimations = () => {
+  if (!document.body.classList.contains("page-faq") || typeof window.gsap !== "object") {
+    return;
+  }
+
+  faqAnimationsReady = true;
+
+  if (faqSectionObserver) {
+    faqSectionObserver.disconnect();
+  }
+
+  faqSectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        const config = faqRevealRegistry.get(entry.target);
+
+        if (!config) {
+          return;
+        }
+
+        const targets = typeof config.targets === "function"
+          ? config.targets(entry.target)
+          : entry.target.querySelectorAll(config.targets);
+
+        runFaqReveal(targets, config.options);
+        faqSectionObserver.unobserve(entry.target);
+        faqRevealRegistry.delete(entry.target);
+      });
+    },
+    {
+      threshold: 0.18,
+      rootMargin: "0px 0px -10% 0px",
+    },
+  );
+
+  const registerFaqReveal = (root, targets, options = {}) => {
+    if (!(root instanceof Element) || !faqSectionObserver) {
+      return;
+    }
+
+    faqRevealRegistry.set(root, { targets, options });
+    faqSectionObserver.observe(root);
+  };
+
+  registerFaqReveal(document.querySelector(".faq-hero__inner"), ":scope > *", {
+    y: 42,
+    duration: 0.96,
+    stagger: 0.1,
+  });
+
+  registerFaqReveal(document.querySelector(".faq-lines .site-shell"), ".faq-section-heading, .faq-lines__toolbar, .faq-line-card", {
+    y: 38,
+    duration: 0.88,
+    stagger: 0.08,
+  });
+
+  registerFaqReveal(document.querySelector(".faq-manuals .site-shell"), ".faq-section-heading, .faq-manual-row", {
+    y: 34,
+    duration: 0.84,
+    stagger: 0.06,
+  });
+
+  registerFaqReveal(document.querySelector(".faq-videos .site-shell"), ".faq-section-heading, .faq-video-card", {
+    y: 34,
+    duration: 0.84,
+    stagger: 0.06,
+  });
+
+  registerFaqReveal(document.querySelector(".faq-files .site-shell"), ".faq-section-heading, .faq-file-card", {
+    y: 34,
+    duration: 0.84,
+    stagger: 0.06,
+  });
+
+  registerFaqReveal(document.querySelector(".faq-technical .site-shell"), ".faq-section-heading, .faq-accordion-item", {
+    y: 34,
+    duration: 0.84,
+    stagger: 0.06,
+  });
+
+  registerFaqReveal(document.querySelector(".faq-contact__inner"), ".faq-section-heading, .faq-contact__button", {
+    y: 36,
+    duration: 0.86,
+    stagger: 0.08,
+  });
 };
 
 const initProductGallery = () => {
@@ -1795,6 +2227,7 @@ initCategoryFilters();
 initCategoryProductLinks();
 enhanceCategoryProductLinks();
 initFaqPage();
+initFaqAnimations();
 initProductGallery();
 initProductOptions();
 initProductSheet();

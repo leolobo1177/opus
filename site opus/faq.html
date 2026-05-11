@@ -19,11 +19,15 @@
     href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
   >
   <link rel="stylesheet" href="./styles.css">
-  <script src="./script.js" defer></script>
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"
+  ></script>
   <script
     defer
     src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
   ></script>
+  <script src="./script.js" defer></script>
 </head>
 <body id="top" class="page-faq page-nav-v7 page-brand-persistent">
   <div class="announce-bar">
@@ -183,16 +187,9 @@
   </div>
 
   <main class="faq-page">
-    <section class="faq-hero">
-      <div class="site-shell faq-hero__inner">
-        <p class="faq-hero__eyebrow"><span></span>Portal T&eacute;cnico<span></span></p>
-        <h1>FAQ OPUS</h1>
-      </div>
-    </section>
-
     <section class="faq-lines">
       <div class="site-shell">
-        <div class="faq-section-heading faq-section-heading--center">
+        <div class="faq-section-heading">
           <h2>Escolha Linha</h2>
           <p>Guia de montagem e limpeza</p>
         </div>
@@ -214,7 +211,7 @@
 
     <section class="faq-manuals">
       <div class="site-shell">
-        <div class="faq-section-heading faq-section-heading--center">
+        <div class="faq-section-heading">
           <h2>Manual</h2>
           <p>Guia de montagem e limpeza</p>
         </div>
@@ -226,11 +223,10 @@
     <section class="faq-videos">
       <div class="site-shell">
         <div class="faq-section-heading faq-section-heading--split">
-          <div>
+          <div class="faq-section-heading__copy">
             <h2>V&iacute;deos de Instala&ccedil;&atilde;o</h2>
             <p>Conte&uacute;do t&eacute;cnico guiado</p>
           </div>
-
           <a class="faq-section-heading__link" href="#faq-arquivos">Veja mais</a>
         </div>
 
@@ -240,7 +236,7 @@
 
     <section class="faq-files" id="faq-arquivos">
       <div class="site-shell">
-        <div class="faq-section-heading faq-section-heading--center">
+        <div class="faq-section-heading">
           <h2>Arquivos</h2>
           <p>Arquivo de todos os modelos</p>
         </div>
@@ -251,7 +247,7 @@
 
     <section class="faq-technical">
       <div class="site-shell">
-        <div class="faq-section-heading faq-section-heading--center">
+        <div class="faq-section-heading">
           <h2>FAQ T&eacute;cnico</h2>
           <p>D&uacute;vidas comuns de integra&ccedil;&atilde;o</p>
         </div>
@@ -262,7 +258,7 @@
 
     <section class="faq-contact">
       <div class="site-shell faq-contact__inner">
-        <div class="faq-section-heading faq-section-heading--center">
+        <div class="faq-section-heading">
           <h2>Fale com nossa equipe</h2>
           <p>Fale com nosso SAC</p>
         </div>
