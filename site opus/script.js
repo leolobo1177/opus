@@ -1229,6 +1229,410 @@ const enhanceCategoryProductLinks = () => {
   });
 };
 
+const faqLineTrack = document.querySelector("[data-faq-line-track]");
+const faqLinePrevButton = document.querySelector("[data-faq-line-prev]");
+const faqLineNextButton = document.querySelector("[data-faq-line-next]");
+const faqManualList = document.querySelector("[data-faq-manual-list]");
+const faqVideoList = document.querySelector("[data-faq-video-list]");
+const faqFileList = document.querySelector("[data-faq-file-list]");
+const faqQuestionList = document.querySelector("[data-faq-question-list]");
+
+const faqLineData = {
+  lampadas: {
+    label: "L\u00e2mpadas",
+    subtitle: "Guia de montagem e limpeza",
+    manuals: [
+      { index: "01", title: "Manual de Instala\u00e7\u00e3o de Spots", meta: "MULTI-IDIOMA \u00b7 REV 2026.05", href: "#" },
+      { index: "02", title: "Guia de Limpeza para Embutidos", meta: "MANUTEN\u00c7\u00c3O \u00b7 REV 2026.04", href: "#" },
+      { index: "03", title: "Compatibiliza\u00e7\u00e3o com Dimmers", meta: "CONFIGURA\u00c7\u00c3O \u00b7 REV 2026.03", href: "#" },
+    ],
+    videos: [
+      { index: "01", title: "Recorte e prepara\u00e7\u00e3o do nicho", meta: "4:12 \u00b7 guia t\u00e9cnico" },
+      { index: "02", title: "Conex\u00e3o el\u00e9trica b\u00e1sica", meta: "6:45 \u00b7 instala\u00e7\u00e3o" },
+      { index: "03", title: "Acabamento e regulagem final", meta: "3:20 \u00b7 ajuste fino" },
+    ],
+    files: [
+      { icon: "PDF", title: "Datasheet T\u00e9cnico", description: "Resumo t\u00e9cnico com dimens\u00f5es, pot\u00eancias e aplica\u00e7\u00f5es da linha.", cta: "Download PDF", href: "#" },
+      { icon: "IES", title: "Arquivo IES", description: "Curvas fotom\u00e9tricas e dados para softwares de simula\u00e7\u00e3o.", cta: "Download ZIP", href: "#" },
+      { icon: "3D", title: "Modelo 3D", description: "Blocos base para estudo de encaixe e compatibiliza\u00e7\u00e3o.", cta: "Download ZIP", href: "#" },
+    ],
+    faqs: [
+      { question: "Como escolher o recorte correto para a lumin\u00e1ria?", answer: "Use sempre o recorte indicado no datasheet do modelo escolhido. Em prot\u00f3tipos, considere uma folga m\u00ednima para acabamento e ventila\u00e7\u00e3o do conjunto." },
+      { question: "Posso usar dimmer de parede comum na linha?", answer: "Depende do driver aplicado em cada produto. Para evitar incompatibilidade, o ideal \u00e9 cruzar driver, protocolo e pot\u00eancia antes da instala\u00e7\u00e3o final." },
+      { question: "Qual \u00e9 a limpeza recomendada para spots e embutidos?", answer: "Desligue a alimenta\u00e7\u00e3o, use pano macio e seco ou levemente umedecido, sem solventes agressivos nem abrasivos no acabamento." },
+    ],
+  },
+  interno: {
+    label: "Uso Interno",
+    subtitle: "Guia de instala\u00e7\u00e3o e integra\u00e7\u00e3o",
+    manuals: [
+      { index: "01", title: "Guia de Montagem para Perfis Internos", meta: "MULTI-IDIOMA \u00b7 REV 2026.05", href: "#" },
+      { index: "02", title: "Instala\u00e7\u00e3o de Pain\u00e9is e Plafons", meta: "ESPECIFICA\u00c7\u00c3O \u00b7 REV 2026.04", href: "#" },
+      { index: "03", title: "Lineares e Sistemas Decorativos", meta: "APLICA\u00c7\u00d5ES \u00b7 REV 2026.03", href: "#" },
+    ],
+    videos: [
+      { index: "01", title: "Fixadores e estrutura de teto", meta: "5:08 \u00b7 montagem" },
+      { index: "02", title: "Passagem de fia\u00e7\u00e3o no forro", meta: "7:11 \u00b7 infraestrutura" },
+      { index: "03", title: "Alinhamento visual da composi\u00e7\u00e3o", meta: "3:44 \u00b7 acabamento" },
+    ],
+    files: [
+      { icon: "PDF", title: "Datasheet T\u00e9cnico", description: "Base dimensional da linha de uso interno para estudos preliminares.", cta: "Download PDF", href: "#" },
+      { icon: "IES", title: "Arquivo IES", description: "Distribui\u00e7\u00e3o luminosa para simula\u00e7\u00e3o de ambientes internos.", cta: "Download ZIP", href: "#" },
+      { icon: "3D", title: "Modelo 3D", description: "Blocos para detalhamento executivo e estudo de volumetria.", cta: "Download ZIP", href: "#" },
+    ],
+    faqs: [
+      { question: "Os perfis internos podem ser instalados em marcenaria?", answer: "Sim, desde que haja ventila\u00e7\u00e3o adequada e previs\u00e3o do alojamento para fita, difusor e fonte." },
+      { question: "Como alinhar lineares em longos corredores?", answer: "O ideal \u00e9 modular a instala\u00e7\u00e3o pela pagina\u00e7\u00e3o do forro ou da arquitetura e prever pontos de alimenta\u00e7\u00e3o intermedi\u00e1rios." },
+      { question: "Posso combinar diferentes temperaturas de cor no mesmo ambiente?", answer: "Pode, mas \u00e9 importante definir hierarquia entre ilumina\u00e7\u00e3o funcional e destaque para evitar leitura visual inconsistente." },
+    ],
+  },
+  externo: {
+    label: "Uso Externo",
+    subtitle: "Guia de montagem e vedação",
+    manuals: [
+      { index: "01", title: "Instala\u00e7\u00e3o de Balizadores", meta: "MULTI-IDIOMA \u00b7 REV 2026.05", href: "#" },
+      { index: "02", title: "Arandelas e Jardim", meta: "VEDA\u00c7\u00c3O \u00b7 REV 2026.04", href: "#" },
+      { index: "03", title: "Conectores e Prote\u00e7\u00e3o IP", meta: "CAMPO \u00b7 REV 2026.03", href: "#" },
+    ],
+    videos: [
+      { index: "01", title: "Preparo de base para jardim", meta: "4:56 \u00b7 instala\u00e7\u00e3o" },
+      { index: "02", title: "Selagem e prote\u00e7\u00e3o de conex\u00f5es", meta: "6:03 \u00b7 vedação" },
+      { index: "03", title: "Ajuste de foco em fachadas", meta: "3:28 \u00b7 regula\u00e7\u00e3o" },
+    ],
+    files: [
+      { icon: "PDF", title: "Datasheet T\u00e9cnico", description: "Par\u00e2metros de prote\u00e7\u00e3o, instala\u00e7\u00e3o e aplica\u00e7\u00e3o em campo.", cta: "Download PDF", href: "#" },
+      { icon: "IES", title: "Arquivo IES", description: "Curvas para simula\u00e7\u00e3o de fachada, jardim e \u00e1reas externas.", cta: "Download ZIP", href: "#" },
+      { icon: "3D", title: "Modelo 3D", description: "Fam\u00edlias base para pagina\u00e7\u00e3o de paisagismo e obra externa.", cta: "Download ZIP", href: "#" },
+    ],
+    faqs: [
+      { question: "Como garantir a vedação correta em áreas externas?", answer: "Verifique conectores, prensa-cabos e vedações do conjunto antes da energização. O grau IP do produto depende da montagem correta em campo." },
+      { question: "Posso instalar balizadores em piso drenante?", answer: "Pode, desde que a base esteja estabilizada e o ponto de instalação preserve o acesso para manutenção futura." },
+      { question: "Quando devo usar conectores IP68?", answer: "Sempre que a instalação exigir exposição direta à umidade ou ambientes sujeitos a lavagem, infiltração ou intempérie constante." },
+    ],
+  },
+  fitas: {
+    label: "Fitas, Fontes e Perfis",
+    subtitle: "Guia de corte, fonte e acabamento",
+    manuals: [
+      { index: "01", title: "Corte e Alimenta\u00e7\u00e3o de Fitas", meta: "MULTI-IDIOMA \u00b7 REV 2026.05", href: "#" },
+      { index: "02", title: "Dimensionamento de Fontes", meta: "EL\u00c9TRICA \u00b7 REV 2026.04", href: "#" },
+      { index: "03", title: "Montagem de Perfis e Difusores", meta: "ACABAMENTO \u00b7 REV 2026.03", href: "#" },
+    ],
+    videos: [
+      { index: "01", title: "Corte preciso e solda inicial", meta: "4:02 \u00b7 bancada" },
+      { index: "02", title: "Instala\u00e7\u00e3o em perfil de alum\u00ednio", meta: "5:40 \u00b7 montagem" },
+      { index: "03", title: "Liga\u00e7\u00e3o de fontes e redund\u00e2ncia", meta: "6:15 \u00b7 el\u00e9trica" },
+    ],
+    files: [
+      { icon: "PDF", title: "Datasheet T\u00e9cnico", description: "Especificações de fitas, potências lineares e perfis compatíveis.", cta: "Download PDF", href: "#" },
+      { icon: "IES", title: "Arquivo IES", description: "Curvas e parâmetros lineares para cenários de iluminação contínua.", cta: "Download ZIP", href: "#" },
+      { icon: "3D", title: "Modelo 3D", description: "Perfis e elementos básicos para estudo de encaixe arquitetônico.", cta: "Download ZIP", href: "#" },
+    ],
+    faqs: [
+      { question: "Qual é o limite recomendado para alimentação de fitas?", answer: "O limite depende da potência por metro e da bitola da alimentação. Em trechos longos, distribua pontos de energia para evitar queda de tensão." },
+      { question: "Preciso sempre usar perfil de alumínio?", answer: "Para melhor dissipação e acabamento, sim. Em aplicações técnicas, o perfil também ajuda a estabilizar a vida útil da fita." },
+      { question: "Como escolher a fonte correta?", answer: "Some a carga instalada, aplique margem de segurança e confirme compatibilidade de tensão, dimerização e ambiente de instalação." },
+    ],
+  },
+  sistemas: {
+    label: "Sistemas",
+    subtitle: "Guia de trilhos e integração",
+    manuals: [
+      { index: "01", title: "Montagem de Sistema Magn\u00e9tico", meta: "MULTI-IDIOMA \u00b7 REV 2026.05", href: "#" },
+      { index: "02", title: "Instala\u00e7\u00e3o de Trilhos", meta: "INFRAESTRUTURA \u00b7 REV 2026.04", href: "#" },
+      { index: "03", title: "Integra\u00e7\u00e3o de M\u00f3dulos", meta: "CONFIGURA\u00c7\u00c3O \u00b7 REV 2026.03", href: "#" },
+    ],
+    videos: [
+      { index: "01", title: "Nivelamento do trilho", meta: "4:46 \u00b7 montagem" },
+      { index: "02", title: "Posicionamento dos m\u00f3dulos", meta: "5:26 \u00b7 configura\u00e7\u00e3o" },
+      { index: "03", title: "Ajuste final e energiza\u00e7\u00e3o", meta: "3:18 \u00b7 comissionamento" },
+    ],
+    files: [
+      { icon: "PDF", title: "Datasheet T\u00e9cnico", description: "Parâmetros de montagem, modulação e integração dos sistemas.", cta: "Download PDF", href: "#" },
+      { icon: "IES", title: "Arquivo IES", description: "Curvas dos módulos para simulação em layouts modulares.", cta: "Download ZIP", href: "#" },
+      { icon: "3D", title: "Modelo 3D", description: "Componentes base de sistema para compatibilização em projeto.", cta: "Download ZIP", href: "#" },
+    ],
+    faqs: [
+      { question: "Posso misturar módulos diferentes no mesmo trilho?", answer: "Sim, desde que o sistema escolhido suporte a combinação elétrica e mecânica entre os módulos previstos." },
+      { question: "Como definir a modulação inicial do sistema?", answer: "Parta do layout arquitetônico, pontos de alimentação e cenas desejadas. Depois ajuste comprimentos e acessórios compatíveis." },
+      { question: "O sistema magnético exige manutenção específica?", answer: "A manutenção é preventiva: inspeção de encaixes, limpeza de contatos e conferência periódica dos pontos de alimentação." },
+    ],
+  },
+};
+
+let activeFaqLineKey = Object.keys(faqLineData)[0] || "";
+
+const syncFaqLineNavButtons = () => {
+  if (!faqLineTrack || !faqLinePrevButton || !faqLineNextButton) {
+    return;
+  }
+
+  const maxScroll = Math.max(0, faqLineTrack.scrollWidth - faqLineTrack.clientWidth);
+  const atStart = faqLineTrack.scrollLeft <= 4;
+  const atEnd = faqLineTrack.scrollLeft >= maxScroll - 4;
+
+  faqLinePrevButton.disabled = atStart;
+  faqLineNextButton.disabled = atEnd;
+  faqLinePrevButton.classList.toggle("is-disabled", atStart);
+  faqLineNextButton.classList.toggle("is-disabled", atEnd);
+};
+
+const syncFaqUrl = (key) => {
+  const url = new URL(window.location.href);
+  url.searchParams.set("linha", key);
+  window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+};
+
+const renderFaqQuestions = (items) => {
+  if (!faqQuestionList) {
+    return;
+  }
+
+  faqQuestionList.replaceChildren();
+
+  items.forEach((item, index) => {
+    const article = document.createElement("article");
+    article.className = `faq-accordion-item${index === 0 ? " is-open" : ""}`;
+
+    const toggle = document.createElement("button");
+    toggle.className = "faq-accordion-item__toggle";
+    toggle.type = "button";
+    toggle.setAttribute("aria-expanded", index === 0 ? "true" : "false");
+
+    const label = document.createElement("span");
+    label.textContent = item.question;
+
+    const icon = document.createElement("span");
+    icon.className = "faq-accordion-item__icon";
+    icon.textContent = index === 0 ? "−" : "+";
+
+    const panel = document.createElement("div");
+    panel.className = "faq-accordion-item__panel";
+
+    const answer = document.createElement("p");
+    answer.textContent = item.answer;
+
+    panel.appendChild(answer);
+    toggle.appendChild(label);
+    toggle.appendChild(icon);
+    article.appendChild(toggle);
+    article.appendChild(panel);
+
+    toggle.addEventListener("click", () => {
+      const isOpen = article.classList.contains("is-open");
+
+      Array.from(faqQuestionList.children).forEach((entry) => {
+        entry.classList.remove("is-open");
+        const entryToggle = entry.querySelector(".faq-accordion-item__toggle");
+        const entryIcon = entry.querySelector(".faq-accordion-item__icon");
+
+        if (entryToggle) {
+          entryToggle.setAttribute("aria-expanded", "false");
+        }
+
+        if (entryIcon) {
+          entryIcon.textContent = "+";
+        }
+      });
+
+      if (!isOpen) {
+        article.classList.add("is-open");
+        toggle.setAttribute("aria-expanded", "true");
+        icon.textContent = "−";
+      }
+    });
+
+    faqQuestionList.appendChild(article);
+  });
+};
+
+const renderFaqPage = (key) => {
+  const data = faqLineData[key];
+
+  if (!data) {
+    return;
+  }
+
+  activeFaqLineKey = key;
+
+  if (faqLineTrack) {
+    faqLineTrack.querySelectorAll("[data-faq-line-btn]").forEach((button) => {
+      button.classList.toggle("is-active", button.dataset.faqLineBtn === key);
+    });
+  }
+
+  if (faqManualList) {
+    faqManualList.replaceChildren();
+
+    data.manuals.forEach((manual) => {
+      const link = document.createElement("a");
+      link.className = "faq-manual-row";
+      link.href = manual.href;
+
+      const index = document.createElement("span");
+      index.className = "faq-manual-row__index";
+      index.textContent = manual.index;
+
+      const copy = document.createElement("div");
+      copy.className = "faq-manual-row__copy";
+
+      const title = document.createElement("strong");
+      title.textContent = manual.title;
+
+      const meta = document.createElement("small");
+      meta.textContent = manual.meta;
+
+      const cta = document.createElement("span");
+      cta.className = "faq-manual-row__cta";
+      cta.textContent = "Baixar";
+
+      copy.appendChild(title);
+      copy.appendChild(meta);
+      link.appendChild(index);
+      link.appendChild(copy);
+      link.appendChild(cta);
+      faqManualList.appendChild(link);
+    });
+  }
+
+  if (faqVideoList) {
+    faqVideoList.replaceChildren();
+
+    data.videos.forEach((video) => {
+      const card = document.createElement("article");
+      card.className = "faq-video-card";
+
+      const thumb = document.createElement("div");
+      thumb.className = `faq-video-card__thumb faq-video-card__thumb--${key}`;
+
+      const placeholder = document.createElement("span");
+      placeholder.className = "faq-video-card__placeholder";
+      placeholder.textContent = "Imagem em breve";
+
+      const play = document.createElement("span");
+      play.className = "faq-video-card__play";
+      play.textContent = "▶";
+
+      const body = document.createElement("div");
+      body.className = "faq-video-card__body";
+
+      const title = document.createElement("strong");
+      title.textContent = `${video.index}. ${video.title}`;
+
+      const meta = document.createElement("span");
+      meta.textContent = video.meta;
+
+      thumb.appendChild(placeholder);
+      thumb.appendChild(play);
+      body.appendChild(title);
+      body.appendChild(meta);
+      card.appendChild(thumb);
+      card.appendChild(body);
+      faqVideoList.appendChild(card);
+    });
+  }
+
+  if (faqFileList) {
+    faqFileList.replaceChildren();
+
+    data.files.forEach((file) => {
+      const card = document.createElement("article");
+      card.className = "faq-file-card";
+
+      const icon = document.createElement("span");
+      icon.className = "faq-file-card__icon";
+      icon.textContent = file.icon;
+
+      const title = document.createElement("h3");
+      title.textContent = file.title;
+
+      const description = document.createElement("p");
+      description.textContent = file.description;
+
+      const cta = document.createElement("a");
+      cta.className = "faq-file-card__cta";
+      cta.href = file.href;
+      cta.textContent = file.cta;
+
+      card.appendChild(icon);
+      card.appendChild(title);
+      card.appendChild(description);
+      card.appendChild(cta);
+      faqFileList.appendChild(card);
+    });
+  }
+
+  renderFaqQuestions(data.faqs);
+  syncFaqUrl(key);
+};
+
+const initFaqPage = () => {
+  if (!faqLineTrack) {
+    return;
+  }
+
+  const requestedKey = new URLSearchParams(window.location.search).get("linha");
+
+  if (requestedKey && faqLineData[requestedKey]) {
+    activeFaqLineKey = requestedKey;
+  }
+
+  faqLineTrack.replaceChildren();
+
+  Object.entries(faqLineData).forEach(([key, data]) => {
+    const button = document.createElement("button");
+    button.className = `faq-line-card${key === activeFaqLineKey ? " is-active" : ""}`;
+    button.type = "button";
+    button.dataset.faqLineBtn = key;
+
+    const media = document.createElement("span");
+    media.className = `faq-line-card__media faq-line-card__media--${key}`;
+
+    const placeholder = document.createElement("span");
+    placeholder.className = "faq-line-card__placeholder";
+    placeholder.textContent = "Imagem da linha";
+
+    const body = document.createElement("span");
+    body.className = "faq-line-card__copy";
+
+    const title = document.createElement("strong");
+    title.textContent = data.label;
+
+    const meta = document.createElement("small");
+    meta.textContent = data.subtitle;
+
+    media.appendChild(placeholder);
+    body.appendChild(title);
+    body.appendChild(meta);
+    button.appendChild(media);
+    button.appendChild(body);
+
+    button.addEventListener("click", () => {
+      renderFaqPage(key);
+    });
+
+    faqLineTrack.appendChild(button);
+  });
+
+  if (faqLinePrevButton) {
+    faqLinePrevButton.addEventListener("click", () => {
+      faqLineTrack.scrollBy({ left: -280, behavior: "smooth" });
+    });
+  }
+
+  if (faqLineNextButton) {
+    faqLineNextButton.addEventListener("click", () => {
+      faqLineTrack.scrollBy({ left: 280, behavior: "smooth" });
+    });
+  }
+
+  faqLineTrack.addEventListener("scroll", syncFaqLineNavButtons, { passive: true });
+  window.addEventListener("resize", syncFaqLineNavButtons, { passive: true });
+
+  renderFaqPage(activeFaqLineKey);
+  syncFaqLineNavButtons();
+};
+
 const initProductGallery = () => {
   if (!productMainImage || !productThumbButtons.length) {
     return;
@@ -1390,6 +1794,7 @@ if (!initRelatedSwiper()) {
 initCategoryFilters();
 initCategoryProductLinks();
 enhanceCategoryProductLinks();
+initFaqPage();
 initProductGallery();
 initProductOptions();
 initProductSheet();

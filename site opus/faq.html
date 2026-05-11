@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Opus LED | Categoria</title>
+  <title>Opus LED | FAQ</title>
   <meta
     name="description"
     content="P&aacute;gina de categoria em HTML est&aacute;tico para prototipagem da Opus LED."
@@ -25,7 +25,7 @@
     src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
   ></script>
 </head>
-<body id="top" class="page-category page-nav-v7 page-brand-persistent">
+<body id="top" class="page-faq page-nav-v7 page-brand-persistent">
   <div class="announce-bar">
     <p>E-commerce autorizados pela OPUS</p>
   </div>
@@ -182,22 +182,92 @@
     </div>
   </div>
 
-  <main class="category-page category-page--directory">
-    <section class="category-collection category-collection--directory">
+  <main class="faq-page">
+    <section class="faq-hero">
+      <div class="site-shell faq-hero__inner">
+        <p class="faq-hero__eyebrow"><span></span>Portal T&eacute;cnico<span></span></p>
+        <h1>FAQ OPUS</h1>
+      </div>
+    </section>
+
+    <section class="faq-lines">
       <div class="site-shell">
-        <div class="category-filters category-filters--directory" aria-label="Filtro de categorias">
-          <span class="category-filters__label">Categorias:</span>
-          <div class="category-filters__actions">
-            <button class="category-filter is-active" type="button" data-filter-btn="todos">Todas</button>
-            <button class="category-filter" type="button" data-filter-btn="lampadas">L&acirc;mpadas</button>
-            <button class="category-filter" type="button" data-filter-btn="interno">Uso Interno</button>
-            <button class="category-filter" type="button" data-filter-btn="externo">Uso Externo</button>
-            <button class="category-filter" type="button" data-filter-btn="fitas">Fitas, Fontes e Perfis</button>
-            <button class="category-filter" type="button" data-filter-btn="sistemas">Sistemas</button>
+        <div class="faq-section-heading faq-section-heading--center">
+          <h2>Escolha Linha</h2>
+          <p>Guia de montagem e limpeza</p>
+        </div>
+
+        <div class="faq-lines__toolbar">
+          <div class="faq-lines__nav">
+            <button class="faq-lines__arrow" type="button" aria-label="Linhas anteriores" data-faq-line-prev>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5 8 12l6.5 7"></path></svg>
+            </button>
+            <button class="faq-lines__arrow" type="button" aria-label="Pr&oacute;ximas linhas" data-faq-line-next>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 6.5 7-6.5 7"></path></svg>
+            </button>
           </div>
         </div>
 
-        <div class="category-directory" data-category-directory></div>
+        <div class="faq-lines__track" data-faq-line-track></div>
+      </div>
+    </section>
+
+    <section class="faq-manuals">
+      <div class="site-shell">
+        <div class="faq-section-heading faq-section-heading--center">
+          <h2>Manual</h2>
+          <p>Guia de montagem e limpeza</p>
+        </div>
+
+        <div class="faq-manual-list" data-faq-manual-list></div>
+      </div>
+    </section>
+
+    <section class="faq-videos">
+      <div class="site-shell">
+        <div class="faq-section-heading faq-section-heading--split">
+          <div>
+            <h2>V&iacute;deos de Instala&ccedil;&atilde;o</h2>
+            <p>Conte&uacute;do t&eacute;cnico guiado</p>
+          </div>
+
+          <a class="faq-section-heading__link" href="#faq-arquivos">Veja mais</a>
+        </div>
+
+        <div class="faq-video-grid" data-faq-video-list></div>
+      </div>
+    </section>
+
+    <section class="faq-files" id="faq-arquivos">
+      <div class="site-shell">
+        <div class="faq-section-heading faq-section-heading--center">
+          <h2>Arquivos</h2>
+          <p>Arquivo de todos os modelos</p>
+        </div>
+
+        <div class="faq-file-grid" data-faq-file-list></div>
+      </div>
+    </section>
+
+    <section class="faq-technical">
+      <div class="site-shell">
+        <div class="faq-section-heading faq-section-heading--center">
+          <h2>FAQ T&eacute;cnico</h2>
+          <p>D&uacute;vidas comuns de integra&ccedil;&atilde;o</p>
+        </div>
+
+        <div class="faq-accordion" data-faq-question-list></div>
+      </div>
+    </section>
+
+    <section class="faq-contact">
+      <div class="site-shell faq-contact__inner">
+        <div class="faq-section-heading faq-section-heading--center">
+          <h2>Fale com nossa equipe</h2>
+          <p>Fale com nosso SAC</p>
+        </div>
+
+        <a class="faq-contact__button" href="mailto:sac@opusled.com.br">Entre no SAC</a>
       </div>
     </section>
   </main>
