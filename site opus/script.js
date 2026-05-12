@@ -1236,6 +1236,8 @@ const faqManualList = document.querySelector("[data-faq-manual-list]");
 const faqVideoList = document.querySelector("[data-faq-video-list]");
 const faqFileList = document.querySelector("[data-faq-file-list]");
 const faqQuestionList = document.querySelector("[data-faq-question-list]");
+const faqObservation = document.querySelector("[data-faq-observation]");
+const faqVideosSection = faqVideoList ? faqVideoList.closest(".faq-videos") : null;
 let faqAnimationsReady = false;
 let faqSectionObserver = null;
 const faqRevealRegistry = new WeakMap();
@@ -1551,42 +1553,14 @@ normalizedFaqLineData.ventiladores.faqs = [
     question: "Como fazer o teste de velocidade do ventilador retrátil?",
     answer: `1. Cole uma fita adesiva em uma das pás para identificar cada volta completa.\n2. Grave o ventilador em funcionamento usando a câmera lenta do celular.\n3. Use outro aparelho para cronometrar o tempo.\n4. Conte quantas voltas completas a pá realiza em 1 segundo.\n5. Multiplique esse número por 60 para obter o valor em RPM.\n\nExemplo:\nSe o ventilador realiza 4 voltas em 1 segundo, o cálculo é:\n4 RPS × 60 segundos = 240 RPM\n\nNesse caso, o produto está de acordo com a especificação técnica.`,
   },
-  {
-    question: "Como ajustar a velocidade de acendimento das luzes no módulo sequencial?",
-    answer: `Pressione o botão "Velocidade" algumas vezes até que a velocidade de acendimento das luzes fique de acordo com sua preferência.`,
-  },
-  {
-    question: "Como aumentar a quantidade de canais ativos no módulo sequencial?",
-    answer: `1. Pressione e segure o botão "Velocidade" por 5 segundos.\n2. Solte o botão.\n3. Pressione novamente o botão "Velocidade" até atingir a quantidade desejada de canais ativos.\n\nA quantidade de canais ativos será indicada pelos LEDs azuis na placa do módulo sequencial.`,
-  },
-  {
-    question: "Como diminuir a quantidade de canais ativos no módulo sequencial?",
-    answer: `1. Pressione e segure o botão "Velocidade" por 5 segundos.\n2. Solte o botão.\n3. Pressione o botão "Timer" até atingir a quantidade desejada de canais ativos.\n\nA quantidade de canais ativos será indicada pelos LEDs azuis na placa do módulo sequencial.`,
-  },
-  {
-    question: "Como ajustar o brilho dos LEDs no módulo sequencial?",
-    answer: `Pressione a tecla "Brilho" algumas vezes até que os LEDs atinjam a intensidade desejada.`,
-  },
-  {
-    question: "Como alterar os efeitos dos LEDs no módulo sequencial?",
-    answer: `1. Pressione e segure o botão "Brilho" por 5 segundos.\n2. Solte o botão.\n3. Pressione novamente o botão "Brilho" até selecionar o efeito desejado.\n\nO módulo possui 3 tipos de efeito, e a configuração é salva automaticamente após a alteração.`,
-  },
-  {
-    question: "Como ajustar o tempo de permanência das luzes acesas?",
-    answer: `Pressione o botão "Timer" algumas vezes até que o tempo de permanência das luzes acesas fique de acordo com sua preferência.\n\nO tempo será indicado pelos 8 LEDs vermelhos na placa interna do módulo.`,
-  },
-  {
-    question: "Como salvar as configurações feitas no módulo sequencial?",
-    answer: `Após realizar qualquer configuração, pressione e segure o botão "Brilho" até que as luzes do módulo sequencial se apaguem.\nQuando as luzes apagarem, as alterações estarão salvas.`,
-  },
-  {
-    question: "É necessário remover a tampa do módulo sequencial para configurar?",
-    answer: `Não é obrigatório, mas remover a tampa pode facilitar a visualização dos LEDs que indicam as alterações feitas.\n\nPara retirar a tampa de acabamento, remova os 4 parafusos localizados nas tampas laranjas do módulo e desencaixe a peça.\n\nSugestão para página: em caso de dúvida, procure um profissional qualificado, principalmente por envolver instalação elétrica.`,
-  },
 ];
 
 faqLineData.darwin.label = "Fita Digital Monocromática";
 faqLineData.darwin.subtitle = "Modelos OPS 83588, OPS 83571 e OPS 83564";
+faqLineData.darwin.files = [
+  { icon: "PDF", title: "Datasheet Técnico", description: "Resumo técnico com modelos, pixels e compatibilidade da fita digital monocromática.", cta: "Download PDF", href: "#" },
+  { icon: "PDF", title: "Manual de Configuração", description: "Guia rápido para sincronização de receptores e parametrização do controle compatível.", cta: "Download PDF", href: "#" },
+];
 faqLineData.darwin.faqs = [
   {
     question: "É possível sincronizar vários receptores em um único controle?",
@@ -1608,6 +1582,11 @@ faqLineData.darwin.faqs = [
 
 faqLineData.fitas.label = "Fita RGB Digital";
 faqLineData.fitas.subtitle = "Modelo OPS 85551";
+faqLineData.fitas.videos = [];
+faqLineData.fitas.files = [
+  { icon: "PDF", title: "Datasheet Técnico", description: "Parâmetros da fita RGB digital, protocolo e limites recomendados de aplicação.", cta: "Download PDF", href: "#" },
+  { icon: "PDF", title: "Manual de Configuração", description: "Guia de ligação, posicionamento de receptores e boas práticas de instalação.", cta: "Download PDF", href: "#" },
+];
 faqLineData.fitas.faqs = [
   {
     question: "É possível emendar mais de dois rolos da fita RGB digital OPS 85551?",
@@ -1640,6 +1619,67 @@ faqLineMediaAssets.fitas = {
   src: "./assets/faq-lines/categoria-fitas.png",
   alt: "Fita RGB digital Opus",
 };
+
+faqLineData.ventiladores.files = [
+  { icon: "PDF", title: "Datasheet Técnico", description: "Resumo técnico da linha de ventiladores com parâmetros de uso e instalação.", cta: "Download PDF", href: "#" },
+  { icon: "PDF", title: "Manual de Configuração", description: "Passo a passo de controle, pareamento e operação dos modelos compatíveis.", cta: "Download PDF", href: "#" },
+];
+
+faqLineData.trilho.label = "Modulo";
+faqLineData.trilho.subtitle = "Configuracao do modulo sequencial";
+faqLineData.trilho.manuals = [
+  { index: "01", title: "Configuracao do Modulo Sequencial", meta: "GUIA TECNICO · REV 2026.05", href: "#" },
+  { index: "02", title: "Ajuste de canais e brilho", meta: "CONFIGURACAO · REV 2026.04", href: "#" },
+  { index: "03", title: "Integracao do sensor", meta: "PARAMETROS · REV 2026.03", href: "#" },
+];
+faqLineData.trilho.videos = [
+  { index: "01", title: "Primeira configuracao do modulo", meta: "4:12 · passo a passo" },
+  { index: "02", title: "Ajuste de canais e efeitos", meta: "5:18 · configuracao" },
+  { index: "03", title: "Salvamento das alteracoes", meta: "3:06 · finalizacao" },
+];
+faqLineData.trilho.files = [
+  { icon: "PDF", title: "Datasheet Tecnico", description: "Resumo de parametros e conexoes do modulo sequencial.", cta: "Download PDF", href: "#" },
+  { icon: "PDF", title: "Manual de Configuracao", description: "Guia rapido para ajuste de canais, brilho e temporizacao.", cta: "Download PDF", href: "#" },
+  { icon: "3D", title: "Modelo 3D", description: "Arquivo base para estudo de encaixe e compatibilizacao do modulo.", cta: "Download ZIP", href: "#" },
+];
+faqLineData.trilho.faqs = [
+  {
+    question: "Ajuste de velocidade do acendimento sequencial das luzes.",
+    answer: `Apertar o botão "velocidade" algumas vezes até que a velocidade de acendimento das luzes esteja adequada a sua preferência.`,
+  },
+  {
+    question: "Ajuste da quantidade de canais ativos.",
+    answer: `Para aumentar a quantidade de canais ativos aperte e segure o botão "velocidade" por 5 segundos e solte-o. Agora aperte o botão "velocidade" novamente até que a quantidade de canais esteja de acordo com sua preferência.\n\nOBS: A quantidade de canais ativos será sinalizada pelos LEDs azuis na placa do módulo sequencial.\n\nPara diminuir a quantidade de canais ativos aperte e segure o botão "velocidade" por 5 segundos e solte-o. Agora aperte o botão "timer" até que a quantidade de canais esteja de acordo com sua preferência.\n\nOBS: A quantidade de canais ativos será sinalizada pelos LEDs azuis na placa do módulo sequencial.`,
+  },
+  {
+    question: "Ajuste do brilho dos LEDs ligados em cada canal.",
+    answer: `Apertar a tecla "brilho" algumas vezes até que o mesmo esteja na intensidade desejada.`,
+  },
+  {
+    question: "Ajuste dos modos de efeito dos LEDs ligados em cada canal.",
+    answer: `Para alterar o efeito dos LEDs ligados aperte e segure o botão "brilho" por 5 segundos e solte-o. Agora aperte o botão "brilho" novamente até que o efeito nos LEDs seja o desejado.\n\nOBS: O módulo possui 3 tipos de efeito e esta configuração salva automaticamente após realizada.`,
+  },
+  {
+    question: "Ajuste de tempo de permanência com as luzes acesas.",
+    answer: `Apertar o botão "timer" algumas vezes até que o tempo de permanência da luz acesa esteja da sua preferência.\n\nOBS: O tempo será sinalizado pelos 8 LEDs vermelhos na placa interna no módulo.`,
+  },
+  {
+    question: "Salvamento das configurações feitas no módulo.",
+    answer: `Após efetuar qualquer uma das configurações acima, apertar e segurar o botão "brilho" até que as luzes do módulo sequencial se apaguem. Assim as alterações feitas serão salvas.`,
+  },
+];
+faqLineData.trilho.observation = `Quando for realizar qualquer tipo de configuração no módulo sequencial, se for possível, retire a tampa de acabamento do módulo para que você possa observar melhor os LEDs que sinalizam as alterações sendo feitas.\n\nPara retirada da tampa de acabamento, basta desaparafusar os 4 parafusos que se encontram nas tampinhas laranjas do módulo e desencaixá-lo.\n\nLembrando que esse procedimento pode ser feito com ele ligado, pois trata-se de corrente contínua, portanto não há risco de choque.`;
+
+faqLineMediaAssets.trilho = {
+  src: "./assets/faq-lines/modulo.png",
+  alt: "Modulo sequencial Opus",
+};
+
+faqLineData.trilho.videos = [];
+faqLineData.trilho.files = [
+  { icon: "PDF", title: "Datasheet Tecnico", description: "Resumo de parâmetros, conexões e capacidade do modulo sequencial.", cta: "Download PDF", href: "#" },
+  { icon: "PDF", title: "Manual de Configuracao", description: "Guia rápido para ajuste de canais, brilho, efeitos e temporização.", cta: "Download PDF", href: "#" },
+];
 
 let activeFaqLineKey = faqLineOrder[0] || Object.keys(faqLineData)[0] || "";
 
@@ -1913,6 +1953,32 @@ const renderFaqQuestions = (items) => {
   });
 };
 
+const renderFaqObservation = (text) => {
+  if (!faqObservation) {
+    return;
+  }
+
+  faqObservation.replaceChildren();
+
+  if (!text) {
+    faqObservation.hidden = true;
+    faqObservation.classList.remove("is-visible");
+    return;
+  }
+
+  const title = document.createElement("strong");
+  title.className = "faq-observation__title";
+  title.textContent = "Observação";
+
+  const body = document.createElement("p");
+  body.textContent = text;
+
+  faqObservation.appendChild(title);
+  faqObservation.appendChild(body);
+  faqObservation.hidden = false;
+  faqObservation.classList.add("is-visible");
+};
+
 const renderFaqPage = (key) => {
   const data = faqLineData[key];
 
@@ -1962,10 +2028,14 @@ const renderFaqPage = (key) => {
     });
   }
 
+  if (faqVideosSection) {
+    faqVideosSection.hidden = !Array.isArray(data.videos) || data.videos.length === 0;
+  }
+
   if (faqVideoList) {
     faqVideoList.replaceChildren();
 
-    data.videos.forEach((video) => {
+    (data.videos || []).forEach((video) => {
       const card = document.createElement("article");
       card.className = "faq-video-card";
 
@@ -2026,6 +2096,7 @@ const renderFaqPage = (key) => {
   }
 
   renderFaqQuestions(data.faqs);
+  renderFaqObservation(data.observation);
   hydrateFaqAccordion();
   syncFaqUrl(key);
 
@@ -2201,7 +2272,7 @@ const initFaqAnimations = () => {
     stagger: 0.06,
   });
 
-  registerFaqReveal(document.querySelector(".faq-contact__inner"), ".faq-section-heading, .faq-contact__button", {
+  registerFaqReveal(document.querySelector(".faq-contact__inner"), ".faq-section-heading, .faq-support-card", {
     y: 36,
     duration: 0.86,
     stagger: 0.08,
