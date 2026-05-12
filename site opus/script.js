@@ -1498,6 +1498,149 @@ Object.assign(faqLineMediaAssets, normalizedFaqLineMediaAssets);
 
 const faqLineOrder = ["ventiladores", "darwin", "fitas", "trilho"];
 
+normalizedFaqLineData.ventiladores.faqs = [
+  {
+    question: "Os ventiladores são compatíveis com Alexa ou automação inteligente?",
+    answer: `Não. Os ventiladores não foram desenvolvidos para integração com Alexa ou outros sistemas de automação inteligente.\nPor isso, a OPUS LED não fornece suporte técnico para esse tipo de uso.`,
+  },
+  {
+    question: "Qual é a frequência de funcionamento do controle dos ventiladores?",
+    answer: `O controle utiliza tecnologia em 2.4GHz.\nO receptor do ventilador, porém, não possui módulo Bluetooth, funcionando por Radiofrequência RF 2.4GHz.`,
+  },
+  {
+    question: "O motor dos ventiladores é DC?",
+    answer: `Sim. O motor dos ventiladores é DC, ou seja, funciona em corrente contínua.`,
+  },
+  {
+    question: "O que é a função Air Sound?",
+    answer: `A função Air Sound está relacionada ao sistema de alto-falante do produto.\n\nObservação: essa informação está incompleta no documento original. Recomendo validar internamente antes de publicar no site, para deixar a resposta mais precisa.`,
+  },
+  {
+    question: "O que verificar quando o controle remoto do ventilador não funciona?",
+    answer: `Primeiro, verifique se a luz do ventilador liga pelo interruptor da parede.\nSe a luz ligar, mas o controle não responder, recomenda-se realizar o pareamento do controle remoto.\n\nTambém é importante verificar:\nSe o ventilador funcionava normalmente antes.\nHá quanto tempo o produto está em uso.\nSe a luz acende ao ligar e desligar o interruptor.\nSe a luz do controle acende ao pressionar algum botão.`,
+  },
+  {
+    question: "Como parear o controle dos ventiladores retráteis antigos?",
+    answer: `1. Desligue o interruptor de energia do ventilador na parede.\n2. Religue o interruptor para energizar o ventilador.\n3. Com o controle em mãos, pressione e segure o botão "Desligar Ventilador" quase simultaneamente ao religamento.\n4. O ventilador emitirá um bipe ou as luzes poderão oscilar.\n5. Após o bipe ou oscilação das luzes, solte o botão "Desligar Ventilador".`,
+  },
+  {
+    question: "Como desparear o controle dos ventiladores retráteis antigos?",
+    answer: `1. Desligue o interruptor de energia do ventilador na parede.\n2. Religue o interruptor para energizar o ventilador.\n3. Com o controle em mãos, pressione e segure o botão "2H" quase simultaneamente ao religamento.\n4. O ventilador emitirá um bipe ou as luzes poderão oscilar.\n5. Após o bipe ou oscilação das luzes, solte o botão "2H".`,
+  },
+  {
+    question: "Como parear o controle dos ventiladores retráteis novos?",
+    answer: `1. Desligue o interruptor de energia do ventilador na parede.\n2. Religue o interruptor para energizar o ventilador.\n3. Com o controle em mãos, pressione e segure o botão "Desligar Ventilador" quase simultaneamente ao religamento.\n4. O ventilador emitirá um bipe ou as luzes poderão oscilar.\n5. Após o bipe ou oscilação das luzes, solte o botão "Desligar Ventilador".`,
+  },
+  {
+    question: "Como desparear o controle dos ventiladores retráteis novos?",
+    answer: `1. Desligue o interruptor de energia do ventilador na parede.\n2. Religue o interruptor para energizar o ventilador.\n3. Com o controle em mãos, pressione e segure o botão "Desligar tudo" quase simultaneamente ao religamento.\n4. O ventilador emitirá um bipe ou as luzes poderão oscilar.\n5. Após o bipe ou oscilação das luzes, solte o botão "Desligar tudo".`,
+  },
+  {
+    question: "Como parear o controle dos ventiladores orbitais?",
+    answer: `1. Desligue o interruptor de energia do ventilador na parede.\n2. Religue o interruptor para energizar o ventilador.\n3. Com o controle em mãos, pressione e segure o botão "SETUP" quase simultaneamente ao religamento.\n4. O ventilador emitirá um bipe ou as luzes poderão oscilar.\n5. Teste as funções do ventilador pelo controle.\n6. Se o ventilador responder aos comandos, o controle foi pareado corretamente.`,
+  },
+  {
+    question: "Como desparear o controle dos ventiladores orbitais?",
+    answer: `1. Desligue o interruptor de energia do ventilador na parede.\n2. Religue o interruptor para energizar o ventilador.\n3. Com o controle em mãos, pressione e segure os botões "4" e "Aumento de Brilho" quase simultaneamente ao religamento.\n4. O ventilador emitirá um bipe ou as luzes poderão oscilar.\n5. Teste as funções do ventilador pelo controle.\n6. Se o ventilador não responder aos comandos, o controle foi despareado corretamente.`,
+  },
+  {
+    question: "Como verificar se a velocidade do ventilador retrátil está dentro do normal?",
+    answer: `A velocidade máxima indicada para os ventiladores retráteis é de 240 RPM.\nPara verificar se o produto está dentro da especificação, é possível fazer um teste simples de rotação.`,
+  },
+  {
+    question: "Como fazer o teste de velocidade do ventilador retrátil?",
+    answer: `1. Cole uma fita adesiva em uma das pás para identificar cada volta completa.\n2. Grave o ventilador em funcionamento usando a câmera lenta do celular.\n3. Use outro aparelho para cronometrar o tempo.\n4. Conte quantas voltas completas a pá realiza em 1 segundo.\n5. Multiplique esse número por 60 para obter o valor em RPM.\n\nExemplo:\nSe o ventilador realiza 4 voltas em 1 segundo, o cálculo é:\n4 RPS × 60 segundos = 240 RPM\n\nNesse caso, o produto está de acordo com a especificação técnica.`,
+  },
+  {
+    question: "Como ajustar a velocidade de acendimento das luzes no módulo sequencial?",
+    answer: `Pressione o botão "Velocidade" algumas vezes até que a velocidade de acendimento das luzes fique de acordo com sua preferência.`,
+  },
+  {
+    question: "Como aumentar a quantidade de canais ativos no módulo sequencial?",
+    answer: `1. Pressione e segure o botão "Velocidade" por 5 segundos.\n2. Solte o botão.\n3. Pressione novamente o botão "Velocidade" até atingir a quantidade desejada de canais ativos.\n\nA quantidade de canais ativos será indicada pelos LEDs azuis na placa do módulo sequencial.`,
+  },
+  {
+    question: "Como diminuir a quantidade de canais ativos no módulo sequencial?",
+    answer: `1. Pressione e segure o botão "Velocidade" por 5 segundos.\n2. Solte o botão.\n3. Pressione o botão "Timer" até atingir a quantidade desejada de canais ativos.\n\nA quantidade de canais ativos será indicada pelos LEDs azuis na placa do módulo sequencial.`,
+  },
+  {
+    question: "Como ajustar o brilho dos LEDs no módulo sequencial?",
+    answer: `Pressione a tecla "Brilho" algumas vezes até que os LEDs atinjam a intensidade desejada.`,
+  },
+  {
+    question: "Como alterar os efeitos dos LEDs no módulo sequencial?",
+    answer: `1. Pressione e segure o botão "Brilho" por 5 segundos.\n2. Solte o botão.\n3. Pressione novamente o botão "Brilho" até selecionar o efeito desejado.\n\nO módulo possui 3 tipos de efeito, e a configuração é salva automaticamente após a alteração.`,
+  },
+  {
+    question: "Como ajustar o tempo de permanência das luzes acesas?",
+    answer: `Pressione o botão "Timer" algumas vezes até que o tempo de permanência das luzes acesas fique de acordo com sua preferência.\n\nO tempo será indicado pelos 8 LEDs vermelhos na placa interna do módulo.`,
+  },
+  {
+    question: "Como salvar as configurações feitas no módulo sequencial?",
+    answer: `Após realizar qualquer configuração, pressione e segure o botão "Brilho" até que as luzes do módulo sequencial se apaguem.\nQuando as luzes apagarem, as alterações estarão salvas.`,
+  },
+  {
+    question: "É necessário remover a tampa do módulo sequencial para configurar?",
+    answer: `Não é obrigatório, mas remover a tampa pode facilitar a visualização dos LEDs que indicam as alterações feitas.\n\nPara retirar a tampa de acabamento, remova os 4 parafusos localizados nas tampas laranjas do módulo e desencaixe a peça.\n\nSugestão para página: em caso de dúvida, procure um profissional qualificado, principalmente por envolver instalação elétrica.`,
+  },
+];
+
+faqLineData.darwin.label = "Fita Digital Monocromática";
+faqLineData.darwin.subtitle = "Modelos OPS 83588, OPS 83571 e OPS 83564";
+faqLineData.darwin.faqs = [
+  {
+    question: "É possível sincronizar vários receptores em um único controle?",
+    answer: `Modelos: OPS 83588, OPS 83571 e OPS 83564\nControle compatível: OPS 84813\n\nSim. É possível sincronizar até 5 receptores em um único controle.\n\nPara sincronizar, pressione o botão B+ do controle logo após ligar a energia das fitas.`,
+  },
+  {
+    question: "Quantos pixels possui um rolo de fita digital monocromática?",
+    answer: `Um rolo de fita de 10 metros possui 80 pixels.`,
+  },
+  {
+    question: "Quantos pixels existem por metro na fita digital monocromática?",
+    answer: `Cada metro da fita possui 8 pixels.`,
+  },
+  {
+    question: "Qual é o comprimento máximo considerando 2048 pixels?",
+    answer: `Considerando que cada metro possui 8 pixels:\n\n2048 pixels ÷ 8 pixels por metro = 256 metros\n\nPortanto, 2048 pixels equivalem a aproximadamente 256 metros de fita.`,
+  },
+];
+
+faqLineData.fitas.label = "Fita RGB Digital";
+faqLineData.fitas.subtitle = "Modelo OPS 85551";
+faqLineData.fitas.faqs = [
+  {
+    question: "É possível emendar mais de dois rolos da fita RGB digital OPS 85551?",
+    answer: `Modelo: OPS 85551\n\nNão é recomendado emendar mais de 2 rolos, pois pode haver perda de cores mesmo com realimentação.`,
+  },
+  {
+    question: "Posso ligar o final de uma fita RGB digital na ponta de outra?",
+    answer: `Não. Cada fita deve ser controlada individualmente.\nOu seja, não é indicado ligar o final de uma fita diretamente na ponta da outra.`,
+  },
+  {
+    question: "O controle da fita RGB digital pode comandar vários receptores?",
+    answer: `Sim. O controle pode comandar vários receptores, desde que estejam dentro do alcance do controle remoto.`,
+  },
+  {
+    question: "Como os receptores da fita RGB digital devem ser posicionados no projeto?",
+    answer: `Os receptores devem ser concentrados em um mesmo local, com distância máxima de aproximadamente 5 cm entre eles.\nIsso ajuda a garantir que todos recebam o comando do mesmo controle remoto.`,
+  },
+  {
+    question: "Qual é o protocolo da fita RGB digital OPS 85551?",
+    answer: `O protocolo da fita RGB digital OPS 85551 é SM16703P.`,
+  },
+];
+
+faqLineMediaAssets.darwin = {
+  src: "./assets/faq-lines/categoria-fitas.png",
+  alt: "Fita digital monocromática Opus",
+};
+
+faqLineMediaAssets.fitas = {
+  src: "./assets/faq-lines/categoria-fitas.png",
+  alt: "Fita RGB digital Opus",
+};
+
 let activeFaqLineKey = faqLineOrder[0] || Object.keys(faqLineData)[0] || "";
 
 const syncFaqLineNavButtons = () => {

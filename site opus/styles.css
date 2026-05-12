@@ -4512,6 +4512,7 @@ body.nav-menu-open .version-switcher {
   color: #6a6a6a;
   font-size: 1rem;
   line-height: 1.8;
+  white-space: pre-line;
 }
 
 .faq-contact {
