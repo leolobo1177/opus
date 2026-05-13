@@ -127,11 +127,11 @@ body.page-home.page-variant-v2 {
 body.page-home.page-variant-v1,
 body.page-home.page-variant-v2,
 body.page-home.page-variant-v4,
-body.page-home.page-variant-v5,
-body.page-home.page-variant-v6 {
+body.page-home.page-variant-v5 {
   --header-height: 66px;
 }
 
+body.page-home.page-variant-v6,
 body.page-home.page-variant-v7 {
   --announce-height: 0px;
   --header-height: 52px;
@@ -316,10 +316,13 @@ body.page-home.page-variant-v7 .icon-button:focus-visible {
   color: #ffffff;
 }
 
+body.page-home.page-variant-v6 .brand img,
 body.page-home.page-variant-v7 .brand img {
   width: 104px;
 }
 
+body.page-home.page-variant-v6 .menu-trigger,
+body.page-home.page-variant-v6 .icon-button,
 body.page-home.page-variant-v7 .menu-trigger,
 body.page-home.page-variant-v7 .icon-button {
   width: 40px;
@@ -327,36 +330,36 @@ body.page-home.page-variant-v7 .icon-button {
 }
 
 body.page-home.page-variant-v7 .nav-overlay__panel {
-  grid-template-columns: minmax(276px, 25vw) minmax(0, 1fr);
+  grid-template-columns: 248px minmax(0, 1fr);
 }
 
 body.page-home.page-variant-v7 .nav-overlay__left {
-  --nav-content-width: calc(100% - 32px);
+  --nav-content-width: calc(100% - 28px);
 }
 
 body.page-home.page-variant-v7 .nav-control {
-  margin-left: 36px;
+  margin-left: 18px;
 }
 
 body.page-home.page-variant-v7 .nav-overlay__brand {
   width: var(--nav-content-width);
-  margin: 24px 0 20px 36px;
+  margin: 24px 0 20px 18px;
   transform: none;
 }
 
 body.page-home.page-variant-v7 .nav-lines {
   width: var(--nav-content-width);
-  margin: 0 0 36px 36px;
+  margin: 0 0 36px 18px;
 }
 
 body.page-home.page-variant-v7 .nav-meta {
   width: var(--nav-content-width);
-  margin: 0 0 56px 36px;
+  margin: 0 0 56px 18px;
 }
 
 body.page-home.page-variant-v7 .nav-submenu {
   width: var(--nav-content-width);
-  margin: 38px 0 0 36px;
+  margin: 38px 0 0 18px;
 }
 
 body.page-nav-v7 {
@@ -3313,6 +3316,7 @@ body.nav-menu-open .version-switcher {
     width: 118px;
   }
 
+  body.page-home.page-variant-v6 .brand img,
   body.page-home.page-variant-v7 .brand img {
     width: 96px;
   }
