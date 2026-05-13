@@ -4226,7 +4226,7 @@ body.nav-menu-open .version-switcher {
 }
 
 .faq-line-card__media--fitas {
-  background: linear-gradient(145deg, #f3efe8, #e5ddd1);
+  background: linear-gradient(145deg, #ececec, #dadada);
 }
 
 .faq-line-card__media--sistemas {
@@ -4366,8 +4366,15 @@ body.nav-menu-open .version-switcher {
 .faq-video-grid,
 .faq-file-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px;
+}
+
+.faq-video-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.faq-file-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .faq-video-card {
