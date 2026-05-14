@@ -330,7 +330,7 @@ body.page-home.page-variant-v7 .icon-button {
 }
 
 body.page-home.page-variant-v6 .nav-overlay__panel {
-  grid-template-columns: minmax(276px, 24vw) minmax(0, 1fr);
+  grid-template-columns: minmax(270px, 23.4vw) minmax(0, 1fr);
 }
 
 body.page-home.page-variant-v6 .nav-overlay__brand,
