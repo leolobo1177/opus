@@ -329,6 +329,17 @@ body.page-home.page-variant-v7 .icon-button {
   height: 40px;
 }
 
+body.page-home.page-variant-v6 .nav-overlay__panel {
+  grid-template-columns: minmax(276px, 24vw) minmax(0, 1fr);
+}
+
+body.page-home.page-variant-v6 .nav-overlay__brand,
+body.page-home.page-variant-v6 .nav-lines,
+body.page-home.page-variant-v6 .nav-meta,
+body.page-home.page-variant-v6 .nav-submenu {
+  transform: translateX(6px);
+}
+
 body.page-home.page-variant-v7 .nav-overlay__panel {
   grid-template-columns: 248px minmax(0, 1fr);
 }
@@ -343,7 +354,7 @@ body.page-home.page-variant-v7 .nav-control {
 
 body.page-home.page-variant-v7 .nav-overlay__brand {
   width: var(--nav-content-width);
-  margin: 24px 0 20px 18px;
+  margin: 24px 0 32px 18px;
   transform: none;
 }
 
@@ -790,7 +801,7 @@ body.nav-logo-hidden .brand {
   display: flex;
   align-items: center;
   width: var(--nav-content-width);
-  margin: 30px auto 24px;
+  margin: 30px auto 36px;
   transform: translateX(-6px);
 }
 
@@ -933,17 +944,17 @@ button.nav-line-accordion__link:focus-visible {
 }
 
 .nav-meta__inline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 7px;
+  display: grid;
+  justify-items: start;
+  gap: 9px;
+  margin-top: 10px;
 }
 
 .nav-meta__inline a {
   color: #a0a0a0;
-  font-size: 0.9rem;
-  font-weight: 400;
-  line-height: 1.2;
+  font-size: 0.97rem;
+  font-weight: 300;
+  line-height: 1.28;
   transition: color 220ms ease, transform 220ms ease;
 }
 
@@ -3351,7 +3362,7 @@ body.nav-menu-open .version-switcher {
 
   .nav-overlay__brand {
     margin-top: 28px;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
   }
 
   .nav-overlay__brand img {
@@ -4042,6 +4053,7 @@ body.nav-menu-open .version-switcher {
 .faq-videos,
 .faq-files,
 .faq-technical,
+.faq-assets,
 .faq-contact {
   padding: 92px 0 0;
 }
@@ -4615,6 +4627,82 @@ body.nav-menu-open .version-switcher {
   white-space: pre-line;
 }
 
+.faq-assets__inner {
+  display: grid;
+  gap: 28px;
+}
+
+.faq-assets-card {
+  display: grid;
+  gap: 22px;
+  width: min(100%, 720px);
+  padding: 34px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  border-radius: 30px;
+  background: linear-gradient(180deg, #fafafa 0%, #f4f4f4 100%);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.03);
+}
+
+.faq-assets-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.faq-assets-card__chips span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(205, 20, 32, 0.08);
+  color: var(--opus-red);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.faq-assets-card h3 {
+  margin: 0;
+  color: #171717;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  font-weight: 500;
+  line-height: 1.22;
+}
+
+.faq-assets-card p {
+  margin: 0;
+  max-width: 820px;
+  color: #6a6a6a;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.faq-assets-card__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 50px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: #171717;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: transform 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
+}
+
+.faq-assets-card__cta:hover,
+.faq-assets-card__cta:focus-visible {
+  transform: translateY(-2px);
+  background: var(--opus-red);
+  box-shadow: 0 16px 30px rgba(205, 20, 32, 0.2);
+}
+
 .faq-contact {
   padding-bottom: 84px;
 }
@@ -4743,6 +4831,7 @@ body.nav-menu-open .version-switcher {
   .faq-videos,
   .faq-files,
   .faq-technical,
+  .faq-assets,
   .faq-contact {
     padding-top: 72px;
   }
@@ -4837,6 +4926,27 @@ body.nav-menu-open .version-switcher {
   .faq-observation p {
     font-size: 0.94rem;
     line-height: 1.72;
+  }
+
+  .faq-assets-card {
+    width: 100%;
+    padding: 24px 20px;
+    border-radius: 24px;
+    gap: 18px;
+  }
+
+  .faq-assets-card h3 {
+    font-size: 1.26rem;
+  }
+
+  .faq-assets-card p {
+    font-size: 0.95rem;
+    line-height: 1.72;
+  }
+
+  .faq-assets-card__cta {
+    width: 100%;
+    min-height: 46px;
   }
 
   .faq-support-card {

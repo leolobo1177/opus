@@ -1237,6 +1237,9 @@ const faqVideoList = document.querySelector("[data-faq-video-list]");
 const faqFileList = document.querySelector("[data-faq-file-list]");
 const faqQuestionList = document.querySelector("[data-faq-question-list]");
 const faqObservation = document.querySelector("[data-faq-observation]");
+const faqAssetsTitle = document.querySelector("[data-faq-assets-title]");
+const faqAssetsCopy = document.querySelector("[data-faq-assets-copy]");
+const faqAssetsLink = document.querySelector("[data-faq-assets-link]");
 const faqVideosSection = faqVideoList ? faqVideoList.closest(".faq-videos") : null;
 let faqAnimationsReady = false;
 let faqSectionObserver = null;
@@ -1681,6 +1684,11 @@ faqLineData.trilho.files = [
   { icon: "PDF", title: "Manual de Configuracao", description: "Guia rápido para ajuste de canais, brilho, efeitos e temporização.", cta: "Download PDF", href: "#" },
 ];
 
+faqLineData.ventiladores.categoryHref = buildCategoryFilterHref("interno");
+faqLineData.darwin.categoryHref = buildCategoryFilterHref("externo");
+faqLineData.fitas.categoryHref = buildCategoryFilterHref("fitas");
+faqLineData.trilho.categoryHref = buildCategoryFilterHref("sistemas");
+
 let activeFaqLineKey = faqLineOrder[0] || Object.keys(faqLineData)[0] || "";
 
 const syncFaqLineNavButtons = () => {
@@ -1736,7 +1744,7 @@ const runFaqReveal = (targets, options = {}) => {
 
 const animateFaqDynamicBlocks = () => {
   runFaqReveal(
-    document.querySelectorAll(".faq-manual-row, .faq-video-card, .faq-file-card, .faq-accordion-item"),
+    document.querySelectorAll(".faq-video-card, .faq-accordion-item, .faq-assets-card"),
     {
       y: 26,
       duration: 0.76,
@@ -1979,6 +1987,25 @@ const renderFaqObservation = (text) => {
   faqObservation.classList.add("is-visible");
 };
 
+const renderFaqAssets = (data) => {
+  if (!data) {
+    return;
+  }
+
+  if (faqAssetsTitle) {
+    faqAssetsTitle.textContent = "Arquivos técnicos da categoria";
+  }
+
+  if (faqAssetsCopy) {
+    faqAssetsCopy.textContent = "Os arquivos IES, modelos 3D e manuais ficam disponíveis na categoria correspondente. Clique abaixo para acessar e consultar os materiais.";
+  }
+
+  if (faqAssetsLink) {
+    faqAssetsLink.href = data.categoryHref || "./categoria.html";
+    faqAssetsLink.textContent = "Ir para categoria";
+  }
+};
+
 const renderFaqPage = (key) => {
   const data = faqLineData[key];
 
@@ -1991,40 +2018,6 @@ const renderFaqPage = (key) => {
   if (faqLineTrack) {
     faqLineTrack.querySelectorAll("[data-faq-line-btn]").forEach((button) => {
       button.classList.toggle("is-active", button.dataset.faqLineBtn === key);
-    });
-  }
-
-  if (faqManualList) {
-    faqManualList.replaceChildren();
-
-    data.manuals.forEach((manual) => {
-      const link = document.createElement("a");
-      link.className = "faq-manual-row";
-      link.href = manual.href;
-
-      const index = document.createElement("span");
-      index.className = "faq-manual-row__index";
-      index.textContent = manual.index;
-
-      const copy = document.createElement("div");
-      copy.className = "faq-manual-row__copy";
-
-      const title = document.createElement("strong");
-      title.textContent = manual.title;
-
-      const meta = document.createElement("small");
-      meta.textContent = manual.meta;
-
-      const cta = document.createElement("span");
-      cta.className = "faq-manual-row__cta";
-      cta.textContent = "Baixar";
-
-      copy.appendChild(title);
-      copy.appendChild(meta);
-      link.appendChild(index);
-      link.appendChild(copy);
-      link.appendChild(cta);
-      faqManualList.appendChild(link);
     });
   }
 
@@ -2069,34 +2062,9 @@ const renderFaqPage = (key) => {
     });
   }
 
-  if (faqFileList) {
-    faqFileList.replaceChildren();
-
-    data.files.forEach((file) => {
-      const card = document.createElement("article");
-      card.className = "faq-file-card";
-
-      const icon = document.createElement("span");
-      icon.className = "faq-file-card__icon";
-      icon.innerHTML = getFaqFileIconMarkup(file.icon);
-
-      const title = document.createElement("h3");
-      title.textContent = file.title;
-
-      const cta = document.createElement("a");
-      cta.className = "faq-file-card__cta";
-      cta.href = file.href;
-      cta.textContent = "Download";
-
-      card.appendChild(icon);
-      card.appendChild(title);
-      card.appendChild(cta);
-      faqFileList.appendChild(card);
-    });
-  }
-
   renderFaqQuestions(data.faqs);
   renderFaqObservation(data.observation);
+  renderFaqAssets(data);
   hydrateFaqAccordion();
   syncFaqUrl(key);
 
@@ -2248,19 +2216,13 @@ const initFaqAnimations = () => {
     stagger: 0.08,
   });
 
-  registerFaqReveal(document.querySelector(".faq-manuals .site-shell"), ".faq-section-heading, .faq-manual-row", {
-    y: 34,
-    duration: 0.84,
-    stagger: 0.06,
-  });
-
   registerFaqReveal(document.querySelector(".faq-videos .site-shell"), ".faq-section-heading, .faq-video-card", {
     y: 34,
     duration: 0.84,
     stagger: 0.06,
   });
 
-  registerFaqReveal(document.querySelector(".faq-files .site-shell"), ".faq-section-heading, .faq-file-card", {
+  registerFaqReveal(document.querySelector(".faq-assets__inner"), ".faq-section-heading, .faq-assets-card", {
     y: 34,
     duration: 0.84,
     stagger: 0.06,
