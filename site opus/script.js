@@ -21,6 +21,10 @@ const categoryDirectoryRoot = document.querySelector("[data-category-directory]"
 const newsletterForm = document.querySelector("[data-newsletter-form]");
 const feedback = document.querySelector("[data-form-feedback]");
 const backToTopButton = document.querySelector("[data-back-to-top]");
+const blogFilterButtons = document.querySelectorAll("[data-blog-filter]");
+const blogCards = document.querySelectorAll("[data-blog-card]");
+const blogGrid = document.querySelector("[data-blog-grid]");
+const blogCount = document.querySelector("[data-blog-count]");
 const productMainImage = document.querySelector("[data-product-main]");
 const productThumbButtons = document.querySelectorAll("[data-product-thumb]");
 const productOpenGalleryButton = document.querySelector("[data-product-open-gallery]");
@@ -681,6 +685,88 @@ const initSwiper = () => {
   return true;
 };
 
+const initProjectsSwiper = () => {
+  const section = document.getElementById("projetos-opus");
+  const swiperElement = section ? section.querySelector("[data-projects-swiper]") : null;
+
+  if (!section || !swiperElement || typeof window.Swiper !== "function") {
+    return false;
+  }
+
+  if (swiperElement.dataset.swiperReady === "true") {
+    return true;
+  }
+
+  swiperElement.dataset.swiperReady = "true";
+
+  new window.Swiper(swiperElement, {
+    speed: 520,
+    watchOverflow: true,
+    grabCursor: true,
+    roundLengths: true,
+    preloadImages: false,
+    lazy: true,
+    pagination: {
+      el: section.querySelector(".projects-pagination"),
+      clickable: true,
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1.08,
+        spaceBetween: 14,
+      },
+      560: {
+        slidesPerView: 1.18,
+        spaceBetween: 16,
+      },
+      769: {
+        slidesPerView: 2.08,
+        spaceBetween: 18,
+      },
+      1100: {
+        slidesPerView: 3,
+        spaceBetween: 18,
+      },
+    },
+  });
+
+  return true;
+};
+
+const initLineOptionsSwiper = () => {
+  const section = document.getElementById("linhas-opus");
+  const swiperElement = section ? section.querySelector("[data-line-options-swiper]") : null;
+
+  if (!section || !swiperElement || typeof window.Swiper !== "function") {
+    return false;
+  }
+
+  if (swiperElement.dataset.swiperReady === "true") {
+    return true;
+  }
+
+  swiperElement.dataset.swiperReady = "true";
+
+  new window.Swiper(swiperElement, {
+    speed: 460,
+    watchOverflow: true,
+    grabCursor: true,
+    freeMode: true,
+    slidesPerView: "auto",
+    spaceBetween: 18,
+    breakpoints: {
+      769: {
+        spaceBetween: 26,
+      },
+      1100: {
+        spaceBetween: 34,
+      },
+    },
+  });
+
+  return true;
+};
+
 const initCategorySwipers = () => {
   const swipers = document.querySelectorAll("[data-category-swiper]");
 
@@ -1244,6 +1330,8 @@ const faqVideosSection = faqVideoList ? faqVideoList.closest(".faq-videos") : nu
 let faqAnimationsReady = false;
 let faqSectionObserver = null;
 const faqRevealRegistry = new WeakMap();
+let blogSectionObserver = null;
+const blogRevealRegistry = new WeakMap();
 
 const faqLineData = {
   lampadas: {
@@ -2241,6 +2329,291 @@ const initFaqAnimations = () => {
   });
 };
 
+const syncBlogUrl = (filterKey) => {
+  if (!document.body.classList.contains("page-blog")) {
+    return;
+  }
+
+  const url = new URL(window.location.href);
+
+  if (filterKey === "todos") {
+    url.searchParams.delete("editoria");
+  } else {
+    url.searchParams.set("editoria", filterKey);
+  }
+
+  window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+};
+
+const updateBlogCount = (count, filterKey) => {
+  if (!blogCount) {
+    return;
+  }
+
+  if (filterKey === "todos") {
+    blogCount.textContent = `${String(count).padStart(2, "0")} conteudos em destaque`;
+    return;
+  }
+
+  blogCount.textContent = `${String(count).padStart(2, "0")} conteudos em ${filterKey}`;
+};
+
+const applyBlogFilter = (filterKey, immediate = false) => {
+  if (!blogCards.length) {
+    return;
+  }
+
+  const normalizedKey = filterKey || "todos";
+  const visibleCards = [];
+  const hiddenCards = [];
+
+  blogFilterButtons.forEach((button) => {
+    const isActive = button.dataset.blogFilter === normalizedKey;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", isActive ? "true" : "false");
+  });
+
+  blogCards.forEach((card) => {
+    const categories = String(card.dataset.blogCategory || "")
+      .split(",")
+      .map((category) => category.trim())
+      .filter(Boolean);
+    const matches = normalizedKey === "todos" || categories.includes(normalizedKey);
+
+    if (matches) {
+      visibleCards.push(card);
+      return;
+    }
+
+    hiddenCards.push(card);
+  });
+
+  if (immediate || typeof window.gsap !== "object") {
+    blogCards.forEach((card) => {
+      const visible = visibleCards.includes(card);
+      card.hidden = !visible;
+      card.setAttribute("aria-hidden", visible ? "false" : "true");
+    });
+
+    updateBlogCount(visibleCards.length, normalizedKey);
+    syncBlogUrl(normalizedKey);
+    return;
+  }
+
+  window.gsap.killTweensOf(blogCards);
+
+  hiddenCards.forEach((card) => {
+    window.gsap.to(card, {
+      y: 18,
+      opacity: 0,
+      duration: 0.22,
+      ease: "power2.out",
+      overwrite: "auto",
+      onComplete: () => {
+        card.hidden = true;
+        card.setAttribute("aria-hidden", "true");
+        card.style.removeProperty("opacity");
+        card.style.removeProperty("transform");
+      },
+    });
+  });
+
+  visibleCards.forEach((card) => {
+    card.hidden = false;
+    card.setAttribute("aria-hidden", "false");
+  });
+
+  window.gsap.fromTo(
+    visibleCards,
+    {
+      y: 22,
+      opacity: 0,
+    },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.58,
+      ease: "power3.out",
+      stagger: 0.05,
+      delay: hiddenCards.length ? 0.1 : 0,
+      overwrite: "auto",
+      clearProps: "transform,opacity",
+    },
+  );
+
+  updateBlogCount(visibleCards.length, normalizedKey);
+  syncBlogUrl(normalizedKey);
+};
+
+const initBlogGallery = () => {
+  if (!document.body.classList.contains("page-blog") || !blogGrid || !blogCards.length || !blogFilterButtons.length) {
+    return;
+  }
+
+  const requestedFilter = new URLSearchParams(window.location.search).get("editoria");
+  const allowedFilters = new Set(Array.from(blogFilterButtons, (button) => button.dataset.blogFilter || "todos"));
+  const initialFilter = allowedFilters.has(requestedFilter) ? requestedFilter : "todos";
+
+  blogFilterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      applyBlogFilter(button.dataset.blogFilter || "todos");
+    });
+  });
+
+  applyBlogFilter(initialFilter, true);
+};
+
+const initBlogAnimations = () => {
+  if (!document.body.classList.contains("page-blog") || typeof window.gsap !== "object") {
+    return;
+  }
+
+  if (blogSectionObserver) {
+    blogSectionObserver.disconnect();
+  }
+
+  blogSectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        const config = blogRevealRegistry.get(entry.target);
+
+        if (!config) {
+          return;
+        }
+
+        const targets = typeof config.targets === "function"
+          ? config.targets(entry.target)
+          : entry.target.querySelectorAll(config.targets);
+
+        runFaqReveal(targets, config.options);
+        blogSectionObserver.unobserve(entry.target);
+        blogRevealRegistry.delete(entry.target);
+      });
+    },
+    {
+      threshold: 0.18,
+      rootMargin: "0px 0px -10% 0px",
+    },
+  );
+
+  const registerBlogReveal = (root, targets, options = {}) => {
+    if (!(root instanceof Element) || !blogSectionObserver) {
+      return;
+    }
+
+    blogRevealRegistry.set(root, { targets, options });
+    blogSectionObserver.observe(root);
+  };
+
+  registerBlogReveal(document.querySelector(".blog-hero__grid"), ".blog-hero__copy > *, .blog-hero__feature", {
+    y: 42,
+    duration: 0.92,
+    stagger: 0.08,
+  });
+
+  registerBlogReveal(document.querySelector(".blog-highlights .site-shell"), ".faq-section-heading, .blog-highlight-card", {
+    y: 34,
+    duration: 0.84,
+    stagger: 0.06,
+  });
+
+  registerBlogReveal(document.querySelector(".blog-library .site-shell"), (root) => (
+    root.querySelectorAll(".faq-section-heading, .blog-filter-row, [data-blog-card]:not([hidden])")
+  ), {
+    y: 34,
+    duration: 0.84,
+    stagger: 0.05,
+  });
+
+  registerBlogReveal(document.querySelector(".blog-editorial .site-shell"), ".faq-section-heading, .blog-editorial-card", {
+    y: 36,
+    duration: 0.86,
+    stagger: 0.07,
+  });
+
+  registerBlogReveal(document.querySelector(".blog-article-hero .site-shell"), ".blog-article-hero__copy > *, .blog-article-hero__image", {
+    y: 40,
+    duration: 0.9,
+    stagger: 0.07,
+  });
+
+  registerBlogReveal(document.querySelector(".blog-article-section .site-shell"), ".blog-article-aside > *, .blog-article-prose > *", {
+    y: 34,
+    duration: 0.84,
+    stagger: 0.06,
+  });
+
+  registerBlogReveal(document.querySelector(".blog-related .site-shell"), ".faq-section-heading, .blog-card", {
+    y: 34,
+    duration: 0.84,
+    stagger: 0.05,
+  });
+};
+
+const initProjectCarousels = () => {
+  const carousels = document.querySelectorAll("[data-project-carousel]");
+
+  if (!carousels.length) {
+    return;
+  }
+
+  carousels.forEach((carousel) => {
+    if (carousel.dataset.carouselReady === "true") {
+      return;
+    }
+
+    const track = carousel.querySelector("[data-project-track]");
+    const slides = track ? Array.from(track.querySelectorAll(".blog-project-slide")) : [];
+    const prevButton = carousel.querySelector("[data-project-prev]");
+    const nextButton = carousel.querySelector("[data-project-next]");
+
+    if (!(track instanceof HTMLElement) || !slides.length || !(prevButton instanceof HTMLButtonElement) || !(nextButton instanceof HTMLButtonElement)) {
+      return;
+    }
+
+    const getStep = () => {
+      const firstSlide = slides[0];
+
+      if (!(firstSlide instanceof HTMLElement)) {
+        return track.clientWidth;
+      }
+
+      const styles = window.getComputedStyle(track);
+      const gap = Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
+      return firstSlide.getBoundingClientRect().width + gap;
+    };
+
+    const syncButtons = () => {
+      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+      const atStart = track.scrollLeft <= 4;
+      const atEnd = track.scrollLeft >= maxScroll - 4;
+
+      prevButton.classList.toggle("is-disabled", atStart);
+      nextButton.classList.toggle("is-disabled", atEnd);
+      prevButton.disabled = atStart;
+      nextButton.disabled = atEnd;
+    };
+
+    prevButton.addEventListener("click", () => {
+      track.scrollBy({ left: -getStep(), behavior: "smooth" });
+    });
+
+    nextButton.addEventListener("click", () => {
+      track.scrollBy({ left: getStep(), behavior: "smooth" });
+    });
+
+    track.addEventListener("scroll", syncButtons, { passive: true });
+    window.addEventListener("resize", syncButtons, { passive: true });
+
+    syncButtons();
+    carousel.dataset.carouselReady = "true";
+  });
+};
+
 const initProductGallery = () => {
   if (!productMainImage || !productThumbButtons.length) {
     return;
@@ -2391,6 +2764,14 @@ if (!initSwiper()) {
   window.addEventListener("load", initSwiper, { once: true });
 }
 
+if (!initLineOptionsSwiper()) {
+  window.addEventListener("load", initLineOptionsSwiper, { once: true });
+}
+
+if (!initProjectsSwiper()) {
+  window.addEventListener("load", initProjectsSwiper, { once: true });
+}
+
 if (!initCategorySwipers()) {
   window.addEventListener("load", initCategorySwipers, { once: true });
 }
@@ -2402,6 +2783,9 @@ if (!initRelatedSwiper()) {
 initCategoryFilters();
 initCategoryProductLinks();
 enhanceCategoryProductLinks();
+initBlogGallery();
+initBlogAnimations();
+initProjectCarousels();
 initFaqPage();
 initFaqAnimations();
 initProductGallery();
