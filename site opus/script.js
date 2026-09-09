@@ -2445,6 +2445,14 @@ const initBlogGallery = () => {
     return;
   }
 
+  const cardsByNewestFirst = Array.from(blogCards).sort((first, second) => (
+    String(second.dataset.publishedAt || "").localeCompare(String(first.dataset.publishedAt || ""))
+  ));
+
+  cardsByNewestFirst.forEach((card) => {
+    blogGrid.appendChild(card);
+  });
+
   const requestedFilter = new URLSearchParams(window.location.search).get("editoria");
   const allowedFilters = new Set(Array.from(blogFilterButtons, (button) => button.dataset.blogFilter || "todos"));
   const initialFilter = allowedFilters.has(requestedFilter) ? requestedFilter : "todos";
