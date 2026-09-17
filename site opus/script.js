@@ -64,7 +64,7 @@ const lineData = {
   },
   interno: {
     label: "Uso Interno",
-    kicker: "Estrutura 2027",
+    kicker: "Categoria",
     image: "./assets/menu/banner_interno.png",
     alt: "Preview Uso Interno",
     items: [
@@ -73,7 +73,7 @@ const lineData = {
   },
   externo: {
     label: "Uso Externo",
-    kicker: "Estrutura 2027",
+    kicker: "Categoria",
     image: "./assets/menu/banner_externa.png",
     alt: "Preview Uso Externo",
     items: [
