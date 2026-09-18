@@ -77,7 +77,7 @@ const lineData = {
     image: "./assets/menu/banner_externa.png",
     alt: "Preview Uso Externo",
     items: [
-      ...["Garden", "Espetos de Jardim", "Embutidos de Solo", "Poste Balizador", "Arandelas", "Difusa, Indireta e Facho", "Balizadores", "Industrial", "Refletores", "Projetores", "High Bay", "Calha Herm\u00e9tica", "Fachadas", "Conectores IP68", "P\u00fablica"].map((label) => ({ label, href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" })),
+      ...["Garden", "Arandelas", "Balizadores", "Industrial", "Fachadas", "Conectores IP68", "P\u00fablica"].map((label) => ({ label, href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" })),
     ],
   },
   fitas: {
@@ -86,7 +86,7 @@ const lineData = {
     image: "./assets/menu/banner_fitas.png",
     alt: "Preview Fitas, Fontes e Perfis",
     items: [
-      ...["Perfis", "Fitas baixa tens\u00e3o", "12V, 24V, 48V, COB, RGB, Neon, CCT, Curve e Freecut", "Fitas tens\u00e3o rede", "Gridline, Gridline Duo e Gridline COB", "Fontes", "Ultraslim, Slim, IP67 e Dimeriz\u00e1veis", "Acess\u00f3rios para fitas"].map((label) => ({ label, href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/" })),
+      ...["Perfis", "Fitas Baixa Tens\u00e3o", "Fitas Tens\u00e3o Rede", "Fontes", "Acess\u00f3rios Fitas"].map((label) => ({ label, href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/" })),
     ],
   },
   sistemas: {

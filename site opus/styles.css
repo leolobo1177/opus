@@ -3449,8 +3449,24 @@ body.nav-menu-open .version-switcher {
 }
 
 @media (max-width: 920px) {
+  .nav-overlay {
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+  }
+
+  .nav-overlay__shell,
+  .nav-overlay__panel,
+  .nav-overlay__left,
+  .nav-view {
+    width: 100vw;
+    min-width: 100vw;
+    min-height: 100dvh;
+  }
+
   .nav-overlay__panel {
     grid-template-columns: 1fr;
+    height: 100dvh;
   }
 
   .nav-overlay__right {
@@ -3458,7 +3474,7 @@ body.nav-menu-open .version-switcher {
   }
 
   .nav-overlay__left {
-    --nav-content-width: min(320px, calc(100% - 92px));
+    --nav-content-width: min(560px, calc(100% - 48px));
     box-shadow: none;
   }
 }
