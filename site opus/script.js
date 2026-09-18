@@ -77,7 +77,31 @@ const lineData = {
     image: "./assets/menu/banner_externa.png",
     alt: "Preview Uso Externo",
     items: [
-      ...["Garden", "Arandelas", "Balizadores", "Industrial", "Fachadas", "Conectores IP68", "P\u00fablica"].map((label) => ({ label, href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" })),
+      {
+        label: "Garden",
+        children: ["Espetos de Jardim", "Embutidos de Solo", "Poste Balizador"].map((label) => ({
+          label,
+          href: "https://opusled.com.br/USO-EXTERNO-LINHAS/",
+        })),
+      },
+      {
+        label: "Arandelas",
+        children: ["Difusa", "Indireta", "Facho"].map((label) => ({
+          label,
+          href: "https://opusled.com.br/USO-EXTERNO-LINHAS/",
+        })),
+      },
+      { label: "Balizadores", href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" },
+      {
+        label: "Industrial",
+        children: ["Refletores", "Projetores", "High Bay", "Calha Herm\u00e9tica", "Poste"].map((label) => ({
+          label,
+          href: "https://opusled.com.br/USO-EXTERNO-LINHAS/",
+        })),
+      },
+      { label: "Fachadas", href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" },
+      { label: "Conectores IP68", href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" },
+      { label: "P\u00fablica", href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" },
     ],
   },
   fitas: {
@@ -86,7 +110,29 @@ const lineData = {
     image: "./assets/menu/banner_fitas.png",
     alt: "Preview Fitas, Fontes e Perfis",
     items: [
-      ...["Perfis", "Fitas Baixa Tens\u00e3o", "Fitas Tens\u00e3o Rede", "Fontes", "Acess\u00f3rios Fitas"].map((label) => ({ label, href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/" })),
+      { label: "Perfis", href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/" },
+      {
+        label: "Fitas Baixa Tens\u00e3o",
+        children: ["12V", "24V", "48V", "COB", "RGB", "Neon", "CCT", "Curve", "Freecut"].map((label) => ({
+          label,
+          href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/",
+        })),
+      },
+      {
+        label: "Fitas Tens\u00e3o Rede",
+        children: ["Gridline", "Gridline Duo", "Gridline COB"].map((label) => ({
+          label,
+          href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/",
+        })),
+      },
+      {
+        label: "Fontes",
+        children: ["Ultraslim", "Slim", "IP67", "Dimeriz\u00e1veis"].map((label) => ({
+          label,
+          href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/",
+        })),
+      },
+      { label: "Acess\u00f3rios Fitas", href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/" },
     ],
   },
   sistemas: {
@@ -156,6 +202,7 @@ const categoryDirectoryVariants = ["Branco", "Preto", "3000K", "4000K"];
 
 let activeLineKey = "lampadas";
 let expandedLineKey = "";
+let activeSubmenuItem = null;
 
 const isMenuOpen = () => Boolean(navOverlay && navOverlay.classList.contains("is-open"));
 const keepBrandVisible = () => document.body.classList.contains("page-brand-persistent");
@@ -366,10 +413,11 @@ const updatePreview = (key) => {
   window.setTimeout(finishPreviewChange, 450);
 };
 
-const createNavMenuItem = (item, className) => {
-  const itemElement = item.href ? document.createElement("a") : document.createElement("button");
+const createNavMenuItem = (item, className, { onNestedOpen } = {}) => {
+  const hasChildren = Array.isArray(item.children) && item.children.length > 0;
+  const itemElement = !hasChildren && item.href ? document.createElement("a") : document.createElement("button");
 
-  if (item.href) {
+  if (!hasChildren && item.href) {
     itemElement.href = item.href;
   } else {
     itemElement.type = "button";
@@ -380,6 +428,14 @@ const createNavMenuItem = (item, className) => {
 
   if (item.featured) {
     itemElement.classList.add("is-featured");
+  }
+
+  if (hasChildren) {
+    itemElement.classList.add("is-expandable");
+    itemElement.setAttribute("aria-expanded", "false");
+    itemElement.addEventListener("click", () => {
+      onNestedOpen?.(item, itemElement);
+    });
   }
 
   return itemElement;
@@ -435,6 +491,46 @@ const closeInlineAccordion = () => {
   });
 };
 
+const toggleInlineNestedAccordion = (button, item, outerAccordion) => {
+  const existing = button.nextElementSibling;
+  const nestedAccordion = existing?.matches("[data-nav-inline-nested]")
+    ? existing
+    : document.createElement("div");
+
+  if (!existing?.matches("[data-nav-inline-nested]")) {
+    nestedAccordion.className = "nav-line-accordion__nested";
+    nestedAccordion.dataset.navInlineNested = "true";
+
+    item.children.forEach((child) => {
+      nestedAccordion.appendChild(createNavMenuItem(child, "nav-line-accordion__nested-link"));
+    });
+
+    button.insertAdjacentElement("afterend", nestedAccordion);
+  }
+
+  const willOpen = !nestedAccordion.classList.contains("is-open");
+
+  outerAccordion.querySelectorAll("[data-nav-inline-nested]").forEach((nested) => {
+    if (nested !== nestedAccordion) {
+      nested.classList.remove("is-open");
+      nested.previousElementSibling?.classList.remove("is-expanded");
+      nested.previousElementSibling?.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  nestedAccordion.classList.toggle("is-open", willOpen);
+  button.classList.toggle("is-expanded", willOpen);
+  button.setAttribute("aria-expanded", String(willOpen));
+
+  window.requestAnimationFrame(() => {
+    const inner = outerAccordion.querySelector(".nav-line-accordion__inner");
+
+    if (inner) {
+      outerAccordion.style.maxHeight = `${inner.scrollHeight}px`;
+    }
+  });
+};
+
 const openInlineAccordion = (button, key) => {
   const data = lineData[key];
   const accordion = ensureInlineAccordion();
@@ -448,7 +544,9 @@ const openInlineAccordion = (button, key) => {
   itemsContainer.replaceChildren();
 
   data.items.forEach((item) => {
-    itemsContainer.appendChild(createNavMenuItem(item, "nav-line-accordion__link"));
+    itemsContainer.appendChild(createNavMenuItem(item, "nav-line-accordion__link", {
+      onNestedOpen: (nestedItem, nestedButton) => toggleInlineNestedAccordion(nestedButton, nestedItem, accordion),
+    }));
   });
 
   button.insertAdjacentElement("afterend", accordion);
@@ -484,18 +582,21 @@ const renderMainPreview = (key) => {
   });
 };
 
-const renderSubmenu = (key) => {
+const renderSubmenu = (key, parentItem = null) => {
   const data = lineData[key];
 
   if (!data || !submenuTitle || !submenuItems) {
     return;
   }
 
-  submenuTitle.textContent = data.label;
+  activeSubmenuItem = parentItem;
+  submenuTitle.textContent = parentItem ? parentItem.label : data.label;
   submenuItems.replaceChildren();
 
-  data.items.forEach((item) => {
-    submenuItems.appendChild(createNavMenuItem(item, "nav-submenu__link"));
+  (parentItem ? parentItem.children : data.items).forEach((item) => {
+    submenuItems.appendChild(createNavMenuItem(item, "nav-submenu__link", {
+      onNestedOpen: (nestedItem) => renderSubmenu(key, nestedItem),
+    }));
   });
 };
 
@@ -563,6 +664,11 @@ if (navOverlay) {
 
   if (submenuBackButton) {
     submenuBackButton.addEventListener("click", () => {
+      if (activeSubmenuItem) {
+        renderSubmenu(activeLineKey);
+        return;
+      }
+
       setNavView("main");
     });
   }
