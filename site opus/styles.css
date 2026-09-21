@@ -937,7 +937,7 @@ button.nav-line-accordion__link:focus-visible {
 
 .nav-line-accordion__link.is-expandable::after,
 .nav-submenu__link.is-expandable::after {
-  content: "+";
+  content: "\02C5";
   color: var(--opus-red);
   font-size: 1.05em;
   font-weight: 300;
@@ -946,7 +946,8 @@ button.nav-line-accordion__link:focus-visible {
 }
 
 .nav-line-accordion__link.is-expanded::after {
-  transform: rotate(45deg);
+  content: "\02C4";
+  transform: none;
 }
 
 .nav-line-accordion__nested {

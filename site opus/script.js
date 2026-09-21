@@ -54,11 +54,28 @@ const lineData = {
     items: [
       { label: "Direcionais IRC80", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
       { label: "Direcionais IRC95", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
-      { label: "Direcionais 4G9", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
-      { label: "Bulb", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
-      { label: "Filamentos", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
+      {
+        label: "Decorativos",
+        children: ["G4 e G9", "Bulbo G", "T40"].map((label) => ({
+          label,
+          href: "https://opusled.com.br/LAMPADAS-LINHAS/",
+        })),
+      },
+      {
+        label: "Filamentos",
+        children: ["Carbon", "Glass", "Latte"].map((label) => ({
+          label,
+          href: "https://opusled.com.br/LAMPADAS-LINHAS/",
+        })),
+      },
       { label: "Dimeriz\u00e1veis", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
-      { label: "Tubulares", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
+      {
+        label: "Tubulares",
+        children: ["T5", "T8"].map((label) => ({
+          label,
+          href: "https://opusled.com.br/LAMPADAS-LINHAS/",
+        })),
+      },
       { label: "M\u00f3dulos", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
     ],
   },
