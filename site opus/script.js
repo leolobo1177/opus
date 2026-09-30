@@ -1148,12 +1148,16 @@ const buildDirectoryCategoryCarousel = (groupKey, groupData) => {
   return groupCarousel;
 };
 
-const buildDirectorySubcard = (groupKey, item, itemIndex) => {
+const buildDirectorySubcard = (groupKey, item, itemIndex, { isChild = false, parentId = "" } = {}) => {
   const imagePool = categoryDirectoryImageSets[groupKey] || categoryDirectoryImageSets.lampadas;
-  const hasChildren = Array.isArray(item.children) && item.children.length > 0;
+  const hasChildren = !isChild && Array.isArray(item.children) && item.children.length > 0;
   const slide = document.createElement("article");
 
-  slide.className = `category-subcard${hasChildren ? " is-expandable" : ""}`;
+  slide.className = `category-subcard${isChild ? " category-subcard--child" : ""}${hasChildren ? " is-expandable" : ""}`;
+
+  if (isChild) {
+    slide.dataset.directoryChild = parentId;
+  }
 
   const cardShell = hasChildren ? document.createElement("button") : document.createElement("a");
   cardShell.className = "category-subcard__link";
@@ -1203,24 +1207,6 @@ const buildDirectorySubcard = (groupKey, item, itemIndex) => {
   slide.appendChild(cardShell);
 
   return slide;
-};
-
-const buildDirectorySubcategoryPanel = (groupKey, item, itemIndex) => {
-  const panel = document.createElement("div");
-  panel.className = "category-subcard__nested";
-  panel.id = `category-${groupKey}-${itemIndex}-options`;
-  panel.setAttribute("role", "region");
-  panel.setAttribute("aria-label", `Opções de ${item.label}`);
-
-  item.children.forEach((child) => {
-    const link = document.createElement("a");
-    link.className = "category-subcard__nested-link";
-    link.href = child.href || "#";
-    link.textContent = child.label;
-    panel.appendChild(link);
-  });
-
-  return panel;
 };
 
 const initCategoryDirectory = () => {
@@ -1441,16 +1427,10 @@ const initDirectorySubcategoryExpansion = () => {
     window.dispatchEvent(new Event("resize"));
   };
 
-  const setTriggerState = (trigger, item, expanded, panel) => {
+  const setTriggerState = (trigger, item, expanded) => {
     trigger.classList.toggle("is-expanded", expanded);
     trigger.setAttribute("aria-expanded", String(expanded));
     trigger.setAttribute("aria-label", `${expanded ? "Ocultar" : "Mostrar"} op\u00e7\u00f5es de ${item.label}`);
-
-    if (expanded && panel) {
-      trigger.setAttribute("aria-controls", panel.id);
-    } else {
-      trigger.removeAttribute("aria-controls");
-    }
   };
 
   const animateLayout = (track, mutate) => {
@@ -1494,8 +1474,9 @@ const initDirectorySubcategoryExpansion = () => {
     return new Promise((resolve) => {
       gsap.to(children, {
         autoAlpha: 0,
-        y: -8,
+        x: 10,
         duration: 0.16,
+        stagger: { each: 0.025, from: "end" },
         ease: "power2.in",
         onComplete: resolve,
       });
@@ -1517,11 +1498,12 @@ const initDirectorySubcategoryExpansion = () => {
 
     return new Promise((resolve) => {
       gsap.fromTo(children,
-        { autoAlpha: 0, y: 12 },
+        { autoAlpha: 0, x: 16 },
         {
           autoAlpha: 1,
-          y: 0,
+          x: 0,
           duration: 0.36,
+          stagger: 0.045,
           ease: "power2.out",
           clearProps: "opacity,visibility,transform",
           onComplete: resolve,
@@ -1598,8 +1580,10 @@ const initDirectorySubcategoryExpansion = () => {
         });
       }
 
-      const panel = buildDirectorySubcategoryPanel(groupKey, item, itemIndex);
-      const children = [panel];
+      const parentId = `${groupKey}-${itemIndex}`;
+      const children = item.children.map((child, childIndex) => (
+        buildDirectorySubcard(groupKey, child, itemIndex + childIndex + 1, { isChild: true, parentId })
+      ));
 
       const layout = animateLayout(track, () => {
         if (previous?.track === track) {
@@ -1607,8 +1591,8 @@ const initDirectorySubcategoryExpansion = () => {
           setTriggerState(previous.trigger, previous.item, false);
         }
 
-        parentCard.appendChild(panel);
-        setTriggerState(trigger, item, true, panel);
+        parentCard.after(...children);
+        setTriggerState(trigger, item, true);
       });
 
       activeExpansion = { trigger, item, track, children };
