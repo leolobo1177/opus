@@ -1787,7 +1787,7 @@ body.show-top-indicator #hero-banners .scroll-indicator {
 
 .category-directory {
   display: grid;
-  gap: 40px;
+  gap: 72px;
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 220ms ease, transform 280ms ease;
@@ -1810,7 +1810,7 @@ body.show-top-indicator #hero-banners .scroll-indicator {
 .category-directory-group__head {
   display: grid;
   gap: 8px;
-  padding-top: 10px;
+  padding-top: 22px;
   border-top: 1px solid rgba(32, 32, 32, 0.08);
 }
 
@@ -1855,6 +1855,7 @@ body.show-top-indicator #hero-banners .scroll-indicator {
 
 .category-directory-group__nav {
   margin-left: auto;
+  margin-right: 40px;
 }
 
 .category-grid--directory-products {
@@ -1969,6 +1970,7 @@ body.show-top-indicator #hero-banners .scroll-indicator {
   gap: 18px;
   overflow-x: auto;
   padding-bottom: 8px;
+  cursor: grab;
   scrollbar-width: none;
   scroll-behavior: smooth;
   scroll-snap-type: x proximity;
@@ -1981,6 +1983,13 @@ body.show-top-indicator #hero-banners .scroll-indicator {
 .category-directory-carousel__track.is-transitioning {
   scroll-behavior: auto;
   scroll-snap-type: none;
+}
+
+.category-directory-carousel__track.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+  user-select: none;
 }
 
 .category-subcard {
@@ -3914,7 +3923,11 @@ body.nav-menu-open .version-switcher {
   }
 
   .category-directory {
-    gap: 32px;
+    gap: 48px;
+  }
+
+  .category-directory-group__head {
+    padding-top: 18px;
   }
 
   .category-directory-group__list {
@@ -3928,6 +3941,7 @@ body.nav-menu-open .version-switcher {
 
   .category-directory-group__nav {
     margin-left: 0;
+    margin-right: 0;
     align-self: flex-end;
   }
 

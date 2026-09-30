@@ -1316,6 +1316,79 @@ const initDirectoryCarousels = () => {
       nextButton.classList.toggle("swiper-button-disabled", track.scrollLeft >= maxScroll - 4);
     };
 
+    let drag = null;
+    let suppressClick = false;
+    let clickResetTimer;
+
+    track.addEventListener("pointerdown", (event) => {
+      if (event.pointerType !== "mouse" || event.button !== 0) {
+        return;
+      }
+
+      window.clearTimeout(clickResetTimer);
+      suppressClick = false;
+      drag = {
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        scrollLeft: track.scrollLeft,
+        moved: false,
+      };
+    });
+
+    track.addEventListener("pointermove", (event) => {
+      if (!drag || event.pointerId !== drag.pointerId) {
+        return;
+      }
+
+      const distance = event.clientX - drag.startX;
+
+      if (!drag.moved && Math.abs(distance) > 6) {
+        drag.moved = true;
+        track.classList.add("is-dragging");
+        track.setPointerCapture(event.pointerId);
+      }
+
+      if (drag.moved) {
+        event.preventDefault();
+        track.scrollLeft = drag.scrollLeft - distance;
+      }
+    });
+
+    const stopDragging = (event) => {
+      if (!drag || event.pointerId !== drag.pointerId) {
+        return;
+      }
+
+      if (drag.moved) {
+        suppressClick = true;
+        clickResetTimer = window.setTimeout(() => {
+          suppressClick = false;
+        }, 100);
+      }
+
+      drag = null;
+      track.classList.remove("is-dragging");
+
+      if (track.hasPointerCapture(event.pointerId)) {
+        track.releasePointerCapture(event.pointerId);
+      }
+
+      syncButtons();
+    };
+
+    track.addEventListener("pointerup", stopDragging);
+    track.addEventListener("pointercancel", stopDragging);
+    track.addEventListener("click", (event) => {
+      if (!suppressClick) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      suppressClick = false;
+    }, true);
+    track.addEventListener("dragstart", (event) => event.preventDefault());
+
     prevButton.addEventListener("click", () => {
       track.scrollBy({ left: -getStep(), behavior: "smooth" });
     });
