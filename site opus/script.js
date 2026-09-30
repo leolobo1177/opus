@@ -55,7 +55,7 @@ const lineData = {
       { label: "Direcionais IRC80", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
       { label: "Direcionais IRC95", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
       {
-        label: "Decorativos",
+        label: "Lumin\u00e1rias",
         children: ["G4 e G9", "Bulbo G", "T40"].map((label) => ({
           label,
           href: "https://opusled.com.br/LAMPADAS-LINHAS/",
@@ -85,7 +85,14 @@ const lineData = {
     image: "./assets/menu/banner_interno.png",
     alt: "Preview Uso Interno",
     items: [
-      ...["Lumin\u00e1rias para L\u00e2mpada", "Lumin\u00e1rias LED", "Pain\u00e9is", "Plafons", "Lineares", "Decorativos", "Ilumina\u00e7\u00e3o de Emerg\u00eancia", "Acess\u00f3rios"].map((label) => ({ label, href: "https://opusled.com.br/uso-interno-LINHAS/" })),
+      ...["Lumin\u00e1rias para L\u00e2mpada", "Lumin\u00e1rias LED", "Pain\u00e9is", "Plafons", "Lineares", "Decorativos", "Ilumina\u00e7\u00e3o de Emerg\u00eancia"].map((label) => ({ label, href: "https://opusled.com.br/uso-interno-LINHAS/" })),
+      {
+        label: "Acess\u00f3rios",
+        children: ["Dimmer", "Sensores"].map((label) => ({
+          label,
+          href: "https://opusled.com.br/uso-interno-LINHAS/",
+        })),
+      },
     ],
   },
   externo: {
@@ -116,9 +123,8 @@ const lineData = {
           href: "https://opusled.com.br/USO-EXTERNO-LINHAS/",
         })),
       },
-      { label: "Fachadas", href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" },
+      { label: "Arquitetural", href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" },
       { label: "Conectores IP68", href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" },
-      { label: "P\u00fablica", href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" },
     ],
   },
   fitas: {
@@ -144,7 +150,7 @@ const lineData = {
       },
       {
         label: "Fontes",
-        children: ["Ultraslim", "Slim", "IP67", "Dimeriz\u00e1veis"].map((label) => ({
+        children: ["Ultraslim", "Slim", "IP67", "Dimeriz\u00e1veis", "Soft Control"].map((label) => ({
           label,
           href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/",
         })),
@@ -158,7 +164,7 @@ const lineData = {
     image: "./assets/menu/banner_sistemas.png",
     alt: "Preview Sistemas",
     items: [
-      ...["Sistema Magn\u00e9tico 20", "Sistema Magn\u00e9tico 10", "Sistema Trilho", "Sistema Belts"].map((label) => ({ label, href: "https://opusled.com.br/uso-interno-LINHAS/" })),
+      ...["Sistema Magn\u00e9tico", "Sistema Trilho", "Sistema Belts"].map((label) => ({ label, href: "https://opusled.com.br/uso-interno-LINHAS/" })),
     ],
   },
   ventiladores: {
@@ -1134,50 +1140,79 @@ const buildDirectoryCategoryCarousel = (groupKey, groupData) => {
   wrapper.dataset.directoryTrack = "true";
 
   groupData.items.forEach((item, itemIndex) => {
-    const imagePool = categoryDirectoryImageSets[groupKey] || categoryDirectoryImageSets.lampadas;
-    const slide = document.createElement("article");
-    slide.className = "category-subcard";
-
-    const cardShell = item.href ? document.createElement("a") : document.createElement("div");
-    cardShell.className = "category-subcard__link";
-
-    if (item.href) {
-      cardShell.href = item.href;
-      cardShell.setAttribute("aria-label", `Abrir ${item.label}`);
-    }
-
-    const media = document.createElement("figure");
-    media.className = "category-subcard__media";
-
-    const image = document.createElement("img");
-    image.src = imagePool[itemIndex % imagePool.length];
-    image.alt = item.label;
-    image.loading = "lazy";
-    media.appendChild(image);
-
-    const body = document.createElement("div");
-    body.className = "category-subcard__body";
-
-    const eyebrow = document.createElement("p");
-    eyebrow.className = "category-subcard__eyebrow";
-    eyebrow.textContent = item.featured ? "Destaque" : "Subcategoria";
-
-    const title = document.createElement("h3");
-    title.className = "category-subcard__title";
-    title.textContent = item.label;
-
-    body.appendChild(title);
-    body.appendChild(eyebrow);
-
-    cardShell.appendChild(media);
-    cardShell.appendChild(body);
-    slide.appendChild(cardShell);
-    wrapper.appendChild(slide);
+    wrapper.appendChild(buildDirectorySubcard(groupKey, item, itemIndex));
   });
 
   groupCarousel.appendChild(wrapper);
 
   return groupCarousel;
+};
+
+const buildDirectorySubcard = (groupKey, item, itemIndex, { isChild = false, parentId = "" } = {}) => {
+  const imagePool = categoryDirectoryImageSets[groupKey] || categoryDirectoryImageSets.lampadas;
+  const hasChildren = !isChild && Array.isArray(item.children) && item.children.length > 0;
+  const slide = document.createElement("article");
+
+  slide.className = `category-subcard${isChild ? " category-subcard--child" : ""}${hasChildren ? " is-expandable" : ""}`;
+
+  if (isChild) {
+    slide.dataset.directoryChild = parentId;
+  }
+
+  const cardShell = hasChildren ? document.createElement("button") : document.createElement("a");
+  cardShell.className = "category-subcard__link";
+
+  if (hasChildren) {
+    cardShell.type = "button";
+    cardShell.dataset.directoryExpand = "true";
+    cardShell.dataset.directoryGroup = groupKey;
+    cardShell.dataset.directoryItemIndex = String(itemIndex);
+    cardShell.setAttribute("aria-expanded", "false");
+    cardShell.setAttribute("aria-label", `Mostrar op\u00e7\u00f5es de ${item.label}`);
+  } else {
+    cardShell.href = item.href || "#";
+    cardShell.setAttribute("aria-label", `Abrir ${item.label}`);
+  }
+
+  const media = document.createElement("figure");
+  media.className = "category-subcard__media";
+
+  const image = document.createElement("img");
+  image.src = imagePool[itemIndex % imagePool.length];
+  image.alt = item.label;
+  image.loading = "lazy";
+  media.appendChild(image);
+
+  const body = document.createElement("div");
+  body.className = "category-subcard__body";
+
+  const titleRow = document.createElement("div");
+  titleRow.className = "category-subcard__title-row";
+
+  const title = document.createElement("h3");
+  title.className = "category-subcard__title";
+  title.textContent = item.label;
+  titleRow.appendChild(title);
+
+  if (hasChildren) {
+    const toggle = document.createElement("span");
+    toggle.className = "category-subcard__toggle";
+    toggle.setAttribute("aria-hidden", "true");
+    toggle.textContent = "\u02c5";
+    titleRow.appendChild(toggle);
+  }
+
+  const eyebrow = document.createElement("p");
+  eyebrow.className = "category-subcard__eyebrow";
+  eyebrow.textContent = isChild ? "Sub-subcategoria" : hasChildren ? `${item.children.length} op\u00e7\u00f5es` : "Subcategoria";
+
+  body.appendChild(titleRow);
+  body.appendChild(eyebrow);
+  cardShell.appendChild(media);
+  cardShell.appendChild(body);
+  slide.appendChild(cardShell);
+
+  return slide;
 };
 
 const initCategoryDirectory = () => {
@@ -1300,6 +1335,97 @@ const initDirectoryCarousels = () => {
 
     carousel.dataset.carouselReady = "true";
     window.requestAnimationFrame(syncButtons);
+  });
+};
+
+const initDirectorySubcategoryExpansion = () => {
+  if (!categoryDirectoryRoot) {
+    return;
+  }
+
+  let activeExpansion = null;
+  let isTransitioning = false;
+
+  const syncCarouselControls = () => {
+    window.requestAnimationFrame(() => {
+      window.dispatchEvent(new Event("resize"));
+    });
+  };
+
+  const closeExpansion = ({ animate = true } = {}) => {
+    if (!activeExpansion) {
+      return;
+    }
+
+    const { trigger, children, item } = activeExpansion;
+    trigger.classList.remove("is-expanded");
+    trigger.setAttribute("aria-expanded", "false");
+    trigger.setAttribute("aria-label", `Mostrar op\u00e7\u00f5es de ${item.label}`);
+    activeExpansion = null;
+
+    if (!animate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      children.forEach((child) => child.remove());
+      syncCarouselControls();
+      return;
+    }
+
+    children.forEach((child) => child.classList.add("is-leaving"));
+    window.setTimeout(() => {
+      children.forEach((child) => child.remove());
+      syncCarouselControls();
+    }, 220);
+  };
+
+  categoryDirectoryRoot.addEventListener("click", (event) => {
+    const trigger = event.target.closest("[data-directory-expand]");
+
+    if (!trigger || isTransitioning) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const groupKey = trigger.dataset.directoryGroup;
+    const itemIndex = Number(trigger.dataset.directoryItemIndex);
+    const item = lineData[groupKey]?.items[itemIndex];
+    const parentCard = trigger.closest(".category-subcard");
+    const track = trigger.closest("[data-directory-track]");
+
+    if (!item?.children?.length || !parentCard || !track) {
+      return;
+    }
+
+    isTransitioning = true;
+
+    if (activeExpansion?.trigger === trigger) {
+      closeExpansion();
+      window.setTimeout(() => {
+        isTransitioning = false;
+      }, 220);
+      return;
+    }
+
+    closeExpansion({ animate: false });
+
+    const parentId = `${groupKey}-${itemIndex}`;
+    const children = item.children.map((child, childIndex) => (
+      buildDirectorySubcard(groupKey, child, itemIndex + childIndex + 1, { isChild: true, parentId })
+    ));
+
+    parentCard.after(...children);
+    trigger.classList.add("is-expanded");
+    trigger.setAttribute("aria-expanded", "true");
+    trigger.setAttribute("aria-label", `Ocultar op\u00e7\u00f5es de ${item.label}`);
+    activeExpansion = { trigger, item, children };
+
+    window.requestAnimationFrame(() => {
+      children.forEach((child) => child.classList.add("is-revealed"));
+      track.scrollTo({ left: Math.max(0, parentCard.offsetLeft - 4), behavior: "smooth" });
+      syncCarouselControls();
+      window.setTimeout(() => {
+        isTransitioning = false;
+      }, 280);
+    });
   });
 };
 
@@ -2888,6 +3014,7 @@ const initRelatedSwiper = () => {
 
 initCategoryDirectory();
 initDirectoryCarousels();
+initDirectorySubcategoryExpansion();
 
 if (!initSwiper()) {
   window.addEventListener("load", initSwiper, { once: true });
