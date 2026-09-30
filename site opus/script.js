@@ -1198,7 +1198,6 @@ const buildDirectorySubcard = (groupKey, item, itemIndex, { isChild = false, par
     const toggle = document.createElement("span");
     toggle.className = "category-subcard__toggle";
     toggle.setAttribute("aria-hidden", "true");
-    toggle.textContent = "\u02c5";
     titleRow.appendChild(toggle);
   }
 
