@@ -1201,12 +1201,7 @@ const buildDirectorySubcard = (groupKey, item, itemIndex, { isChild = false, par
     titleRow.appendChild(toggle);
   }
 
-  const eyebrow = document.createElement("p");
-  eyebrow.className = "category-subcard__eyebrow";
-  eyebrow.textContent = isChild ? "Sub-subcategoria" : hasChildren ? `${item.children.length} op\u00e7\u00f5es` : "Subcategoria";
-
   body.appendChild(titleRow);
-  body.appendChild(eyebrow);
   cardShell.appendChild(media);
   cardShell.appendChild(body);
   slide.appendChild(cardShell);
@@ -1342,40 +1337,132 @@ const initDirectorySubcategoryExpansion = () => {
     return;
   }
 
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const gsap = window.gsap;
+  const Flip = window.Flip;
+  const canAnimate = !reducedMotion && gsap && Flip;
+
+  if (canAnimate) {
+    gsap.registerPlugin(Flip);
+    categoryDirectoryRoot.classList.add("has-gsap-flip");
+  }
+
   let activeExpansion = null;
   let isTransitioning = false;
 
   const syncCarouselControls = () => {
-    window.requestAnimationFrame(() => {
-      window.dispatchEvent(new Event("resize"));
+    window.dispatchEvent(new Event("resize"));
+  };
+
+  const setTriggerState = (trigger, item, expanded) => {
+    trigger.classList.toggle("is-expanded", expanded);
+    trigger.setAttribute("aria-expanded", String(expanded));
+    trigger.setAttribute("aria-label", `${expanded ? "Ocultar" : "Mostrar"} op\u00e7\u00f5es de ${item.label}`);
+  };
+
+  const animateLayout = (track, mutate) => {
+    if (!canAnimate) {
+      mutate();
+      syncCarouselControls();
+      return Promise.resolve();
+    }
+
+    const height = Math.ceil(track.getBoundingClientRect().height);
+    track.style.minHeight = `${height}px`;
+    const state = Flip.getState(track.querySelectorAll(".category-subcard"), { simple: true });
+    mutate();
+
+    return new Promise((resolve) => {
+      Flip.from(state, {
+        duration: 0.48,
+        ease: "power3.inOut",
+        absolute: false,
+        prune: true,
+        scale: false,
+        onComplete: () => {
+          track.style.minHeight = "";
+          syncCarouselControls();
+          resolve();
+        },
+      });
     });
   };
 
-  const closeExpansion = ({ animate = true } = {}) => {
-    if (!activeExpansion) {
-      return;
+  const hideChildren = (children) => {
+    if (reducedMotion || !children.length) {
+      return Promise.resolve();
     }
 
-    const { trigger, children, item } = activeExpansion;
-    trigger.classList.remove("is-expanded");
-    trigger.setAttribute("aria-expanded", "false");
-    trigger.setAttribute("aria-label", `Mostrar op\u00e7\u00f5es de ${item.label}`);
-    activeExpansion = null;
-
-    if (!animate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      children.forEach((child) => child.remove());
-      syncCarouselControls();
-      return;
+    if (!canAnimate) {
+      children.forEach((child) => child.classList.add("is-leaving"));
+      return new Promise((resolve) => window.setTimeout(resolve, 180));
     }
 
-    children.forEach((child) => child.classList.add("is-leaving"));
-    window.setTimeout(() => {
-      children.forEach((child) => child.remove());
-      syncCarouselControls();
-    }, 220);
+    return new Promise((resolve) => {
+      gsap.to(children, {
+        autoAlpha: 0,
+        x: 10,
+        duration: 0.16,
+        stagger: { each: 0.025, from: "end" },
+        ease: "power2.in",
+        onComplete: resolve,
+      });
+    });
   };
 
-  categoryDirectoryRoot.addEventListener("click", (event) => {
+  const revealChildren = (children) => {
+    if (reducedMotion) {
+      children.forEach((child) => child.classList.add("is-revealed"));
+      return Promise.resolve();
+    }
+
+    if (!canAnimate) {
+      window.requestAnimationFrame(() => {
+        children.forEach((child) => child.classList.add("is-revealed"));
+      });
+      return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+      gsap.fromTo(children,
+        { autoAlpha: 0, x: 16 },
+        {
+          autoAlpha: 1,
+          x: 0,
+          duration: 0.36,
+          stagger: 0.045,
+          ease: "power2.out",
+          clearProps: "opacity,visibility,transform",
+          onComplete: resolve,
+        });
+    });
+  };
+
+  const scrollToCard = (track, card) => {
+    const cardOffset = card.getBoundingClientRect().left - track.getBoundingClientRect().left;
+    const target = Math.max(0, Math.min(track.scrollWidth - track.clientWidth, track.scrollLeft + cardOffset - 4));
+
+    if (Math.abs(track.scrollLeft - target) < 4) {
+      return Promise.resolve();
+    }
+
+    if (!canAnimate) {
+      track.scrollTo({ left: target, behavior: reducedMotion ? "auto" : "smooth" });
+      return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+      gsap.to(track, {
+        scrollLeft: target,
+        duration: 0.38,
+        ease: "power2.out",
+        overwrite: true,
+        onComplete: resolve,
+      });
+    });
+  };
+
+  categoryDirectoryRoot.addEventListener("click", async (event) => {
     const trigger = event.target.closest("[data-directory-expand]");
 
     if (!trigger || isTransitioning) {
@@ -1395,36 +1482,55 @@ const initDirectorySubcategoryExpansion = () => {
     }
 
     isTransitioning = true;
+    track.classList.add("is-transitioning");
+    const previous = activeExpansion;
+    previous?.track.classList.add("is-transitioning");
 
-    if (activeExpansion?.trigger === trigger) {
-      closeExpansion();
-      window.setTimeout(() => {
-        isTransitioning = false;
-      }, 220);
-      return;
-    }
+    try {
+      if (previous) {
+        await hideChildren(previous.children);
+      }
 
-    closeExpansion({ animate: false });
+      if (previous?.trigger === trigger) {
+        await animateLayout(track, () => {
+          previous.children.forEach((child) => child.remove());
+          setTriggerState(trigger, item, false);
+        });
+        activeExpansion = null;
+        return;
+      }
 
-    const parentId = `${groupKey}-${itemIndex}`;
-    const children = item.children.map((child, childIndex) => (
-      buildDirectorySubcard(groupKey, child, itemIndex + childIndex + 1, { isChild: true, parentId })
-    ));
+      if (previous && previous.track !== track) {
+        await animateLayout(previous.track, () => {
+          previous.children.forEach((child) => child.remove());
+          setTriggerState(previous.trigger, previous.item, false);
+        });
+      }
 
-    parentCard.after(...children);
-    trigger.classList.add("is-expanded");
-    trigger.setAttribute("aria-expanded", "true");
-    trigger.setAttribute("aria-label", `Ocultar op\u00e7\u00f5es de ${item.label}`);
-    activeExpansion = { trigger, item, children };
+      const parentId = `${groupKey}-${itemIndex}`;
+      const children = item.children.map((child, childIndex) => (
+        buildDirectorySubcard(groupKey, child, itemIndex + childIndex + 1, { isChild: true, parentId })
+      ));
 
-    window.requestAnimationFrame(() => {
-      children.forEach((child) => child.classList.add("is-revealed"));
-      track.scrollTo({ left: Math.max(0, parentCard.offsetLeft - 4), behavior: "smooth" });
+      const layout = animateLayout(track, () => {
+        if (previous?.track === track) {
+          previous.children.forEach((child) => child.remove());
+          setTriggerState(previous.trigger, previous.item, false);
+        }
+
+        parentCard.after(...children);
+        setTriggerState(trigger, item, true);
+      });
+
+      activeExpansion = { trigger, item, track, children };
+      await Promise.all([layout, revealChildren(children)]);
+      await scrollToCard(track, parentCard);
+    } finally {
+      track.classList.remove("is-transitioning");
+      previous?.track.classList.remove("is-transitioning");
+      isTransitioning = false;
       syncCarouselControls();
-      window.setTimeout(() => {
-        isTransitioning = false;
-      }, 280);
-    });
+    }
   });
 };
 
