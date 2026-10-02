@@ -5721,8 +5721,8 @@ body.nav-menu-open .version-switcher {
   margin: 0;
   color: #171717;
   font-size: clamp(2.8rem, 4vw, 4.8rem);
-  font-weight: 300;
-  letter-spacing: 0.12em;
+  font-weight: 700;
+  letter-spacing: -0.035em;
   line-height: 0.98;
   text-transform: uppercase;
 }
@@ -7037,7 +7037,7 @@ body.nav-menu-open .version-switcher {
 
   .blog-library__title {
     font-size: clamp(2.2rem, 10vw, 3.4rem);
-    letter-spacing: 0.08em;
+    letter-spacing: -0.035em;
   }
 
   .blog-hero__lede {
