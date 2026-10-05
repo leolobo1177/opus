@@ -7,6 +7,7 @@ const mainNavView = document.querySelector('[data-nav-view="main"]');
 const submenuNavView = document.querySelector('[data-nav-view="submenu"]');
 const navLinesContainer = document.querySelector(".nav-lines");
 const navLineButtons = document.querySelectorAll(".nav-line[data-line]");
+const navMetaToggleButtons = document.querySelectorAll("[data-nav-meta-toggle]");
 const mainPreviewTitle = document.querySelector("[data-nav-main-title]");
 const mainPreviewItems = document.querySelector("[data-nav-main-items]");
 const submenuTitle = document.querySelector("[data-submenu-title]");
@@ -285,6 +286,19 @@ const setNavView = (view) => {
   submenuNavView.setAttribute("aria-hidden", isSubmenu ? "false" : "true");
 };
 
+const setNavMetaExpanded = (button, expanded) => {
+  const panel = button.nextElementSibling;
+
+  if (!panel?.matches("[data-nav-meta-panel]")) {
+    return;
+  }
+
+  button.setAttribute("aria-expanded", String(expanded));
+  panel.classList.toggle("is-open", expanded);
+  panel.setAttribute("aria-hidden", String(!expanded));
+  panel.inert = !expanded;
+};
+
 const openMenu = () => {
   if (!navOverlay) {
     return;
@@ -302,6 +316,7 @@ const closeMenu = () => {
 
   navOverlay.classList.remove("is-open");
   closeInlineAccordion();
+  navMetaToggleButtons.forEach((button) => setNavMetaExpanded(button, false));
   setNavView("main");
   clearMenuHash();
   syncHeaderState();
@@ -481,7 +496,7 @@ const ensureInlineAccordion = () => {
   accordion.className = "nav-line-accordion";
   accordion.dataset.navInlineAccordion = "true";
   accordion.setAttribute("aria-hidden", "true");
-  accordion.style.maxHeight = "0px";
+  accordion.inert = true;
 
   const inner = document.createElement("div");
   inner.className = "nav-line-accordion__inner";
@@ -506,7 +521,7 @@ const closeInlineAccordion = () => {
 
   accordion.classList.remove("is-open");
   accordion.setAttribute("aria-hidden", "true");
-  accordion.style.maxHeight = "0px";
+  accordion.inert = true;
   expandedLineKey = "";
 
   navLineButtons.forEach((button) => {
@@ -514,7 +529,7 @@ const closeInlineAccordion = () => {
   });
 };
 
-const toggleInlineNestedAccordion = (button, item, outerAccordion) => {
+const toggleInlineNestedAccordion = (button, item) => {
   const existing = button.nextElementSibling;
   const nestedAccordion = existing?.matches("[data-nav-inline-nested]")
     ? existing
@@ -523,71 +538,59 @@ const toggleInlineNestedAccordion = (button, item, outerAccordion) => {
   if (!existing?.matches("[data-nav-inline-nested]")) {
     nestedAccordion.className = "nav-line-accordion__nested";
     nestedAccordion.dataset.navInlineNested = "true";
+    nestedAccordion.setAttribute("aria-hidden", "true");
+    nestedAccordion.inert = true;
+
+    const nestedInner = document.createElement("div");
+    nestedInner.className = "nav-line-accordion__nested-inner";
 
     item.children.forEach((child) => {
-      nestedAccordion.appendChild(createNavMenuItem(child, "nav-line-accordion__nested-link"));
+      nestedInner.appendChild(createNavMenuItem(child, "nav-line-accordion__nested-link"));
     });
 
+    nestedAccordion.appendChild(nestedInner);
     button.insertAdjacentElement("afterend", nestedAccordion);
   }
 
   const willOpen = !nestedAccordion.classList.contains("is-open");
 
-  outerAccordion.querySelectorAll("[data-nav-inline-nested]").forEach((nested) => {
-    if (nested !== nestedAccordion) {
-      nested.classList.remove("is-open");
-      nested.previousElementSibling?.classList.remove("is-expanded");
-      nested.previousElementSibling?.setAttribute("aria-expanded", "false");
-    }
-  });
-
   nestedAccordion.classList.toggle("is-open", willOpen);
+  nestedAccordion.setAttribute("aria-hidden", String(!willOpen));
+  nestedAccordion.inert = !willOpen;
   button.classList.toggle("is-expanded", willOpen);
   button.setAttribute("aria-expanded", String(willOpen));
-
-  window.requestAnimationFrame(() => {
-    const inner = outerAccordion.querySelector(".nav-line-accordion__inner");
-
-    if (inner) {
-      outerAccordion.style.maxHeight = `${inner.scrollHeight}px`;
-    }
-  });
 };
 
 const openInlineAccordion = (button, key) => {
   const data = lineData[key];
   const accordion = ensureInlineAccordion();
   const itemsContainer = accordion ? accordion.querySelector("[data-nav-inline-items]") : null;
-  const inner = accordion ? accordion.querySelector(".nav-line-accordion__inner") : null;
 
-  if (!data || !accordion || !itemsContainer || !inner) {
+  if (!data || !accordion || !itemsContainer) {
     return;
   }
 
   itemsContainer.replaceChildren();
 
   data.items.forEach((item) => {
-    itemsContainer.appendChild(createNavMenuItem(item, "nav-line-accordion__link", {
-      onNestedOpen: (nestedItem, nestedButton) => toggleInlineNestedAccordion(nestedButton, nestedItem, accordion),
+    const row = document.createElement("div");
+    row.className = "nav-line-accordion__item";
+    row.appendChild(createNavMenuItem(item, "nav-line-accordion__link", {
+      onNestedOpen: (nestedItem, nestedButton) => toggleInlineNestedAccordion(nestedButton, nestedItem),
     }));
+    itemsContainer.appendChild(row);
   });
 
   button.insertAdjacentElement("afterend", accordion);
-  accordion.classList.remove("is-open");
-  accordion.setAttribute("aria-hidden", "true");
-  accordion.style.maxHeight = "0px";
+  accordion.classList.add("is-open");
+  accordion.setAttribute("aria-hidden", "false");
+  accordion.inert = false;
 
   navLineButtons.forEach((lineButton) => {
     lineButton.setAttribute("aria-expanded", lineButton === button ? "true" : "false");
   });
 
   expandedLineKey = key;
-
-  window.requestAnimationFrame(() => {
-    accordion.classList.add("is-open");
-    accordion.setAttribute("aria-hidden", "false");
-    accordion.style.maxHeight = `${inner.scrollHeight}px`;
-  });
 };
 
 const renderMainPreview = (key) => {
@@ -682,6 +685,13 @@ if (navOverlay) {
       }
 
       openInlineAccordion(button, line);
+    });
+  });
+
+  navMetaToggleButtons.forEach((button) => {
+    setNavMetaExpanded(button, false);
+    button.addEventListener("click", () => {
+      setNavMetaExpanded(button, button.getAttribute("aria-expanded") !== "true");
     });
   });
 

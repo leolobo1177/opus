@@ -124,19 +124,22 @@
 
             <div class="nav-meta">
               <div class="nav-meta__group">
-                <a href="#catalogo-opus">Quero Comprar</a>
-                <div class="nav-meta__inline">
-                  <a href="#catalogo-opus">Consumidor</a>
-                  <a href="#newsletter">Lojistas</a>
-                  <a href="#top">E-commerce</a>
+                <button class="nav-meta__toggle" type="button" aria-expanded="false" aria-controls="nav-buy-options" data-nav-meta-toggle>Quero Comprar</button>
+                <div class="nav-meta__inline nav-meta__inline--collapsible" id="nav-buy-options" data-nav-meta-panel aria-hidden="true" inert>
+                  <div class="nav-meta__inline-inner">
+                    <a href="#catalogo-opus">Consumidor</a>
+                    <a href="#newsletter">Lojistas</a>
+                    <a href="#top">E-commerce</a>
+                  </div>
                 </div>
               </div>
 
               <div class="nav-meta__group">
-                <a href="#newsletter">Suporte</a>
-                <div class="nav-meta__inline">
-                  <a href="#newsletter">SAC</a>
-                  <a href="./faq.html">FAQ</a>
+                <button class="nav-meta__toggle" type="button" aria-expanded="false" aria-controls="nav-support-options" data-nav-meta-toggle>Suporte</button>
+                <div class="nav-meta__inline nav-meta__inline--collapsible" id="nav-support-options" data-nav-meta-panel aria-hidden="true" inert>
+                  <div class="nav-meta__inline-inner">
+                    <a href="#newsletter">SAC</a>
+                  </div>
                 </div>
               </div>
 
