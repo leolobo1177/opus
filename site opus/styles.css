@@ -907,6 +907,23 @@ body.nav-logo-hidden .brand {
   justify-items: start;
 }
 
+.nav-lines--v8 {
+  gap: 0;
+}
+
+.nav-lines--v8 > .nav-line {
+  margin-bottom: 14px;
+}
+
+.nav-lines--v8 > .nav-line-accordion,
+.nav-lines--v8 > .nav-line-accordion.is-open {
+  margin: 0;
+}
+
+.nav-lines--v8 .nav-line-accordion__items {
+  padding-bottom: 14px;
+}
+
 .nav-line-accordion__link {
   display: block;
   width: fit-content;
