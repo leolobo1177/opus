@@ -690,21 +690,6 @@ if (navOverlay) {
 
   navMetaToggleButtons.forEach((button) => {
     setNavMetaExpanded(button, false);
-    const panel = button.nextElementSibling;
-    const view = button.closest(".nav-view");
-
-    panel?.addEventListener("transitionend", (event) => {
-      if (event.target !== panel || event.propertyName !== "grid-template-rows" || !panel.classList.contains("is-open") || !view) {
-        return;
-      }
-
-      const overflow = panel.getBoundingClientRect().bottom - view.getBoundingClientRect().bottom + 16;
-
-      if (overflow > 0) {
-        view.scrollBy({ top: overflow, behavior: "smooth" });
-      }
-    });
-
     button.addEventListener("click", () => {
       setNavMetaExpanded(button, button.getAttribute("aria-expanded") !== "true");
     });

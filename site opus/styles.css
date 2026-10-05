@@ -1063,6 +1063,7 @@ button.nav-line-accordion__link:focus-visible {
 
 .nav-meta__inline--collapsible {
   grid-template-rows: 0fr;
+  justify-items: stretch;
   gap: 0;
   margin-top: 0;
   overflow: hidden;
@@ -1083,6 +1084,7 @@ button.nav-line-accordion__link:focus-visible {
   display: grid;
   justify-items: start;
   gap: 9px;
+  width: 100%;
   min-height: 0;
   overflow: hidden;
 }
@@ -1092,13 +1094,12 @@ button.nav-line-accordion__link:focus-visible {
   font-size: 0.97rem;
   font-weight: 300;
   line-height: 1.28;
-  transition: color 220ms ease, transform 220ms ease;
+  transition: color 220ms ease;
 }
 
 .nav-meta__inline a:hover,
 .nav-meta__inline a:focus-visible {
   color: #202020;
-  transform: translateX(4px);
 }
 
 .nav-submenu {
