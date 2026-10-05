@@ -702,11 +702,6 @@ body.nav-logo-hidden .brand {
   opacity: 1;
 }
 
-.nav-overlay:target .nav-view,
-.nav-overlay.is-open .nav-view {
-  overflow-y: hidden;
-}
-
 .nav-overlay__left {
   --nav-content-width: min(278px, calc(100% - 52px));
   position: relative;
@@ -729,6 +724,7 @@ body.nav-logo-hidden .brand {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  overscroll-behavior: contain;
   background: rgba(250, 250, 250, 0.98);
   -ms-overflow-style: none;
   scrollbar-width: none;
