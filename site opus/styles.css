@@ -972,6 +972,40 @@ button.nav-line-accordion__link:focus-visible {
   line-height: 1;
 }
 
+.nav-item__compound {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-item__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  min-height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #b5b5b5;
+  font: inherit;
+  cursor: pointer;
+}
+
+.nav-item__toggle::after {
+  content: ">";
+  transition: transform 220ms ease;
+}
+
+.nav-item__toggle[aria-expanded="true"]::after {
+  transform: rotate(90deg);
+}
+
+.nav-item__toggle:hover,
+.nav-item__toggle:focus-visible {
+  color: #666666;
+}
+
 .nav-line-accordion__nested {
   display: grid;
   grid-template-rows: 0fr;

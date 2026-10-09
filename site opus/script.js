@@ -53,31 +53,27 @@ const lineData = {
     image: "./assets/menu/banner_lampadas.png",
     alt: "Preview L\u00e2mpadas",
     items: [
-      { label: "Direcionais IRC80", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
-      { label: "Direcionais IRC95", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
+      { label: "Direcionais IRC80", href: "https://opusled.com.br/categoria-produto/lampe/direcionais-irc80/" },
+      { label: "Direcionais IRC95", href: "https://opusled.com.br/categoria-produto/L%C3%A2mpadas/direcionais-irc95/" },
+      { label: "Dimeriz\u00e1veis", href: "https://opusled.com.br/categoria-produto/L%C3%A2mpadas/dimerizaveis/" },
+      { label: "Tubulares", href: "https://opusled.com.br/categoria-produto/L%C3%A2mpadas/tubulares/" },
       {
-        label: "Lumin\u00e1rias",
-        children: ["G4 e G9", "Bulbo G", "T40"].map((label) => ({
-          label,
-          href: "https://opusled.com.br/LAMPADAS-LINHAS/",
-        })),
+        label: "Decorativas",
+        href: "https://opusled.com.br/categoria-produto/L%C3%A2mpadas/decorativa/",
+        children: [
+          { label: "G4 e G9", href: "https://opusled.com.br/categoria-produto/L%C3%A2mpadas/g4-e-g9/" },
+          { label: "Bulbo G", href: "https://opusled.com.br/categoria-produto/Decorativas/bulbo-g/" },
+          { label: "T4", href: "https://opusled.com.br/categoria-produto/Decorativas/t40/" },
+        ],
       },
       {
         label: "Filamentos",
-        children: ["Carbon", "Glass", "Latte"].map((label) => ({
-          label,
-          href: "https://opusled.com.br/LAMPADAS-LINHAS/",
-        })),
+        href: "https://opusled.com.br/categoria-produto/L%C3%A2mpadas/filamentos/",
+        children: [
+          { label: "Carbon", href: "https://opusled.com.br/categoria-produto/L%C3%A2mpadas/carbon/" },
+          { label: "Glass", href: "https://opusled.com.br/categoria-produto/Filamentos/glass/" },
+        ],
       },
-      { label: "Dimeriz\u00e1veis", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
-      {
-        label: "Tubulares",
-        children: ["T5", "T8"].map((label) => ({
-          label,
-          href: "https://opusled.com.br/LAMPADAS-LINHAS/",
-        })),
-      },
-      { label: "M\u00f3dulos", href: "https://opusled.com.br/LAMPADAS-LINHAS/" },
     ],
   },
   interno: {
@@ -86,14 +82,14 @@ const lineData = {
     image: "./assets/menu/banner_interno.png",
     alt: "Preview Uso Interno",
     items: [
-      ...["Lumin\u00e1rias para L\u00e2mpada", "Lumin\u00e1rias LED", "Pain\u00e9is", "Plafons", "Lineares", "Decorativos", "Ilumina\u00e7\u00e3o de Emerg\u00eancia"].map((label) => ({ label, href: "https://opusled.com.br/uso-interno-LINHAS/" })),
-      {
-        label: "Acess\u00f3rios",
-        children: ["Dimmer", "Sensores"].map((label) => ({
-          label,
-          href: "https://opusled.com.br/uso-interno-LINHAS/",
-        })),
-      },
+      { label: "Lumin\u00e1rias para L\u00e2mpada", href: "https://opusled.com.br/categoria-produto/uso-interno/spot-para-lampada/" },
+      { label: "Lumin\u00e1rias LED", href: "https://opusled.com.br/categoria-produto/Uso%20interno/spot-led-uso-interno/" },
+      { label: "Pain\u00e9is", href: "https://opusled.com.br/categoria-produto/uso-interno/paineis/" },
+      { label: "Plafons", href: "https://opusled.com.br/categoria-produto/uso-interno/paineis/" },
+      { label: "Lineares", href: "https://opusled.com.br/categoria-produto/uso-interno/lineares/" },
+      { label: "Decorativos", href: "https://opusled.com.br/categoria-produto/Uso%20interno/decorativas-uso-interno/" },
+      { label: "Ilumina\u00e7\u00e3o de Emerg\u00eancia", href: "https://opusled.com.br/categoria-produto/casa-inteligente/iluminacao-de-emergencia/" },
+      { label: "Acess\u00f3rios", href: "https://opusled.com.br/categoria-produto/fitas-fontes-e-perfis/dimmer-sensores/" },
     ],
   },
   externo: {
@@ -104,28 +100,31 @@ const lineData = {
     items: [
       {
         label: "Garden",
-        children: ["Espetos de Jardim", "Embutidos de Solo", "Poste Balizador"].map((label) => ({
-          label,
-          href: "https://opusled.com.br/USO-EXTERNO-LINHAS/",
-        })),
+        children: [
+          { label: "Espetos de Jardim", href: "https://opusled.com.br/categoria-produto/uso-externo/espeto-de-jardim/" },
+          { label: "Embutidos de Solo", href: "https://opusled.com.br/categoria-produto/uso-externo/embutidos-de-solo/" },
+          { label: "Poste Balizador", href: "https://opusled.com.br/categoria-produto/uso-externo/poste-balizador-uso-externo/" },
+          { label: "Darwin", href: "https://opusled.com.br/categoria-produto/uso-externo/darwin/" },
+          { label: "Lapiz", href: "https://opusled.com.br/categoria-produto/uso-externo/lapiz-uso-externo/" },
+        ],
       },
-      {
-        label: "Arandelas",
-        children: ["Difusa", "Indireta", "Facho"].map((label) => ({
-          label,
-          href: "https://opusled.com.br/USO-EXTERNO-LINHAS/",
-        })),
-      },
-      { label: "Balizadores", href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" },
+      { label: "Arandelas", href: "https://opusled.com.br/categoria-produto/uso-externo/arandelas-uso-externo/" },
+      { label: "Balizadores", href: "https://opusled.com.br/categoria-produto/uso-externo/balizadores-uso-externo/" },
       {
         label: "Industrial",
-        children: ["Refletores", "Projetores", "High Bay", "Calha Herm\u00e9tica", "Poste"].map((label) => ({
-          label,
-          href: "https://opusled.com.br/USO-EXTERNO-LINHAS/",
-        })),
+        children: [
+          { label: "Refletores", href: "https://opusled.com.br/categoria-produto/uso-externo/refletores/" },
+          { label: "High Bay", href: "https://opusled.com.br/categoria-produto/uso-externo/high-bay-uso-externo/" },
+          { label: "Herm\u00e9tica", href: "https://opusled.com.br/categoria-produto/uso-externo/calha-hermetica-uso-externo/" },
+          { label: "Poste", href: "https://opusled.com.br/categoria-produto/uso-externo/luminarias-de-poste/" },
+        ],
       },
-      { label: "Arquitetural", href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" },
-      { label: "Conectores IP68", href: "https://opusled.com.br/USO-EXTERNO-LINHAS/" },
+      {
+        label: "Arquitetural",
+        children: [
+          { label: "Conectores IP68", href: "https://opusled.com.br/categoria-produto/uso-externo/conectores-externos-ip68/" },
+        ],
+      },
     ],
   },
   fitas: {
@@ -134,29 +133,34 @@ const lineData = {
     image: "./assets/menu/banner_fitas.png",
     alt: "Preview Fitas, Fontes e Perfis",
     items: [
-      { label: "Perfis", href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/" },
       {
         label: "Fitas Baixa Tens\u00e3o",
-        children: ["12V", "24V", "48V", "COB", "RGB", "Neon", "CCT", "Curve", "Freecut"].map((label) => ({
-          label,
-          href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/",
-        })),
+        children: [
+          { label: "RGB", href: "https://opusled.com.br/categoria-produto/Fitas%20Baixa%20Tensao/rgb/" },
+          { label: "Fitas 12V", href: "https://opusled.com.br/categoria-produto/Fitas%20Baixa%20Tensao/fitas-12v/" },
+          { label: "Fitas 24V", href: "https://opusled.com.br/categoria-produto/Fitas%20Baixa%20Tensao/fitas-24v/" },
+          { label: "Fitas COB", href: "https://opusled.com.br/categoria-produto/Fitas%20Baixa%20Tensao/fitas-cob/" },
+        ],
       },
       {
-        label: "Fitas Tens\u00e3o Rede",
-        children: ["Gridline", "Gridline Duo", "Gridline COB"].map((label) => ({
-          label,
-          href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/",
-        })),
+        label: "Fitas de Rede",
+        children: [
+          { label: "Gridline", href: "https://opusled.com.br/categoria-produto/fitas-fontes-e-perfis/fitas-tensao-rede-fitas-fontes-e-perfis/gridline/" },
+          { label: "Gridline DUO", href: "https://opusled.com.br/categoria-produto/fitas-fontes-e-perfis/fitas-tensao-rede-fitas-fontes-e-perfis/gridline-duo/" },
+          { label: "Gridline COB", href: "https://opusled.com.br/categoria-produto/fitas-fontes-e-perfis/fitas-tensao-rede-fitas-fontes-e-perfis/gridline-cob/" },
+        ],
       },
       {
         label: "Fontes",
-        children: ["Ultraslim", "Slim", "IP67", "Dimeriz\u00e1veis", "Soft Control"].map((label) => ({
-          label,
-          href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/",
-        })),
+        children: [
+          { label: "Fontes Ultraslim", href: "https://opusled.com.br/categoria-produto/Fitas,%20Fontes%20e%20Perfis/fontes-ultraslim/" },
+          { label: "Fontes Slim", href: "https://opusled.com.br/categoria-produto/Fontes/fontes-slim/" },
+          { label: "Fontes Blindadas", href: "https://opusled.com.br/categoria-produto/Fontes/fontes-blindadas/" },
+          { label: "Fontes Dimeriz\u00e1veis", href: "https://opusled.com.br/categoria-produto/Fontes/fontes-dimerizaveis/" },
+          { label: "Fontes Soft Control", href: "https://opusled.com.br/categoria-produto/Fontes/fontes-soft-control/" },
+        ],
       },
-      { label: "Acess\u00f3rios Fitas", href: "https://opusled.com.br/fitas-fontes-perfis-LINHAS/" },
+      { label: "Acess\u00f3rios Fitas", href: "https://opusled.com.br/categoria-produto/fitas-fontes-e-perfis/acessorios-para-fitas/" },
     ],
   },
   sistemas: {
@@ -165,7 +169,9 @@ const lineData = {
     image: "./assets/menu/banner_sistemas.png",
     alt: "Preview Sistemas",
     items: [
-      ...["Sistema Magn\u00e9tico", "Sistema Trilho", "Sistema Belts"].map((label) => ({ label, href: "https://opusled.com.br/uso-interno-LINHAS/" })),
+      { label: "Sistema Belts", href: "https://opusled.com.br/categoria-produto/uso-interno/belts/" },
+      { label: "Sistema Magn\u00e9tico", href: "https://opusled.com.br/categoria-produto/uso-interno/sistema-magnetico/" },
+      { label: "Sistema Trilho", href: "https://opusled.com.br/categoria-produto/uso-interno/sistema-trilho/" },
     ],
   },
   ventiladores: {
@@ -174,9 +180,9 @@ const lineData = {
     image: "./assets/menu/banner_ventiladores.png",
     alt: "Preview Ventiladores",
     items: [
-      { label: "Air Retr\u00e1til", href: "https://opusled.com.br/ventiladores-linhas/" },
-      { label: "Air Orbital", href: "https://opusled.com.br/ventiladores-linhas/" },
-      { label: "Air Class", href: "https://opusled.com.br/ventiladores-linhas/" },
+      { label: "Air Retr\u00e1til", href: "https://opusled.com.br/categoria-produto/ventiladores/air-retratil/" },
+      { label: "Air Orbital", href: "https://opusled.com.br/categoria-produto/air-orbital/" },
+      { label: "Air Class", href: "https://opusled.com.br/categoria-produto/ventiladores/air-class/" },
     ],
   },
 };
@@ -453,9 +459,32 @@ const updatePreview = (key) => {
 
 const createNavMenuItem = (item, className, { onNestedOpen } = {}) => {
   const hasChildren = Array.isArray(item.children) && item.children.length > 0;
-  const itemElement = !hasChildren && item.href ? document.createElement("a") : document.createElement("button");
 
-  if (!hasChildren && item.href) {
+  if (hasChildren && item.href && onNestedOpen) {
+    const wrapper = document.createElement("span");
+    wrapper.className = "nav-item__compound";
+
+    const link = document.createElement("a");
+    link.className = className;
+    link.href = item.href;
+    link.textContent = item.label;
+
+    const toggle = document.createElement("button");
+    toggle.className = "nav-item__toggle";
+    toggle.type = "button";
+    toggle.setAttribute("aria-label", "Mostrar subcategorias de " + item.label);
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.addEventListener("click", () => onNestedOpen(item, toggle));
+
+    wrapper.append(link, toggle);
+    return wrapper;
+  }
+
+  const itemElement = item.href && (!hasChildren || !onNestedOpen)
+    ? document.createElement("a")
+    : document.createElement("button");
+
+  if (itemElement.tagName === "A") {
     itemElement.href = item.href;
   } else {
     itemElement.type = "button";
@@ -468,7 +497,7 @@ const createNavMenuItem = (item, className, { onNestedOpen } = {}) => {
     itemElement.classList.add("is-featured");
   }
 
-  if (hasChildren) {
+  if (hasChildren && onNestedOpen) {
     itemElement.classList.add("is-expandable");
     itemElement.setAttribute("aria-expanded", "false");
     itemElement.addEventListener("click", () => {
@@ -530,7 +559,8 @@ const closeInlineAccordion = () => {
 };
 
 const toggleInlineNestedAccordion = (button, item) => {
-  const existing = button.nextElementSibling;
+  const anchor = button.closest(".nav-item__compound") || button;
+  const existing = anchor.nextElementSibling;
   const nestedAccordion = existing?.matches("[data-nav-inline-nested]")
     ? existing
     : document.createElement("div");
@@ -549,7 +579,7 @@ const toggleInlineNestedAccordion = (button, item) => {
     });
 
     nestedAccordion.appendChild(nestedInner);
-    button.insertAdjacentElement("afterend", nestedAccordion);
+    anchor.insertAdjacentElement("afterend", nestedAccordion);
   }
 
   const willOpen = !nestedAccordion.classList.contains("is-open");
