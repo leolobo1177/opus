@@ -59,7 +59,6 @@ const lineData = {
       { label: "Tubulares", href: "https://opusled.com.br/categoria-produto/L%C3%A2mpadas/tubulares/" },
       {
         label: "Decorativas",
-        href: "https://opusled.com.br/categoria-produto/L%C3%A2mpadas/decorativa/",
         children: [
           { label: "G4 e G9", href: "https://opusled.com.br/categoria-produto/L%C3%A2mpadas/g4-e-g9/" },
           { label: "Bulbo G", href: "https://opusled.com.br/categoria-produto/Decorativas/bulbo-g/" },
@@ -68,7 +67,6 @@ const lineData = {
       },
       {
         label: "Filamentos",
-        href: "https://opusled.com.br/categoria-produto/L%C3%A2mpadas/filamentos/",
         children: [
           { label: "Carbon", href: "https://opusled.com.br/categoria-produto/L%C3%A2mpadas/carbon/" },
           { label: "Glass", href: "https://opusled.com.br/categoria-produto/Filamentos/glass/" },
